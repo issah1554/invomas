@@ -1,22 +1,8 @@
-import { useState } from 'react'
-
+import LandingPage from './pages/LandingPage'
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1>Vite + React</h1>
-      <div className="text-error bg-neutral-200">
-        <button className="bg-success" onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="bg-success">
-        Click on the Vite and React logos to learn more
-      </p>
+      <LandingPage />
     </>
   )
 }
