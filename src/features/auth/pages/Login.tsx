@@ -14,9 +14,6 @@ export default function LoginPage() {
             rightCol="col-md-4"
             rightClassName="d-flex justify-content-center align-items-center"
             rightStyle={{ minHeight: "100vh", paddingTop: 0 }}
-            imageSrc="/payment-cover.png"
-            logoSrc="/wifi-icon.png"
-            appName="PayNet"
             navIcon={<i className="bi bi-house fs-4 text-primary"></i>}
             navLink="/"
         >

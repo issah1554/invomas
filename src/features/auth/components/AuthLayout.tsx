@@ -1,6 +1,6 @@
 import React, { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import ScrollbarWrapper from "../../../components/TextInput copy";
+import ScrollbarWrapper from "../../../components/ScrollbarWrapper";
 
 interface AuthLayoutProps {
     children: React.ReactNode;
@@ -17,80 +17,55 @@ interface AuthLayoutProps {
 
 export default function AuthContainer({
     children,
-    leftCol = "col-md-6",
-    rightCol = "col-md-6",
     rightClassName = "",
     rightStyle = {},
-    imageSrc = "/auth-cover.png",
-    logoSrc = "/wifi-icon.png",
-    appName = "PayNet",
     navIcon,
     navLink,
 }: AuthLayoutProps) {
     return (
-        <div className="d-flex vh-100 bg-light">
-            {/* Left Column — Image Section */}
-            <div
-                className={`d-none d-md-flex ${leftCol} bg-body-secondary position-relative justify-content-center align-items-center overflow-hidden`}
-            >
-                <Link
-                    to="/"
-                    className="position-absolute top-0 start-0 m-4 fw-bold text-primary fs-4"
-                >
-                    <div className="d-flex align-items-center gap-2 mt-2">
-                        {logoSrc && (
+        <>
+            <ScrollbarWrapper style={{ overflowY: "auto", maxHeight: "100vh" }} >
+                <div className="flex min-h-screen bg-neutral-700">
+                    {/* Left Column — Image Section */}
+                    <div className="relative hidden md:flex md:w-1/2 bg-neutral-900 items-center justify-center overflow-hidden">
+                        <Link
+                            to="/"
+                            className="absolute top-4 left-4 flex items-center gap-2 text-primary font-bold text-xl"
+                        >
                             <img
-                                src={logoSrc}
-                                alt={`${appName} Logo`}
-                                style={{ width: "45px", height: "45px", objectFit: "contain" }}
+                                src="/invomax.svg"
+                                alt={`Logo`}
+                                className="w-11 h-11 object-contain"
                             />
-                        )}
-                        {appName}
+                            <span>Inv.max</span>
+                        </Link>
+
+                        <img
+                            src="/payment-cover.png"
+                            alt="Auth Cover"
+                            className="w-full max-w-[550px] p-10 object-contain"
+                        />
                     </div>
-                </Link>
 
-                <img
-                    src={imageSrc}
-                    alt="Auth Cover"
-                    className="img-fluid w-100 h-auto object-fit-contain p-5"
-                    style={{ maxWidth: "550px" }}
-                />
-            </div>
-
-            {/* Right Column — Form Section */}
-            <div
-                className={`${rightCol} d-flex flex-column position-relative col-12 ${rightClassName}`}
-                style={{
-                    ...rightStyle,
-                }}
-            >
-                {/* Sticky navIcon */}
-                {navIcon && navLink && (
+                    {/* Right Column — Form Section */}
                     <div
-                        style={{
-                            position: "absolute",
-                            top: "16px",
-                            right: "16px",
-                            zIndex: 10,
-                        }}
+                        className={`relative flex w-full md:w-1/2 flex-col ${rightClassName}`}
+                        style={rightStyle}
                     >
-                        <Link to={navLink}>{navIcon}</Link>
-                    </div>
-                )}
+                        {/* Floating navIcon */}
+                        {navIcon && navLink && (
+                            <div className="absolute top-4 right-4 z-10">
+                                <Link to={navLink}>{navIcon}</Link>
+                            </div>
+                        )}
 
-                {/* Scrollable area */}
-                <ScrollbarWrapper
-                    style={{
-                        overflowY: "auto",
-                        maxHeight: "100vh",
-                        paddingTop: "48px", // optional: leave space below navIcon
-                    }}
-                >
-                    <div className="w-100 px-4" style={{ maxWidth: "700px", margin: "0 auto" }}>
-                        {children}
+
+                        <div className="mx-auto w-full max-w-[700px] px-4">
+                            {children}
+                        </div>
                     </div>
-                </ScrollbarWrapper>
-            </div>
-        </div>
+                </div>
+            </ScrollbarWrapper >
+        </>
     );
 }

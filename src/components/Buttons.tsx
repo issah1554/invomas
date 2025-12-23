@@ -3,10 +3,11 @@ interface ButtonProps {
     size: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
     variant?: "solid" | "outline" | "text";
     rounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
+    className?: string;
     children: React.ReactNode;
 }
 
-export function Button({ color, size, variant = "solid", rounded = "sm", children}: ButtonProps) {
+export function Button({ color, size, variant = "solid", rounded = "sm", children, className }: ButtonProps) {
     // rounded classes
     const roundedClasses = {
         none: "rounded-none",
@@ -88,7 +89,7 @@ export function Button({ color, size, variant = "solid", rounded = "sm", childre
     const variantClasses = colorClasses[color][variant];
 
     // Combine all classes
-    const classes = `${baseClasses} ${roundedClasses[rounded]} ${sizes[size]} ${variantClasses}`;
+    const classes = `${baseClasses} ${roundedClasses[rounded]} ${sizes[size]} ${variantClasses} ${className}`;
 
     return (
         <button className={classes}>

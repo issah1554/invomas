@@ -31,7 +31,7 @@ interface TextInputProps
     required?: boolean;
 }
 
-export function TextInput({
+export function FloatingLabelTextInput({
     label,
     helperText,
     color,

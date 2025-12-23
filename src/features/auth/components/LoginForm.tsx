@@ -40,22 +40,19 @@ export default function LoginForm({ onLogin, loading = false, error }: LoginForm
 
                 <form onSubmit={handleSubmit} style={{ display: "grid", gap: "1rem" }}>
                     <TextInput
-                        label="Email Address"
                         type="email"
                         color="primary"
                         name="email"
+                        size="md"
                         placeholder="you@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
 
                     <TextInput
-                        label="Password"
-                        labelBgColor="var(--bs-light)"
                         type="password"
                         color="primary"
-                        icon={<i className="bi bi-lock"></i>}
-                        inputSize="md"
+                        size="md"
                         name="password"
                         placeholder="Enter your password"
                         onChange={(e) => setPassword(e.target.value)}

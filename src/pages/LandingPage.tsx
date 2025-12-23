@@ -1,6 +1,3 @@
-import { Button } from "../components/Buttons";
-import { TextInput } from "../components/TextInput";
-
 export default function LandingPage() {
     return (
         <div className="min-h-screen flex flex-col bg-neutral-950 text-neutral-100">
@@ -34,17 +31,6 @@ export default function LandingPage() {
                 <p className="text-lg md:text-xl max-w-2xl mb-8 text-secondary">
                     An Invetory Manager for track, analyze, and optimize your investments with ease.
                 </p>
-                <div className="flex gap-4 justify-center">
-                    <Button color="dark" size="lg" variant="solid" rounded="full">
-                        Get Started
-                    </Button>
-                    <Button color="neutral" size="lg" variant="outline">
-                        Learn More
-                    </Button>
-                </div>
-                <div className="mt-10">
-                    <TextInput  name="email" color="primary" size="2xl" placeholder="example@gmail.com" type="email" label="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
-                </div>
             </main>
 
             {/* Footer */}
