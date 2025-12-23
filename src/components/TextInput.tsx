@@ -1,10 +1,7 @@
 import React from "react";
 
 interface TextInputProps
-    extends Omit<
-        React.InputHTMLAttributes<HTMLInputElement>,
-        "size" | "pattern" | "required"
-    > {
+    extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "pattern" | "required"> {
     label?: string;
     helperText?: string;
     color:
@@ -57,25 +54,21 @@ export function TextInput({
         setTouched(true);
 
         const value = e.currentTarget.value;
-        const emailRegex = pattern
-            ? new RegExp(pattern)
-            : /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-
+        const emailRegex = pattern ? new RegExp(pattern) : /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
         if (type === "email") {
             setInvalid(!emailRegex.test(value));
             return;
-        }
-
-        if (type === "password") {
+        } else if (type === "password") {
             setInvalid(value.length < 8);
             return;
         }
 
-        setInvalid(!e.currentTarget.validity.valid);
+        setInvalid(!emailRegex.test(value));
     };
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         onChange?.(e);
+
         if (touched) {
             setInvalid(!e.currentTarget.validity.valid);
         }
@@ -91,6 +84,9 @@ export function TextInput({
         xl: "rounded-xl",
         full: "rounded-full",
     };
+    /* Base classes */
+    const baseClasses =
+        "font-sans shadow-sm focus:outline-none focus:ring-2 transition disabled:opacity-60 disabled:cursor-not-allowed";
 
     const sizes = {
         xs: "text-xs px-2 py-1",
@@ -100,18 +96,6 @@ export function TextInput({
         xl: "text-xl px-6 py-3",
         "2xl": "text-2xl px-7 py-3.5",
     };
-
-    const labelTranslate = {
-        xs: "peer-placeholder-shown:translate-y-1.5",
-        sm: "peer-placeholder-shown:translate-y-2",
-        md: "peer-placeholder-shown:translate-y-2.5",
-        lg: "peer-placeholder-shown:translate-y-3",
-        xl: "peer-placeholder-shown:translate-y-3.5",
-        "2xl": "peer-placeholder-shown:translate-y-4",
-    };
-
-    const baseClasses =
-        "peer font-sans shadow-sm focus:outline-none focus:ring-2 transition disabled:opacity-60 disabled:cursor-not-allowed";
 
     const colorClasses = {
         primary: {
@@ -182,51 +166,31 @@ export function TextInput({
     const variantClasses = colorClasses[effectiveColor][variant];
 
     return (
-        <div className="flex flex-col gap-1 items-start text-left w-full">
-            <div className="relative w-full">
-                <input
-                    {...rest}
-                    id={inputId}
-                    type={type}
-                    pattern={pattern}
-                    required={required}
-                    placeholder={placeholder ?? " "}
-                    value={value}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    disabled={disabled}
-                    aria-invalid={invalid}
-                    aria-describedby={helperText ? `${inputId}-help` : undefined}
-                    className={`${baseClasses} ${roundedClasses[rounded]} ${sizes[size]} ${variantClasses} w-full`}
-                />
+        <div className="flex flex-col gap-1 items-start text-left">
+            {label && (
+                <label
+                    htmlFor={inputId}
+                    className={`text-sm font-medium ml-2 ${colorClasses[effectiveColor].text}`}
+                >
+                    {label}
+                </label>
+            )}
 
-                {label && (
-                    <label
-                        htmlFor={inputId}
-                        className={`
-                            absolute left-3 top-1/2
-                            -translate-y-1/2
-                            origin-left
-                            px-1
-                            bg-slate-950
-                            pointer-events-none
-                            transition-all duration-200
-                            scale-75 -translate-y-4
-                            peer-placeholder-shown:scale-100
-                            peer-placeholder-shown:top-1/2
-                            peer-focus:scale-75
-                            peer-focus:-translate-y-4
-                            ${labelTranslate[size]}
-                            ${colorClasses[effectiveColor].text}
-                        `}
-                    >
-                        {label}
-                        {required && (
-                            <span className="ml-0.5 text-error">*</span>
-                        )}
-                    </label>
-                )}
-            </div>
+            <input
+                {...rest}
+                id={inputId}
+                type={type}
+                pattern={pattern}
+                required={required}
+                className={`${baseClasses} ${roundedClasses[rounded]} ${sizes[size]} ${variantClasses} w-full`}
+                placeholder={placeholder}
+                value={value}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                disabled={disabled}
+                aria-invalid={invalid}
+                aria-describedby={helperText ? `${inputId}-help` : undefined}
+            />
 
             {helperText && (
                 <p
