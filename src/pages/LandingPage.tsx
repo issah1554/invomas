@@ -1,3 +1,4 @@
+import { Button } from "../components/Buttons";
 export default function LandingPage() {
     return (
         <div className="min-h-screen flex flex-col bg-neutral-950 text-neutral-100">
@@ -31,6 +32,14 @@ export default function LandingPage() {
                 <p className="text-lg md:text-xl max-w-2xl mb-8 text-secondary">
                     An Invetory Manager for track, analyze, and optimize your investments with ease.
                 </p>
+                <div className="flex gap-4 justify-center">
+                    <Button color="info" size="lg" variant="text" rounded="none">
+                        Get Started
+                    </Button>
+                    <Button color="neutral" size="lg" variant="outline">
+                        Learn More
+                    </Button>
+                </div>
             </main>
 
             {/* Footer */}
