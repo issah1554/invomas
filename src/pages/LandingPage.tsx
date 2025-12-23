@@ -43,7 +43,7 @@ export default function LandingPage() {
                     </Button>
                 </div>
                 <div className="mt-10">
-                    <TextInput  color="accent" size="lg" placeholder="Search for a stock..."  type="email" label="email" helperText="Invalid Email"/>
+                    <TextInput  name="email" color="primary" size="2xl" placeholder="example@gmail.com" type="email" label="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
                 </div>
             </main>
 
