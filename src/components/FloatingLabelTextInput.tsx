@@ -4,9 +4,8 @@ interface TextInputProps
     extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "pattern" | "required"> {
     label?: string;
     helperText?: string;
-    color: | "primary" | "secondary" | "accent" | "neutral" | "success" | "warning" | "error" | "info" | "light" | "dark";
+    color: "primary" | "secondary" | "accent" | "neutral" | "success" | "warning" | "error" | "info" | "light" | "dark";
     size: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-    variant?: "solid" | "outline" | "text";
     rounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
     type?: React.HTMLInputTypeAttribute;
     placeholder?: string;
@@ -23,7 +22,6 @@ export function FloatingLabelTextInput({
     helperText,
     color,
     size,
-    variant = "outline",
     rounded = "sm",
     type = "text",
     placeholder,
@@ -77,12 +75,12 @@ export function FloatingLabelTextInput({
     const effectiveColor = invalid ? "error" : color;
 
     const roundedClasses = {
-        none: "rounded-none",
-        sm: "rounded",
-        md: "rounded-md",
-        lg: "rounded-lg",
-        xl: "rounded-xl",
-        full: "rounded-full",
+        none: { input: "rounded-none", label: "rounded-none" },
+        sm: { input: "rounded", label: "rounded-sm" },
+        md: { input: "rounded-md", label: "rounded-md" },
+        lg: { input: "rounded-lg", label: "rounded-lg" },
+        xl: { input: "rounded-xl", label: "rounded-xl" },
+        full: { input: "rounded-full", label: "rounded-full" },
     };
 
     const sizes = {
@@ -97,80 +95,93 @@ export function FloatingLabelTextInput({
     const baseClasses =
         "peer font-sans shadow-sm focus:outline-none focus:ring-2 transition disabled:opacity-60 disabled:cursor-not-allowed";
 
+    // Single variant (outline style) for all colors
     const colorClasses = {
         primary: {
-            solid: "bg-primary text-white placeholder-white/70 focus:ring-primary",
-            outline:
-                "bg-transparent border border-primary text-primary placeholder-primary/60 focus:ring-primary",
-            text: "bg-transparent text-primary placeholder-primary/60 focus:ring-primary",
+            input: "bg-transparent border border-primary text-primary placeholder-primary/60 focus:ring-primary",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-primary"
         },
         secondary: {
-            solid:
-                "bg-secondary text-white placeholder-white/70 focus:ring-secondary",
-            outline:
-                "bg-transparent border border-secondary text-secondary placeholder-secondary/60 focus:ring-secondary",
-            text: "bg-transparent text-secondary placeholder-secondary/60 focus:ring-secondary",
+            input: "bg-transparent border border-secondary text-secondary placeholder-secondary/60 focus:ring-secondary",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-secondary"
         },
         accent: {
-            solid: "bg-accent text-white placeholder-white/70 focus:ring-accent",
-            outline:
-                "bg-transparent border border-accent text-accent placeholder-accent/60 focus:ring-accent",
-            text: "bg-transparent text-accent placeholder-accent/60 focus:ring-accent",
+            input: "bg-transparent border border-accent text-accent placeholder-accent/60 focus:ring-accent",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-accent"
         },
         neutral: {
-            solid: "bg-neutral text-white placeholder-white/70 focus:ring-neutral",
-            outline:
-                "bg-transparent border border-neutral text-neutral placeholder-neutral/60 focus:ring-neutral",
-            text: "bg-transparent text-neutral placeholder-neutral/60 focus:ring-neutral",
+            input: "bg-transparent border border-neutral text-neutral placeholder-neutral/60 focus:ring-neutral",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-neutral"
         },
         success: {
-            solid:
-                "bg-success text-white placeholder-white/70 focus:ring-success",
-            outline:
-                "bg-transparent border border-success text-success placeholder-success/60 focus:ring-success",
-            text: "bg-transparent text-success placeholder-success/60 focus:ring-success",
+            input: "bg-transparent border border-success text-success placeholder-success/60 focus:ring-success",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-success"
         },
         warning: {
-            solid:
-                "bg-warning text-white placeholder-white/70 focus:ring-warning",
-            outline:
-                "bg-transparent border border-warning text-warning placeholder-warning/60 focus:ring-warning",
-            text: "bg-transparent text-warning placeholder-warning/60 focus:ring-warning",
+            input: "bg-transparent border border-warning text-warning placeholder-warning/60 focus:ring-warning",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-warning"
         },
         error: {
-            solid: "bg-error text-white placeholder-white/70 focus:ring-error",
-            outline:
-                "bg-transparent border border-error text-error placeholder-error/60 focus:ring-error",
-            text: "bg-transparent text-error placeholder-error/60 focus:ring-error",
+            input: "bg-transparent border border-error text-error placeholder-error/60 focus:ring-error",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-error"
         },
         info: {
-            solid: "bg-info text-white placeholder-white/70 focus:ring-info",
-            outline:
-                "bg-transparent border border-info text-info placeholder-info/60 focus:ring-info",
-            text: "bg-transparent text-info placeholder-info/60 focus:ring-info",
+            input: "bg-transparent border border-info text-info placeholder-info/60 focus:ring-info",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-info"
         },
         light: {
-            solid: "bg-light text-black placeholder-black/50 focus:ring-light",
-            outline:
-                "bg-transparent border border-light text-light placeholder-light/60 focus:ring-light",
-            text: "bg-transparent text-light placeholder-light/60 focus:ring-light",
+            input: "bg-transparent border border-light text-light placeholder-light/60 focus:ring-light",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-light"
         },
         dark: {
-            solid: "bg-dark text-white placeholder-white/60 focus:ring-dark",
-            outline:
-                "bg-transparent border border-dark text-dark placeholder-dark/60 focus:ring-dark",
-            text: "bg-transparent text-dark placeholder-dark/60 focus:ring-dark",
+            input: "bg-transparent border border-dark text-dark placeholder-dark/60 focus:ring-dark",
+            label: "bg-white dark:bg-gray-900",
+            text: "text-dark"
         },
     };
 
-    const variantClasses = colorClasses[effectiveColor][variant];
+    const inputClasses = colorClasses[effectiveColor].input;
+    const labelClasses = colorClasses[effectiveColor].label;
+    const textClasses = colorClasses[effectiveColor].text;
 
-    // Determine background color for label based on variant
-    const getLabelBackground = () => {
-        if (variant === "solid") {
-            return "bg-transparent"; // For solid inputs, label should be transparent
+    // Calculate label position and style based on state
+    const getLabelClasses = () => {
+        const isFloating = isFocused || value;
+
+        if (isFloating) {
+            return `
+                absolute left-3
+                px-1
+                pointer-events-none
+                transition-all duration-200
+                origin-left
+                -translate-y-1/2 scale-75 top-0
+                ${labelClasses}
+                ${roundedClasses[rounded].label}
+                z-10
+                ${textClasses}
+            `;
+        } else {
+            return `
+                absolute left-3
+                px-1
+                pointer-events-none
+                transition-all duration-200
+                origin-left
+                top-1/2 -translate-y-1/2 scale-100
+                bg-transparent
+                ${textClasses}
+            `;
         }
-        return "bg-primary dark:bg-gray-900"; // Default background for outline/text variants
     };
 
     return (
@@ -182,7 +193,8 @@ export function FloatingLabelTextInput({
                     type={type}
                     pattern={pattern}
                     required={required}
-                    placeholder={placeholder ?? " "}
+                    // Set placeholder to empty string when label is set and input is not focused
+                    placeholder={label && !isFocused ? "" : placeholder}
                     value={value}
                     onChange={handleChange}
                     onFocus={handleFocus}
@@ -190,37 +202,33 @@ export function FloatingLabelTextInput({
                     disabled={disabled}
                     aria-invalid={invalid}
                     aria-describedby={helperText ? `${inputId}-help` : undefined}
-                    className={`${baseClasses} ${roundedClasses[rounded]} ${sizes[size]} ${variantClasses} w-full`}
+                    className={`${baseClasses} ${roundedClasses[rounded].input} ${sizes[size]} ${inputClasses} w-full`}
                 />
 
                 {label && (
                     <label
                         htmlFor={inputId}
                         className={`
-                            absolute left-3
-                            px-1
-                            pointer-events-none
-                            transition-all duration-200
-                            origin-left
-                            ${getLabelBackground()}
+                            ${getLabelClasses()}
                             
-                            // When input has value OR is focused, label floats above
-                            ${value || isFocused
-                                ? `-translate-y-1/2 scale-75 top-0 ${getLabelBackground()} z-10`
-                                : `top-1/2 -translate-y-1/2 scale-100 ${colorClasses[effectiveColor].text.split(' ')[0]}`
-                            }
-                            
-                            // Peer states for when placeholder is shown
-                            peer-placeholder-shown:scale-100
-                            peer-placeholder-shown:top-1/2
-                            peer-placeholder-shown:-translate-y-1/2
-                            
-                            // When focused
+                            // Peer states for better transitions
                             peer-focus:scale-75
                             peer-focus:-translate-y-1/2
                             peer-focus:top-0
                             peer-focus:z-10
-                            peer-focus:${getLabelBackground()}
+                            peer-focus:${labelClasses}
+                            peer-focus:${roundedClasses[rounded].label}
+                            
+                            // When input has content
+                            peer-not-placeholder-shown:scale-75
+                            peer-not-placeholder-shown:-translate-y-1/2
+                            peer-not-placeholder-shown:top-0
+                            peer-not-placeholder-shown:z-10
+                            peer-not-placeholder-shown:${labelClasses}
+                            peer-not-placeholder-shown:${roundedClasses[rounded].label}
+                            
+                            // Hide placeholder when not focused and label is set
+                            peer-placeholder-shown:bg-transparent
                         `}
                     >
                         {label}
@@ -234,7 +242,7 @@ export function FloatingLabelTextInput({
             {helperText && (
                 <p
                     id={`${inputId}-help`}
-                    className={`text-xs ml-2 ${colorClasses[effectiveColor].text.split(' ')[0]}`}
+                    className={`text-xs ml-2 ${textClasses}`}
                 >
                     {helperText}
                 </p>
