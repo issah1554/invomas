@@ -1,61 +1,65 @@
 @import "tailwindcss";
 
 @theme {
-  /* Original Colors in OKLCH  */
-  --color-primary: oklch(63% 0.102 70);
-  --color-secondary: oklch(58% 0.062 200);
-  --color-accent: oklch(74% 0.142 85);
-  --color-neutral: oklch(56% 0 0);
+  /* === Base Colors (OKLCH) === */
+  --color-primary: var(--color-sky-500);
+  --color-accent: var(--color-amber-500);
+  --color-secondary: var(--color-gray-500);
+  --color-neutral: var(--color-slate-500);
 
-  /* === Primary Shades === */
-  --color-primary-50: oklch(97% 0.015 70);
-  --color-primary-100: oklch(92% 0.035 70);
-  --color-primary-200: oklch(82% 0.055 70);
-  --color-primary-300: oklch(77% 0.065 70);
-  --color-primary-400: oklch(72% 0.075 70);
-  --color-primary-500: var(--color-primary);
-  --color-primary-600: oklch(52% 0.085 70);
-  --color-primary-700: oklch(47% 0.075 70);
-  --color-primary-800: oklch(42% 0.065 70);
-  --color-primary-900: oklch(32% 0.045 70);
+  /* === Primary (Indigo) === */
+  --color-primary-50: var(--color-sky-50);
+  --color-primary-100: var(--color-sky-100);
+  --color-primary-200: var(--color-sky-200);
+  --color-primary-300: var(--color-sky-300);
+  --color-primary-400: var(--color-sky-400);
+  --color-primary-500: var(--color-sky-500);
+  --color-primary-600: var(--color-sky-600);
+  --color-primary-700: var(--color-sky-700);
+  --color-primary-800: var(--color-sky-800);
+  --color-primary-900: var(--color-sky-900);
+  --color-primary-950: var(--color-sky-950);
 
-  /* === Secondary Shades === */
-  --color-secondary-50: oklch(95% 0.018 200);
-  --color-secondary-100: oklch(90% 0.028 200);
-  --color-secondary-200: oklch(80% 0.038 200);
-  --color-secondary-300: oklch(70% 0.048 200);
-  --color-secondary-400: oklch(65% 0.052 200);
-  --color-secondary-500: var(--color-secondary);
-  --color-secondary-600: oklch(53% 0.055 200);
-  --color-secondary-700: oklch(48% 0.048 200);
-  --color-secondary-800: oklch(43% 0.042 200);
-  --color-secondary-900: oklch(33% 0.032 200);
+  /* === Secondary (Teal) === */
+  --color-secondary-50: var(--color-gray-50);
+  --color-secondary-100: var(--color-gray-100);
+  --color-secondary-200: var(--color-gray-200);
+  --color-secondary-300: var(--color-gray-300);
+  --color-secondary-400: var(--color-gray-400);
+  --color-secondary-500: var(--color-gray-500);
+  --color-secondary-600: var(--color-gray-600);
+  --color-secondary-700: var(--color-gray-700);
+  --color-secondary-800: var(--color-gray-800);
+  --color-secondary-900: var(--color-gray-900);
+  --color-secondary-950: var(--color-gray-950);
 
-  /* === Accent Shades === */
-  --color-accent-50: oklch(97% 0.035 85);
-  --color-accent-100: oklch(92% 0.065 85);
-  --color-accent-200: oklch(87% 0.085 85);
-  --color-accent-300: oklch(82% 0.105 85);
-  --color-accent-400: oklch(77% 0.125 85);
-  --color-accent-500: var(--color-accent);
-  --color-accent-600: oklch(67% 0.115 85);
-  --color-accent-700: oklch(62% 0.105 85);
-  --color-accent-800: oklch(57% 0.095 85);
-  --color-accent-900: oklch(47% 0.075 85);
+  /* === Accent (Cyan) === */
+  --color-accent-50: var(--color-amber-50);
+  --color-accent-100: var(--color-amber-100);
+  --color-accent-200: var(--color-amber-200);
+  --color-accent-300: var(--color-amber-300);
+  --color-accent-400: var(--color-amber-400);
+  --color-accent-500: var(--color-amber-500);
+  --color-accent-600: var(--color-amber-600);
+  --color-accent-700: var(--color-amber-700);
+  --color-accent-800: var(--color-amber-800);
+  --color-accent-900: var(--color-amber-900);
+  --color-accent-950: var(--color-amber-950);
 
-  /* === Neutral Base === */
-  --color-neutral-white: oklch(100% 0 0);
-  --color-neutral-50: oklch(98% 0 0);
-  --color-neutral-100: oklch(96% 0 0);
-  --color-neutral-200: oklch(92% 0 0);
-  --color-neutral-300: oklch(87% 0 0);
-  --color-neutral-400: oklch(70% 0 0);
-  --color-neutral-500: var(--color-neutral);
-  --color-neutral-600: oklch(45% 0 0);
-  --color-neutral-700: oklch(37% 0 0);
-  --color-neutral-800: oklch(25% 0 0);
-  --color-neutral-900: oklch(17% 0 0);
-  --color-neutral-black: oklch(0% 0 0);
+  /* === Slate Neutral Base (OKLCH) === */
+  --color-neutral-white: oklch(100% 0.01 260);
+  --color-neutral-50: var(--color-slate-50);
+  --color-neutral-100: var(--color-slate-100);
+  --color-neutral-200: var(--color-slate-200);
+  --color-neutral-300: var(--color-slate-300);
+  --color-neutral-400: var(--color-slate-400);
+  --color-neutral-500: var(--color-slate-500);
+  --color-neutral-600: var(--color-slate-600);
+  --color-neutral-700: var(--color-slate-700);
+  --color-neutral-800: var(--color-slate-800);
+  --color-neutral-900: var(--color-slate-900);
+  --color-neutral-950: var(--color-slate-950);
+  --color-neutral-black: oklch(0% 0.01 260);
 
   /* === Status Colors === */
   --color-success: oklch(72% 0.194 149);
