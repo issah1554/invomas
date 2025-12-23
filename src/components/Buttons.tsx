@@ -6,13 +6,7 @@ interface ButtonProps {
     children: React.ReactNode;
 }
 
-export function Button({
-    color,
-    size,
-    variant = "solid",
-    rounded = "sm",
-    children
-}: ButtonProps) {
+export function Button({ color, size, variant = "solid", rounded = "sm", children}: ButtonProps) {
     // rounded classes
     const roundedClasses = {
         none: "rounded-none",
@@ -84,7 +78,7 @@ export function Button({
             text: "text-light bg-transparent hover:bg-light/10"
         },
         dark: {
-            solid: "bg-dark text-white hover:bg-dark/90",
+            solid: "bg-dark text-white hover:bg-dark/80 hover:border-neutral-900 hover:border-2 hover:text-neutral-500",
             outline: "border-2 border-dark text-dark bg-transparent hover:bg-dark/10",
             text: "text-dark bg-transparent hover:bg-dark/10"
         }

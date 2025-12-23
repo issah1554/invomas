@@ -60,7 +60,7 @@
   --color-neutral-900: var(--color-slate-900);
   --color-neutral-950: var(--color-slate-950);
   --color-neutral-black: oklch(0% 0.01 260);
-
+  --color-dark: oklch(0% 0.01 260);
   /* === Status Colors === */
   --color-success: oklch(72% 0.194 149);
   --color-warning: oklch(82% 0.154 84);

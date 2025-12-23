@@ -1,4 +1,6 @@
 import { Button } from "../components/Buttons";
+import { TextInput } from "../components/TextInput";
+
 export default function LandingPage() {
     return (
         <div className="min-h-screen flex flex-col bg-neutral-950 text-neutral-100">
@@ -33,12 +35,15 @@ export default function LandingPage() {
                     An Invetory Manager for track, analyze, and optimize your investments with ease.
                 </p>
                 <div className="flex gap-4 justify-center">
-                    <Button color="info" size="lg" variant="text" rounded="none">
+                    <Button color="dark" size="lg" variant="solid" rounded="full">
                         Get Started
                     </Button>
                     <Button color="neutral" size="lg" variant="outline">
                         Learn More
                     </Button>
+                </div>
+                <div className="mt-10">
+                    <TextInput  color="accent" size="lg" placeholder="Search for a stock..."  type="email" label="email" helperText="Invalid Email"/>
                 </div>
             </main>
 
