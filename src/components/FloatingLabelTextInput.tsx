@@ -1,23 +1,10 @@
 import React from "react";
 
 interface TextInputProps
-    extends Omit<
-        React.InputHTMLAttributes<HTMLInputElement>,
-        "size" | "pattern" | "required"
-    > {
+    extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "pattern" | "required"> {
     label?: string;
     helperText?: string;
-    color:
-    | "primary"
-    | "secondary"
-    | "accent"
-    | "neutral"
-    | "success"
-    | "warning"
-    | "error"
-    | "info"
-    | "light"
-    | "dark";
+    color: | "primary" | "secondary" | "accent" | "neutral" | "success" | "warning" | "error" | "info" | "light" | "dark";
     size: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
     variant?: "solid" | "outline" | "text";
     rounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
@@ -52,8 +39,14 @@ export function FloatingLabelTextInput({
 
     const [touched, setTouched] = React.useState(false);
     const [invalid, setInvalid] = React.useState(false);
+    const [isFocused, setIsFocused] = React.useState(false);
+
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        setIsFocused(false);
         setTouched(true);
 
         const value = e.currentTarget.value;
@@ -93,21 +86,12 @@ export function FloatingLabelTextInput({
     };
 
     const sizes = {
-        xs: "text-xs px-2 py-1",
-        sm: "text-sm px-3 py-1.5",
-        md: "text-base px-4 py-2",
-        lg: "text-lg px-5 py-2.5",
-        xl: "text-xl px-6 py-3",
-        "2xl": "text-2xl px-7 py-3.5",
-    };
-
-    const labelTranslate = {
-        xs: "peer-placeholder-shown:translate-y-1.5",
-        sm: "peer-placeholder-shown:translate-y-2",
-        md: "peer-placeholder-shown:translate-y-2.5",
-        lg: "peer-placeholder-shown:translate-y-3",
-        xl: "peer-placeholder-shown:translate-y-3.5",
-        "2xl": "peer-placeholder-shown:translate-y-4",
+        xs: "text-xs px-2 py-1.5",
+        sm: "text-sm px-3 py-2",
+        md: "text-base px-4 py-2.5",
+        lg: "text-lg px-5 py-3",
+        xl: "text-xl px-6 py-3.5",
+        "2xl": "text-2xl px-7 py-4",
     };
 
     const baseClasses =
@@ -181,6 +165,14 @@ export function FloatingLabelTextInput({
 
     const variantClasses = colorClasses[effectiveColor][variant];
 
+    // Determine background color for label based on variant
+    const getLabelBackground = () => {
+        if (variant === "solid") {
+            return "bg-transparent"; // For solid inputs, label should be transparent
+        }
+        return "bg-primary dark:bg-gray-900"; // Default background for outline/text variants
+    };
+
     return (
         <div className="flex flex-col gap-1 items-start text-left w-full">
             <div className="relative w-full">
@@ -193,6 +185,7 @@ export function FloatingLabelTextInput({
                     placeholder={placeholder ?? " "}
                     value={value}
                     onChange={handleChange}
+                    onFocus={handleFocus}
                     onBlur={handleBlur}
                     disabled={disabled}
                     aria-invalid={invalid}
@@ -204,20 +197,30 @@ export function FloatingLabelTextInput({
                     <label
                         htmlFor={inputId}
                         className={`
-                            absolute left-3 top-1/2
-                            -translate-y-1/2
-                            origin-left
+                            absolute left-3
                             px-1
-                            bg-slate-950
                             pointer-events-none
                             transition-all duration-200
-                            scale-75 -translate-y-4
+                            origin-left
+                            ${getLabelBackground()}
+                            
+                            // When input has value OR is focused, label floats above
+                            ${value || isFocused
+                                ? `-translate-y-1/2 scale-75 top-0 ${getLabelBackground()} z-10`
+                                : `top-1/2 -translate-y-1/2 scale-100 ${colorClasses[effectiveColor].text.split(' ')[0]}`
+                            }
+                            
+                            // Peer states for when placeholder is shown
                             peer-placeholder-shown:scale-100
                             peer-placeholder-shown:top-1/2
+                            peer-placeholder-shown:-translate-y-1/2
+                            
+                            // When focused
                             peer-focus:scale-75
-                            peer-focus:-translate-y-4
-                            ${labelTranslate[size]}
-                            ${colorClasses[effectiveColor].text}
+                            peer-focus:-translate-y-1/2
+                            peer-focus:top-0
+                            peer-focus:z-10
+                            peer-focus:${getLabelBackground()}
                         `}
                     >
                         {label}
@@ -231,7 +234,7 @@ export function FloatingLabelTextInput({
             {helperText && (
                 <p
                     id={`${inputId}-help`}
-                    className={`text-xs ml-2 ${colorClasses[effectiveColor].text}`}
+                    className={`text-xs ml-2 ${colorClasses[effectiveColor].text.split(' ')[0]}`}
                 >
                     {helperText}
                 </p>
