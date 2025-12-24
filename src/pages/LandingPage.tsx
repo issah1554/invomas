@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function LandingPage() {
     return (
         <div className="min-h-screen flex flex-col bg-neutral-950 text-neutral-100">
@@ -16,8 +18,8 @@ export default function LandingPage() {
                     </div>
 
                     <nav className="hidden md:flex gap-6 text-sm text-neutral-500">
-                        <a className="hover:text-accent">About us</a>
-                        <a className="hover:text-white">Account</a>
+                        <Link to="/auth/login" className="hover:text-accent">Login</Link>
+                        <Link to="/auth/register" className="hover:text-accent">Register</Link>
                     </nav>
                 </div>
             </header>
@@ -35,13 +37,11 @@ export default function LandingPage() {
 
             {/* Footer */}
             <footer id="contact" className="mt-auto">
-                <div className="max-w-7xl mx-auto px-6 py-6 text-sm text-neutral flex flex-col md:flex-row justify-between gap-4">
+                <div className="max-w-7xl mx-auto px-6 py-6 text-sm text-neutral flex justify-center items-center text-center">
                     <span>© {new Date().getFullYear()} Inv.max. All rights reserved.</span>
-                    <div className="flex gap-6">
-                        <a  className="hover:text-white">Privacy</a>
-                    </div>
                 </div>
             </footer>
+
         </div>
     );
 }

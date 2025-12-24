@@ -1,17 +1,7 @@
-import RegisterForm from "../components/ResetPasswordForm";
+import ResetPasswordForm from "../components/ResetPasswordForm";
 import AuthContainer from "../components/AuthLayout";
 
 export default function ResetPasswordPage() {
-    const handleResetPassword = async (
-        firstName: string,
-        lastName: string,
-        email: string,
-        password: string,
-        confirmPassword: string
-    ) => {
-        console.log("Registration:", { firstName, lastName, email, password, confirmPassword });
-        alert(`Welcome, ${firstName}!`);
-    };
 
     return (
         <AuthContainer
@@ -25,7 +15,14 @@ export default function ResetPasswordPage() {
             navIcon={<i className="bi bi-house fs-4 text-primary"></i>}
             navLink="/"
         >
-            <RegisterForm onResetPassword={handleResetPassword} loading={false} error="" />
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="w-full max-w-md">
+                    <ResetPasswordForm loading={false} error="" onReset={function (): Promise<void> {
+                        throw new Error("Function not implemented.");
+                    } } />
+                </div>
+            </div>
+
         </AuthContainer>
     );
 }

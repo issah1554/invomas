@@ -28,13 +28,6 @@ export default function RegisterForm({
     return (
         <div className="card animation-zoom-in bg-transparent border-0 p-0 p-md-4">
             <div className="card-body p-0">
-                <div className="mb-4">
-                    <h3 className="text-primary fw-semibold">Create Account</h3>
-                    <p className="text-muted small mb-0">
-                        Register to access your dashboard and start managing your account.
-                    </p>
-                </div>
-
                 {error && (
                     <div className="alert alert-danger">{error}</div>
                 )}
@@ -42,6 +35,7 @@ export default function RegisterForm({
                 <form onSubmit={handleSubmit} className="d-grid gap-3">
                     <TextInput
                         color="primary"
+                        labelBgColor="bg-neutral-700"   
                         size="md"
                         label="Email Address"
                         type="email"
@@ -49,11 +43,13 @@ export default function RegisterForm({
                         placeholder="you@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        rounded="none"
                         required
                     />
 
                     <TextInput
                         color="primary"
+                        labelBgColor="bg-neutral-700"
                         size="md"
                         label="Password"
                         type="password"
@@ -61,32 +57,40 @@ export default function RegisterForm({
                         placeholder="Create a password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        rounded="none"
                         required
                     />
 
                     <TextInput
                         size="md"
                         color="primary"
+                        labelBgColor="bg-neutral-700"
                         label="Confirm Password"
                         type="password"
                         name="confirmPassword"
                         placeholder="Repeat your password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
+                        rounded="none"
                         required
                     />
 
+                </form>
+
+
+                <div className="flex justify-between items-end mb-2">
                     <Button color="primary" size="md" className="mt-3">
                         {loading ? "Creating account..." : "Register"}
                     </Button>
-                </form>
+                    <div className="text-center">
+                        <span className="text-neutral">Already have an account? </span>
+                        <Link to="/auth/login" className="text-primary fw-semibold hover:text-accent hover:underline">
+                            Sign in
+                        </Link>
+                    </div>
 
-                <div className="mt-4 text-center">
-                    <span className="text-muted">Already have an account? </span>
-                    <Link to="/auth/login" className="text-primary fw-semibold">
-                        Sign in
-                    </Link>
                 </div>
+
             </div>
         </div>
     );

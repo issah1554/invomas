@@ -3,14 +3,11 @@ import AuthContainer from "../components/AuthLayout";
 
 export default function RegisterPage() {
     const handleRegister = async (
-        firstName: string,
-        lastName: string,
         email: string,
-        password: string,
-        confirmPassword: string
+        password: string
     ) => {
-        console.log("Registration:", { firstName, lastName, email, password, confirmPassword });
-        alert(`Welcome, ${firstName}!`);
+        console.log("Registration:", { email, password });
+        alert(`Welcome!`);
     };
 
     return (
@@ -25,7 +22,13 @@ export default function RegisterPage() {
             navIcon={<i className="bi bi-house fs-4 text-primary"></i>}
             navLink="/"
         >
-            <RegisterForm onRegister={handleRegister} loading={false} error="" />
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="w-full max-w-md">
+
+                    <RegisterForm onRegister={handleRegister} loading={false} error="" />
+                </div>
+            </div>
+
         </AuthContainer>
     );
 }

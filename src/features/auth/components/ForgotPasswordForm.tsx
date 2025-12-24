@@ -26,9 +26,8 @@ export default function ForgotPasswordForm({
         <div className="card animation-zoom-in bg-transparent border-0 p-0 p-md-4">
             <div className="card-body p-0">
                 <div className="mb-4">
-                    <h3 className="text-primary fw-semibold">Forgot Password</h3>
-                    <p className="text-muted small mb-0">
-                        Enter your email and we’ll send you a password reset link.
+                    <p className="text-neutral small mb-0">
+                        We'll send you a password reset link to this email.
                     </p>
                 </div>
 
@@ -39,6 +38,7 @@ export default function ForgotPasswordForm({
                 <form onSubmit={handleSubmit} className="d-grid gap-3">
                     <TextInput
                         color="primary"
+                        labelBgColor="bg-neutral-700"
                         size="md"
                         label="Email Address"
                         type="email"
@@ -47,18 +47,18 @@ export default function ForgotPasswordForm({
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
+                        rounded="none"
                     />
 
-                    <Button color="primary" size="md" className="mt-3">
-                        {loading ? "Sending link..." : "Send Reset Link"}
-                    </Button>
+                    <div className="flex justify-between items-end mb-2">
+                        <Button color="primary" size="md" className="mt-3">
+                            {loading ? "Sending link..." : "Send Reset Link"}
+                        </Button>
+                        <Link to="/auth/login" className="text-primary fw-semibold hover:underline hover:text-accent">
+                            Back to login
+                        </Link>
+                    </div>
                 </form>
-
-                <div className="mt-4 text-center">
-                    <Link to="/auth/login" className="text-primary fw-semibold">
-                        Back to login
-                    </Link>
-                </div>
             </div>
         </div>
     );

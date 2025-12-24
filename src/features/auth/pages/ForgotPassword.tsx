@@ -4,7 +4,7 @@ import AuthContainer from "../components/AuthLayout";
 
 export default function ForgotPasswordPage() {
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const [, setMessage] = useState("");
     const [error, setError] = useState("");
 
     const handleSubmitEmail = async () => {
@@ -33,12 +33,17 @@ export default function ForgotPasswordPage() {
             navIcon={<i className="bi bi-house fs-4 text-primary"></i>}
             navLink="/"
         >
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="w-full max-w-md">
+
             <ForgotPasswordForm
                 onSubmitEmail={handleSubmitEmail}
                 loading={loading}
-                message={message}
                 error={error}
-            />
+                    />
+                    
+                </div>
+            </div>
         </AuthContainer>
     );
 }

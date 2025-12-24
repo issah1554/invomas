@@ -15,9 +15,15 @@ export default function LoginPage() {
             rightClassName="d-flex justify-content-center align-items-center"
             rightStyle={{ minHeight: "100vh", paddingTop: 0 }}
             navIcon={<i className="bi bi-house fs-4 text-primary"></i>}
-            navLink="/"
+            navLink="/"            
         >
-            <LoginForm onLogin={handleLogin} />
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="w-full max-w-md">
+                    <LoginForm onLogin={handleLogin} />
+                </div>
+            </div>
+
+
         </AuthContainer>
     );
 }
