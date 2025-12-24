@@ -3,7 +3,6 @@ import type { FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../../components/Buttons";
 import { TextInput } from "../../../components/TextInput";
-import { FloatingLabelTextInput } from "../../../components/FloatingLabelTextInput";
 
 interface LoginFormProps {
     onLogin: (email: string, password: string) => Promise<void>;
@@ -40,8 +39,9 @@ export default function LoginForm({ onLogin, loading = false, error }: LoginForm
                 )}
 
                 <form onSubmit={handleSubmit} style={{ display: "grid", gap: "1rem" }}>
-                    <FloatingLabelTextInput
+                    <TextInput
                         label="Email Address"
+                        labelBgColor="bg-neutral-700 dark:bg-gray-900"
                         type="email"
                         color="primary"
                         name="email"

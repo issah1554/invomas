@@ -3,20 +3,10 @@ import React from "react";
 interface TextInputProps
     extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "pattern" | "required"> {
     label?: string;
+    labelBgColor?: string;
     helperText?: string;
-    color:
-    | "primary"
-    | "secondary"
-    | "accent"
-    | "neutral"
-    | "success"
-    | "warning"
-    | "error"
-    | "info"
-    | "light"
-    | "dark";
+    color: "primary" | "secondary" | "accent" | "neutral" | "success" | "warning" | "error" | "info" | "light" | "dark";
     size: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-    variant?: "solid" | "outline" | "text";
     rounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
     type?: React.HTMLInputTypeAttribute;
     placeholder?: string;
@@ -30,10 +20,10 @@ interface TextInputProps
 
 export function TextInput({
     label,
+    labelBgColor,
     helperText,
     color,
     size,
-    variant = "outline",
     rounded = "sm",
     type = "text",
     placeholder,
@@ -49,26 +39,36 @@ export function TextInput({
 
     const [touched, setTouched] = React.useState(false);
     const [invalid, setInvalid] = React.useState(false);
+    const [isFocused, setIsFocused] = React.useState(false);
+
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        setIsFocused(false);
         setTouched(true);
 
         const value = e.currentTarget.value;
-        const emailRegex = pattern ? new RegExp(pattern) : /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+        const emailRegex = pattern
+            ? new RegExp(pattern)
+            : /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
         if (type === "email") {
             setInvalid(!emailRegex.test(value));
             return;
-        } else if (type === "password") {
+        }
+
+        if (type === "password") {
             setInvalid(value.length < 8);
             return;
         }
 
-        setInvalid(!emailRegex.test(value));
+        setInvalid(!e.currentTarget.validity.valid);
     };
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         onChange?.(e);
-
         if (touched) {
             setInvalid(!e.currentTarget.validity.valid);
         }
@@ -77,125 +77,134 @@ export function TextInput({
     const effectiveColor = invalid ? "error" : color;
 
     const roundedClasses = {
-        none: "rounded-none",
-        sm: "rounded",
-        md: "rounded-md",
-        lg: "rounded-lg",
-        xl: "rounded-xl",
-        full: "rounded-full",
+        none: { input: "rounded-none", label: "rounded-none" },
+        sm: { input: "rounded", label: "rounded-sm" },
+        md: { input: "rounded-md", label: "rounded-md" },
+        lg: { input: "rounded-lg", label: "rounded-lg" },
+        xl: { input: "rounded-xl", label: "rounded-xl" },
+        full: { input: "rounded-full", label: "rounded-full" },
     };
-    /* Base classes */
-    const baseClasses =
-        "font-sans shadow-sm focus:outline-none focus:ring-2 transition disabled:opacity-60 disabled:cursor-not-allowed";
 
     const sizes = {
-        xs: "text-xs px-2 py-1",
-        sm: "text-sm px-3 py-1.5",
-        md: "text-base px-4 py-2",
-        lg: "text-lg px-5 py-2.5",
-        xl: "text-xl px-6 py-3",
-        "2xl": "text-2xl px-7 py-3.5",
+        xs: "text-xs px-2 py-1.5",
+        sm: "text-sm px-3 py-2",
+        md: "text-base px-4 py-2.5",
+        lg: "text-lg px-5 py-3",
+        xl: "text-xl px-6 py-3.5",
+        "2xl": "text-2xl px-7 py-4",
     };
+
+    const baseClasses =
+        "peer font-sans shadow-sm focus:outline-none focus:ring-2 transition disabled:opacity-60 disabled:cursor-not-allowed";
 
     const colorClasses = {
         primary: {
-            solid: "bg-primary text-white placeholder-white/70 focus:ring-primary",
-            outline:
-                "bg-transparent border border-primary text-primary placeholder-primary/60 focus:ring-primary",
-            text: "bg-transparent text-primary placeholder-primary/60 focus:ring-primary",
+            input: "bg-transparent border border-primary text-primary placeholder-primary/60 focus:ring-primary",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-primary"
         },
         secondary: {
-            solid:
-                "bg-secondary text-white placeholder-white/70 focus:ring-secondary",
-            outline:
-                "bg-transparent border border-secondary text-secondary placeholder-secondary/60 focus:ring-secondary",
-            text: "bg-transparent text-secondary placeholder-secondary/60 focus:ring-secondary",
+            input: "bg-transparent border border-secondary text-secondary placeholder-secondary/60 focus:ring-secondary",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-secondary"
         },
         accent: {
-            solid: "bg-accent text-white placeholder-white/70 focus:ring-accent",
-            outline:
-                "bg-transparent border border-accent text-accent placeholder-accent/60 focus:ring-accent",
-            text: "bg-transparent text-accent placeholder-accent/60 focus:ring-accent",
+            input: "bg-transparent border border-accent text-accent placeholder-accent/60 focus:ring-accent",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-accent"
         },
         neutral: {
-            solid: "bg-neutral text-white placeholder-white/70 focus:ring-neutral",
-            outline:
-                "bg-transparent border border-neutral text-neutral placeholder-neutral/60 focus:ring-neutral",
-            text: "bg-transparent text-neutral placeholder-neutral/60 focus:ring-neutral",
+            input: "bg-transparent border border-neutral text-neutral placeholder-neutral/60 focus:ring-neutral",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-neutral"
         },
         success: {
-            solid:
-                "bg-success text-white placeholder-white/70 focus:ring-success",
-            outline:
-                "bg-transparent border border-success text-success placeholder-success/60 focus:ring-success",
-            text: "bg-transparent text-success placeholder-success/60 focus:ring-success",
+            input: "bg-transparent border border-success text-success placeholder-success/60 focus:ring-success",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-success"
         },
         warning: {
-            solid:
-                "bg-warning text-white placeholder-white/70 focus:ring-warning",
-            outline:
-                "bg-transparent border border-warning text-warning placeholder-warning/60 focus:ring-warning",
-            text: "bg-transparent text-warning placeholder-warning/60 focus:ring-warning",
+            input: "bg-transparent border border-warning text-warning placeholder-warning/60 focus:ring-warning",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-warning"
         },
         error: {
-            solid: "bg-error text-white placeholder-white/70 focus:ring-error",
-            outline:
-                "bg-transparent border border-error text-error placeholder-error/60 focus:ring-error",
-            text: "bg-transparent text-error placeholder-error/60 focus:ring-error",
+            input: "bg-transparent border border-error text-error placeholder-error/60 focus:ring-error",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-error"
         },
         info: {
-            solid: "bg-info text-white placeholder-white/70 focus:ring-info",
-            outline:
-                "bg-transparent border border-info text-info placeholder-info/60 focus:ring-info",
-            text: "bg-transparent text-info placeholder-info/60 focus:ring-info",
+            input: "bg-transparent border border-info text-info placeholder-info/60 focus:ring-info",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-info"
         },
         light: {
-            solid: "bg-light text-black placeholder-black/50 focus:ring-light",
-            outline:
-                "bg-transparent border border-light text-light placeholder-light/60 focus:ring-light",
-            text: "bg-transparent text-light placeholder-light/60 focus:ring-light",
+            input: "bg-transparent border border-light text-light placeholder-light/60 focus:ring-light",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-light"
         },
         dark: {
-            solid: "bg-dark text-white placeholder-white/60 focus:ring-dark",
-            outline:
-                "bg-transparent border border-dark text-dark placeholder-dark/60 focus:ring-dark",
-            text: "bg-transparent text-dark placeholder-dark/60 focus:ring-dark",
+            input: "bg-transparent border border-dark text-dark placeholder-dark/60 focus:ring-dark",
+            label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
+            text: "text-dark"
         },
     };
 
-    const variantClasses = colorClasses[effectiveColor][variant];
+    const inputClasses = colorClasses[effectiveColor].input;
+    const labelBgClass = colorClasses[effectiveColor].label;
+    const textClasses = colorClasses[effectiveColor].text;
+
+    // Always show background when floating
+    const shouldShowLabelBg = isFocused || !!value;
+    const labelClasses = shouldShowLabelBg ? `${labelBgClass} ${roundedClasses[rounded].label}` : "bg-transparent";
+
 
     return (
-        <div className="flex flex-col gap-1 items-start text-left">
-            {label && (
-                <label
-                    htmlFor={inputId}
-                    className={`text-sm font-medium ml-2 ${colorClasses[effectiveColor].text}`}
-                >
-                    {label}
-                </label>
-            )}
+        <div className="flex flex-col gap-1 items-start text-left w-full my-3">
+            <div className="relative w-full">
+                <input
+                    {...rest}
+                    id={inputId}
+                    type={type}
+                    pattern={pattern}
+                    required={required}
+                    placeholder={label ? (isFocused ? placeholder : "") : placeholder}                    value={value}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    disabled={disabled}
+                    aria-invalid={invalid}
+                    aria-describedby={helperText ? `${inputId}-help` : undefined}
+                    className={`${baseClasses} ${roundedClasses[rounded].input} ${sizes[size]} ${inputClasses} w-full `}
+                />
 
-            <input
-                {...rest}
-                id={inputId}
-                type={type}
-                pattern={pattern}
-                required={required}
-                className={`${baseClasses} ${roundedClasses[rounded]} ${sizes[size]} ${variantClasses} w-full`}
-                placeholder={placeholder}
-                value={value}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                disabled={disabled}
-                aria-invalid={invalid}
-                aria-describedby={helperText ? `${inputId}-help` : undefined}
-            />
+                {label && (
+                    <label
+                        htmlFor={inputId}
+                        className={`
+                            absolute left-3 px-1
+                            pointer-events-none
+                            transition-all duration-200
+                            origin-left
+                            ${shouldShowLabelBg
+                                ? "-translate-y-1/2 scale-75 top-0 z-10"
+                                : "top-1/2 -translate-y-1/2 scale-100"}
+                            ${labelClasses}
+                            ${textClasses}
+                        `}
+                    >
+                        {label}
+                        {required && (
+                            <span className="ml-0.5 text-error">*</span>
+                        )}
+                    </label>
+                )}
+            </div>
 
             {helperText && (
                 <p
                     id={`${inputId}-help`}
-                    className={`text-xs ml-2 ${colorClasses[effectiveColor].text}`}
+                    className={`text-xs ml-2 ${textClasses}`}
                 >
                     {helperText}
                 </p>
