@@ -156,6 +156,7 @@ export function FloatingLabelTextInput({
     const shouldShowLabelBg = isFocused || !!value;
     const labelClasses = shouldShowLabelBg ? `${labelBgClass} ${roundedClasses[rounded].label}` : "bg-transparent";
 
+
     return (
         <div className="flex flex-col gap-1 items-start text-left w-full">
             <div className="relative w-full">
@@ -165,16 +166,14 @@ export function FloatingLabelTextInput({
                     type={type}
                     pattern={pattern}
                     required={required}
-                    // Set placeholder to empty string when label is set
-                    placeholder={label ? "" : placeholder}
-                    value={value}
+                    placeholder={label ? (isFocused ? placeholder : "") : placeholder}                    value={value}
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     disabled={disabled}
                     aria-invalid={invalid}
                     aria-describedby={helperText ? `${inputId}-help` : undefined}
-                    className={`${baseClasses} ${roundedClasses[rounded].input} ${sizes[size]} ${inputClasses} w-full`}
+                    className={`${baseClasses} ${roundedClasses[rounded].input} ${sizes[size]} ${inputClasses} w-full `}
                 />
 
                 {label && (
