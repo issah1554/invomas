@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../../../components/Buttons";
-import { TextInput } from "../../../components/TextInput";
+import { Button } from "../../../components/ui/Buttons";
+import { TextInput } from "../../../components/ui/TextInput";
 
 interface RegisterFormProps {
     onRegister: (email: string, password: string) => Promise<void>;

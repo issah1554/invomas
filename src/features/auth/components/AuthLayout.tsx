@@ -1,6 +1,6 @@
 import React, { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import ScrollbarWrapper from "../../../components/ScrollbarWrapper";
+import ScrollbarWrapper from "../../../components/ui/ScrollbarWrapper";
 
 interface AuthLayoutProps {
     children: React.ReactNode;

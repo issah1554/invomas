@@ -1,15 +1,15 @@
-import ResetPasswordForm from "../components/ResetPasswordForm";
+import DashboardLayout from "../../../components/layout/Layout";
 
-export default function ResetPasswordPage() {
+export default function HomePage() {
 
     return (
-
+        <DashboardLayout>
             <div className="flex items-center justify-center min-h-screen">
                 <div className="w-full max-w-md">
-                    <ResetPasswordForm loading={false} error="" onReset={function (): Promise<void> {
-                        throw new Error("Function not implemented.");
-                    } } />
+                    <h1>Dashboard</h1>
+                    <p>Welcome to the dashboard!</p>                    
                 </div>
             </div>
-   );
+        </DashboardLayout>
+    );
 }
