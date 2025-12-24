@@ -27,9 +27,6 @@ export default function LandingPage() {
 
             {/* Main Content */}
             <main className="flex-1 flex flex-col items-center justify-center text-center px-6">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary">
-                    Welcome to Inv.max
-                </h2>
                 <p className="text-lg md:text-xl max-w-2xl mb-8 text-secondary">
                     An Invetory Manager for track, analyze, and optimize your investments with ease.
                 </p>

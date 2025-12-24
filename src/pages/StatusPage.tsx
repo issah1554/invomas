@@ -1,9 +1,10 @@
-import { Button } from "../components/Buttons";
+import { Link } from "react-router-dom";
 
 interface StatusConfig {
     title: string;
     description: string;
     cta?: string;
+    url?: string;
 }
 
 type StatusType = "maintenance" | "not-found" | "unauthorized" | "error";
@@ -13,26 +14,30 @@ const STATUS_CONFIG: Record<StatusType, StatusConfig> = {
         title: "We'll be back soon",
         description: "Inv.max is currently undergoing scheduled maintenance. Please check back shortly.",
         cta: "Refresh",
+        url: "/",
     },
     "not-found": {
         title: "Page not found",
         description: "The page you are looking for doesn’t exist or has been moved.",
         cta: "Go Home",
+        url: "/",
     },
     unauthorized: {
         title: "Access denied",
         description: "You do not have permission to view this page.",
         cta: "Login",
+        url: "/auth/login",
     },
     error: {
         title: "Something went wrong",
         description: "An unexpected error occurred. Please try again later.",
         cta: "Retry",
+        url: "/",
     },
 };
 
 interface StatusPageProps {
-    status: "maintenance" | "not-found" | "unauthorized" | "error";
+    status: StatusType;
 }
 
 export default function StatusPage({ status }: StatusPageProps) {
@@ -56,24 +61,22 @@ export default function StatusPage({ status }: StatusPageProps) {
 
             {/* Status Content */}
             <main className="flex-1 flex flex-col items-center justify-center text-center px-6">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary-500">
                     {config.title}
                 </h2>
 
-                <p className="text-lg md:text-xl max-w-xl mb-8 text-secondary">
+                <p className="text-lg md:text-xl max-w-xl mb-8 text-neutral-400">
                     {config.description}
                 </p>
 
-                <div className="flex gap-4">
-                    {config.cta && (
-                        <Button color="dark" size="lg" rounded="full">
-                            {config.cta}
-                        </Button>
-                    )}
-                    <Button color="neutral" size="lg" variant="outline">
-                        Support
-                    </Button>
-                </div>
+                {config.cta && (
+                    <Link
+                        to={config.url || "/"}
+                        className="px-6 py-3 bg-primary-500 text-neutral-100 rounded-lg text-lg font-medium hover:bg-primary-600 transition"
+                    >
+                        {config.cta}
+                    </Link>
+                )}
             </main>
 
             {/* Footer */}
