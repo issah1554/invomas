@@ -47,7 +47,7 @@ export default function LoginForm({ onLogin, loading = false, error }: LoginForm
                         name="email"
                         size="md"
                         placeholder="you@example.com"
-                        rounded="full"
+                        rounded="none"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />

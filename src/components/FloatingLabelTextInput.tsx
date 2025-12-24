@@ -95,7 +95,6 @@ export function FloatingLabelTextInput({
     const baseClasses =
         "peer font-sans shadow-sm focus:outline-none focus:ring-2 transition disabled:opacity-60 disabled:cursor-not-allowed";
 
-    // Single variant (outline style) for all colors
     const colorClasses = {
         primary: {
             input: "bg-transparent border border-primary text-primary placeholder-primary/60 focus:ring-primary",
@@ -150,39 +149,12 @@ export function FloatingLabelTextInput({
     };
 
     const inputClasses = colorClasses[effectiveColor].input;
-    const labelClasses = colorClasses[effectiveColor].label;
+    const labelBgClass = colorClasses[effectiveColor].label;
     const textClasses = colorClasses[effectiveColor].text;
 
-    // Calculate label position and style based on state
-    const getLabelClasses = () => {
-        const isFloating = isFocused || value;
-
-        if (isFloating) {
-            return `
-                absolute left-3
-                px-1
-                pointer-events-none
-                transition-all duration-200
-                origin-left
-                -translate-y-1/2 scale-75 top-0
-                ${labelClasses}
-                ${roundedClasses[rounded].label}
-                z-10
-                ${textClasses}
-            `;
-        } else {
-            return `
-                absolute left-3
-                px-1
-                pointer-events-none
-                transition-all duration-200
-                origin-left
-                top-1/2 -translate-y-1/2 scale-100
-                bg-transparent
-                ${textClasses}
-            `;
-        }
-    };
+    // Always show background when floating
+    const shouldShowLabelBg = isFocused || !!value;
+    const labelClasses = shouldShowLabelBg ? `${labelBgClass} ${roundedClasses[rounded].label}` : "bg-transparent";
 
     return (
         <div className="flex flex-col gap-1 items-start text-left w-full">
@@ -193,8 +165,8 @@ export function FloatingLabelTextInput({
                     type={type}
                     pattern={pattern}
                     required={required}
-                    // Set placeholder to empty string when label is set and input is not focused
-                    placeholder={label && !isFocused ? "" : placeholder}
+                    // Set placeholder to empty string when label is set
+                    placeholder={label ? "" : placeholder}
                     value={value}
                     onChange={handleChange}
                     onFocus={handleFocus}
@@ -209,26 +181,15 @@ export function FloatingLabelTextInput({
                     <label
                         htmlFor={inputId}
                         className={`
-                            ${getLabelClasses()}
-                            
-                            // Peer states for better transitions
-                            peer-focus:scale-75
-                            peer-focus:-translate-y-1/2
-                            peer-focus:top-0
-                            peer-focus:z-10
-                            peer-focus:${labelClasses}
-                            peer-focus:${roundedClasses[rounded].label}
-                            
-                            // When input has content
-                            peer-not-placeholder-shown:scale-75
-                            peer-not-placeholder-shown:-translate-y-1/2
-                            peer-not-placeholder-shown:top-0
-                            peer-not-placeholder-shown:z-10
-                            peer-not-placeholder-shown:${labelClasses}
-                            peer-not-placeholder-shown:${roundedClasses[rounded].label}
-                            
-                            // Hide placeholder when not focused and label is set
-                            peer-placeholder-shown:bg-transparent
+                            absolute left-3 px-1
+                            pointer-events-none
+                            transition-all duration-200
+                            origin-left
+                            ${shouldShowLabelBg
+                                ? "-translate-y-1/2 scale-75 top-0 z-10"
+                                : "top-1/2 -translate-y-1/2 scale-100"}
+                            ${labelClasses}
+                            ${textClasses}
                         `}
                     >
                         {label}
