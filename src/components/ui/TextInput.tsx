@@ -114,9 +114,9 @@ export function TextInput({
             text: "text-accent"
         },
         neutral: {
-            input: "bg-transparent border border-neutral text-neutral placeholder-neutral/60 focus:ring-neutral",
+            input: "bg-transparent border border-main text-main placeholder-main/60 focus:ring-main",
             label: `${labelBgColor ?? "bg-white"} dark:bg-gray-900`,
-            text: "text-neutral"
+            text: "text-main"
         },
         success: {
             input: "bg-transparent border border-success text-success placeholder-success/60 focus:ring-success",
@@ -168,7 +168,7 @@ export function TextInput({
                     type={type}
                     pattern={pattern}
                     required={required}
-                    placeholder={label ? (isFocused ? placeholder : "") : placeholder}                    value={value}
+                    placeholder={label ? (isFocused ? placeholder : "") : placeholder} value={value}
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}

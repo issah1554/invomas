@@ -31,7 +31,7 @@ export default function LoginForm({ onLogin, loading = false, error }: LoginForm
                 <form onSubmit={handleSubmit} className="grid gap-4">
                     <TextInput
                         label="Email Address"
-                        labelBgColor="bg-neutral-700 dark:bg-gray-900"
+                        labelBgColor="bg-main-200"
                         type="email"
                         color="primary"
                         name="email"
@@ -46,7 +46,7 @@ export default function LoginForm({ onLogin, loading = false, error }: LoginForm
                     <TextInput
                         label="Password"
                         type="password"
-                        labelBgColor="bg-neutral-700 dark:bg-gray-900"
+                        labelBgColor="bg-main-200"
                         color="primary"
                         size="md"
                         name="password"
@@ -63,7 +63,7 @@ export default function LoginForm({ onLogin, loading = false, error }: LoginForm
                                 type="checkbox"
                                 className="form-checkbox text-primary"
                             />
-                            <span className="text-neutral">Remember me</span>
+                            <span className="text-main">Remember me</span>
                         </label>
                         <Link
                             to="/auth/forgot-password"

@@ -309,6 +309,34 @@
   --main-950: var(--color-slate-50);
 }
 
+[data-theme="light-green"] {
+  --main-50: var(--color-green-50);
+  --main-100: var(--color-green-100);
+  --main-200: var(--color-green-200);
+  --main-300: var(--color-green-300);
+  --main-400: var(--color-green-400);
+  --main-500: var(--color-green-500);
+  --main-600: var(--color-green-600);
+  --main-700: var(--color-green-700);
+  --main-800: var(--color-green-800);
+  --main-900: var(--color-green-900);
+  --main-950: var(--color-green-950);
+}
+
+[data-theme="dark-green"] {
+  --main-50: var(--color-green-950);
+  --main-100: var(--color-green-900);
+  --main-200: var(--color-green-800);
+  --main-300: var(--color-green-700);
+  --main-400: var(--color-green-600);
+  --main-500: var(--color-green-500);
+  --main-600: var(--color-green-400);
+  --main-700: var(--color-green-300);
+  --main-800: var(--color-green-200);
+  --main-900: var(--color-green-100);
+  --main-950: var(--color-green-50);
+}
+
 @theme {
   /* === Base Colors (OKLCH) === */
   --color-primary: var(--color-sky-500);
@@ -369,15 +397,15 @@
   --color-main-950: var(--main-950);
 
   /* === Status Colors === */
-  --color-success: oklch(72% 0.194 149);
-  --color-warning: oklch(82% 0.154 84);
-  --color-error: oklch(64% 0.246 25);
-  --color-danger: oklch(64% 0.246 25);
-  --color-info: oklch(67% 0.169 259);
-  --color-pending: oklch(76% 0.158 77);
-  --color-muted: var(--color-neutral-600);
+  --color-success: var(--color-green-500);
+  --color-warning: var(--color-yellow-500);
+  --color-error: var(--color-red-500);
+  --color-danger:  var(--color-red-500);
+  --color-info: var(--color-cyan-500);
+  --color-pending: var(--color-orange-500);
+  --color-muted: var(--main-600);
 
   /* === Additional Colors === */
-  --color-dark: oklch(0% 0.01 260);
-  --color-light: oklch(100% 0.01 260);
+  --color-dark: var(--color-main-900);
+  --color-light: var(--color-main-50);
 }

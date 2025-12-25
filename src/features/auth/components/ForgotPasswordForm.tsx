@@ -26,7 +26,7 @@ export default function ForgotPasswordForm({
         <div className="card animation-zoom-in bg-transparent border-0 p-0 p-md-4">
             <div className="card-body p-0">
                 <div className="mb-4">
-                    <p className="text-neutral small mb-0">
+                    <p className="text-main small mb-0">
                         We'll send you a password reset link to this email.
                     </p>
                 </div>
@@ -38,7 +38,7 @@ export default function ForgotPasswordForm({
                 <form onSubmit={handleSubmit} className="d-grid gap-3">
                     <TextInput
                         color="primary"
-                        labelBgColor="bg-neutral-700"
+                        labelBgColor="bg-main-200"
                         size="md"
                         label="Email Address"
                         type="email"

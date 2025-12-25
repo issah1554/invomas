@@ -35,7 +35,7 @@ export default function TopNav({
     return (
         <nav
             ref={navRef}
-            className={`h-16 bg-[var(--surface)] border-b border-neutral-200 ${isCollapsed && !isMobile ? "ml-20" : "ml-0"
+            className={`h-16 bg-[var(--surface)] border-b border-main-200 ${isCollapsed && !isMobile ? "ml-20" : "ml-0"
                 }`}
         >
             <div className="h-full px-4 flex items-center justify-between">
@@ -43,7 +43,7 @@ export default function TopNav({
                 <button
                     onClick={toggleSidebar}
                     aria-label="Toggle sidebar"
-                    className="text-neutral-500 hover:text-neutral-700"
+                    className="text-main-500 hover:text-main-700"
                 >
                     <i className="bi bi-list text-2xl" />
                 </button>
@@ -54,7 +54,7 @@ export default function TopNav({
                     <div className="relative">
                         <button
                             onClick={() => setOpen(open === "notif" ? null : "notif")}
-                            className="relative text-neutral-500 hover:text-neutral-700"
+                            className="relative text-main-500 hover:text-main-700"
                         >
                             <i className="bi bi-bell text-xl" />
                             <span className="absolute -top-1 -right-2 text-[10px] px-1.5 rounded-full bg-red-600 text-white">
@@ -66,19 +66,19 @@ export default function TopNav({
                             <div className="absolute right-0 mt-2 w-64 bg-white border rounded-md shadow-lg text-sm z-50">
                                 <div className="px-4 py-2 font-semibold">Notifications</div>
                                 <div className="border-t">
-                                    <div className="px-4 py-2 hover:bg-neutral-50">
+                                    <div className="px-4 py-2 hover:bg-main-50">
                                         New user registered
                                     </div>
-                                    <div className="px-4 py-2 hover:bg-neutral-50">
+                                    <div className="px-4 py-2 hover:bg-main-50">
                                         Backup completed
                                     </div>
-                                    <div className="px-4 py-2 hover:bg-neutral-50">
+                                    <div className="px-4 py-2 hover:bg-main-50">
                                         Payment received
                                     </div>
                                 </div>
                                 <Link
                                     to="/notifications"
-                                    className="block text-center px-4 py-2 border-t text-primary hover:bg-neutral-50"
+                                    className="block text-center px-4 py-2 border-t text-primary hover:bg-main-50"
                                 >
                                     View all
                                 </Link>
@@ -90,7 +90,7 @@ export default function TopNav({
                     {/* <div className="relative">
                         <button
                             onClick={() => setOpen(open === "msg" ? null : "msg")}
-                            className="relative text-neutral-500 hover:text-neutral-700"
+                            className="relative text-main-500 hover:text-main-700"
                         >
                             <i className="bi bi-envelope text-xl" />
                             <span className="absolute -top-1 -right-2 text-[10px] px-1.5 rounded-full bg-primary text-white">
@@ -102,16 +102,16 @@ export default function TopNav({
                             <div className="absolute right-0 mt-2 w-64 bg-white border rounded-md shadow-lg text-sm z-50">
                                 <div className="px-4 py-2 font-semibold">Messages</div>
                                 <div className="border-t">
-                                    <div className="px-4 py-2 hover:bg-neutral-50">
+                                    <div className="px-4 py-2 hover:bg-main-50">
                                         New message from Alice
                                     </div>
-                                    <div className="px-4 py-2 hover:bg-neutral-50">
+                                    <div className="px-4 py-2 hover:bg-main-50">
                                         Project update from Bob
                                     </div>
                                 </div>
                                 <Link
                                     to="/chat"
-                                    className="block text-center px-4 py-2 border-t text-primary hover:bg-neutral-50"
+                                    className="block text-center px-4 py-2 border-t text-primary hover:bg-main-50"
                                 >
                                     View all
                                 </Link>
@@ -148,9 +148,9 @@ export default function TopNav({
                                     <h5 className="font-semibold">
                                         {user?.first_name} {user?.last_name}
                                     </h5>
-                                    <p className="text-neutral-500 text-xs">{user?.email}</p>
+                                    <p className="text-main-500 text-xs">{user?.email}</p>
                                     {user?.roles?.length > 0 && (
-                                        <p className="text-neutral-500 text-xs mt-1">
+                                        <p className="text-main-500 text-xs mt-1">
                                             Roles: {user.roles.join(", ")}
                                         </p>
                                     )}
@@ -158,14 +158,14 @@ export default function TopNav({
 
                                 <Link
                                     to="/settings/profile"
-                                    className="flex items-center gap-2 px-4 py-2 hover:bg-neutral-50"
+                                    className="flex items-center gap-2 px-4 py-2 hover:bg-main-50"
                                 >
                                     <i className="bi bi-person" /> My Profile
                                 </Link>
 
                                 <Link
                                     to="/settings"
-                                    className="flex items-center gap-2 px-4 py-2 hover:bg-neutral-50"
+                                    className="flex items-center gap-2 px-4 py-2 hover:bg-main-50"
                                 >
                                     <i className="bi bi-gear" /> Settings
                                 </Link>

@@ -44,11 +44,11 @@ export default function StatusPage({ status }: StatusPageProps) {
     const config = STATUS_CONFIG[status];
 
     return (
-        <div className="min-h-screen flex flex-col bg-neutral-950 text-neutral-100">
+        <div className="min-h-screen flex flex-col bg-main-950 text-main-100">
             {/* Header */}
-            <header className="sticky top-0 z-50 bg-neutral-950/80 backdrop-blur border-b-2 border-neutral-800">
+            <header className="sticky top-0 z-50 bg-main-950/80 backdrop-blur border-b-2 border-main-800">
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-main-800 flex items-center justify-center">
                         <img
                             src="/invomax.svg"
                             alt="Invomax logo"
@@ -65,14 +65,14 @@ export default function StatusPage({ status }: StatusPageProps) {
                     {config.title}
                 </h2>
 
-                <p className="text-lg md:text-xl max-w-xl mb-8 text-neutral-400">
+                <p className="text-lg md:text-xl max-w-xl mb-8 text-main-400">
                     {config.description}
                 </p>
 
                 {config.cta && (
                     <Link
                         to={config.url || "/"}
-                        className="px-6 py-3 bg-primary-500 text-neutral-100 rounded-lg text-lg font-medium hover:bg-primary-600 transition"
+                        className="px-6 py-3 bg-primary-500 text-main-100 rounded-lg text-lg font-medium hover:bg-primary-600 transition"
                     >
                         {config.cta}
                     </Link>
@@ -80,8 +80,8 @@ export default function StatusPage({ status }: StatusPageProps) {
             </main>
 
             {/* Footer */}
-            <footer className="mt-auto border-t border-neutral-800">
-                <div className="max-w-7xl mx-auto px-6 py-6 text-sm text-neutral-500 flex justify-between">
+            <footer className="mt-auto border-t border-main-800">
+                <div className="max-w-7xl mx-auto px-6 py-6 text-sm text-main-500 flex justify-between">
                     <span>© {new Date().getFullYear()} Inv.max</span>
                     <span>Status Page</span>
                 </div>

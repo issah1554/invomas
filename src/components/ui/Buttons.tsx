@@ -49,9 +49,9 @@ export function Button({ color, size, variant = "solid", rounded = "sm", childre
             text: "text-accent bg-transparent hover:bg-accent/10"
         },
         neutral: {
-            solid: "bg-neutral text-white hover:bg-neutral/90",
-            outline: "border-2 border-neutral text-neutral bg-transparent hover:bg-neutral/10",
-            text: "text-neutral bg-transparent hover:bg-neutral/10"
+            solid: "bg-main text-white hover:bg-main/90",
+            outline: "border-2 border-main text-main bg-transparent hover:bg-main/10",
+            text: "text-main bg-transparent hover:bg-main/10"
         },
         success: {
             solid: "bg-success text-white hover:bg-success/90",
@@ -79,7 +79,7 @@ export function Button({ color, size, variant = "solid", rounded = "sm", childre
             text: "text-light bg-transparent hover:bg-light/10"
         },
         dark: {
-            solid: "bg-dark text-white hover:bg-dark/80 hover:border-neutral-900 hover:border-2 hover:text-neutral-500",
+            solid: "bg-dark text-white hover:bg-dark/80 hover:border-main-900 hover:border-2 hover:text-main-500",
             outline: "border-2 border-dark text-dark bg-transparent hover:bg-dark/10",
             text: "text-dark bg-transparent hover:bg-dark/10"
         }

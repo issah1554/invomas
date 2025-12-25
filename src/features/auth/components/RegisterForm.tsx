@@ -35,7 +35,7 @@ export default function RegisterForm({
                 <form onSubmit={handleSubmit} className="d-grid gap-3">
                     <TextInput
                         color="primary"
-                        labelBgColor="bg-neutral-700"   
+                        labelBgColor="bg-main-200"
                         size="md"
                         label="Email Address"
                         type="email"
@@ -49,7 +49,7 @@ export default function RegisterForm({
 
                     <TextInput
                         color="primary"
-                        labelBgColor="bg-neutral-700"
+                        labelBgColor="bg-main-200"
                         size="md"
                         label="Password"
                         type="password"
@@ -64,7 +64,7 @@ export default function RegisterForm({
                     <TextInput
                         size="md"
                         color="primary"
-                        labelBgColor="bg-neutral-700"
+                        labelBgColor="bg-main-200"
                         label="Confirm Password"
                         type="password"
                         name="confirmPassword"
@@ -83,7 +83,7 @@ export default function RegisterForm({
                         {loading ? "Creating account..." : "Register"}
                     </Button>
                     <div className="text-center">
-                        <span className="text-neutral">Already have an account? </span>
+                        <span className="text-main">Already have an account? </span>
                         <Link to="/auth/login" className="text-primary fw-semibold hover:text-accent hover:underline">
                             Sign in
                         </Link>

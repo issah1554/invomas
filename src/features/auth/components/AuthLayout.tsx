@@ -25,7 +25,7 @@ export default function AuthContainer({
     return (
         <>
             <ScrollbarWrapper style={{ overflowY: "auto", maxHeight: "100vh" }} >
-                <div className="flex min-h-screen bg-neutral-100">
+                <div className="flex min-h-screen bg-main-100">
 
                     {/* Left Column — Image Section */}
                     <div className="relative hidden md:flex md:w-1/2 items-center justify-center overflow-hidden">
@@ -50,7 +50,7 @@ export default function AuthContainer({
 
                     {/* Right Column — Form Section */}
                     <div
-                        className={`relative bg-neutral-700 flex w-full md:w-1/2 flex-col ${rightClassName}`}
+                        className={`relative bg-main-200 flex w-full md:w-1/2 flex-col ${rightClassName}`}
                         style={rightStyle}
                     >
                         {/* Floating navIcon */}

@@ -5,12 +5,12 @@ export default function LandingPage() {
     const { toggleTheme } = useTheme();
 
     return (
-        <div className="min-h-screen flex flex-col bg-main-100 text-main-900">            
+        <div className="min-h-screen flex flex-col bg-main-100 text-main-700">            
             {/* Header */}
-            <header className="sticky top-0 z-50 bg-main-50/80 backdrop-blur border-b-2 border-main-200">
+            <header className="sticky top-0 z-50 bg-main-200/80 backdrop-blur border-b-2 border-main-300">
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-main-200 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full bg-main-300 flex items-center justify-center">
                             <img
                                 src="/invomax.svg"
                                 alt="Invomax logo"
@@ -18,10 +18,10 @@ export default function LandingPage() {
                                 onClick={toggleTheme}
                             />
                         </div>
-                        <h1 className="text-xl font-semibold text-main-900">Inv.max</h1>
+                        <h1 className="text-xl font-semibold text-primary-600">Inv.max</h1>
                     </div>
 
-                    <nav className="hidden md:flex gap-6 text-sm text-main-700">
+                    <nav className="hidden md:flex gap-6 text-sm text-main-600">
                         <Link to="/auth/login" className="hover:text-accent">Login</Link>
                         <Link to="/auth/register" className="hover:text-accent">Register</Link>
                     </nav>
@@ -31,7 +31,7 @@ export default function LandingPage() {
 
             {/* Main Content */}
             <main className="flex-1 flex flex-col items-center justify-center text-center px-6">
-                <p className="text-lg md:text-xl max-w-2xl mb-8 text-secondary">
+                <p className="text-lg md:text-xl max-w-2xl mb-8 text-main-600">
                     An Invetory Manager for track, analyze, and optimize your investments with ease.
                 </p>
             </main>
