@@ -50,8 +50,9 @@ export default function LoginForm({ onLogin, loading = false, error }: LoginForm
                         color="primary"
                         size="md"
                         name="password"
-                        placeholder="Enter your password"
+                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter your password"
                         required
                         rounded="none"
                     />
