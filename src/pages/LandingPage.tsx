@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "../hooks/useTheme";
+import Select2 from "../components/ui/Select2";
 
 export default function LandingPage() {
     const { toggleTheme } = useTheme();
@@ -34,6 +35,16 @@ export default function LandingPage() {
                 <p className="text-lg md:text-xl max-w-2xl mb-8 text-main-600">
                     An Invetory Manager for track, analyze, and optimize your investments with ease.
                 </p>
+                <Select2
+                    options={[
+                        { value: "1", label: "Option 1" },
+                        { value: "2", label: "Option 2" },
+                        { value: "3", label: "Option 3" },
+                    ]}
+                    placeholder="Select an option"
+                    color="primary"
+                    multiple={true}
+                />
             </main>
 
             {/* Footer */}

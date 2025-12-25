@@ -23,3 +23,33 @@ export interface Avatar {
     onEdit?: () => void;
     style?: React.CSSProperties; // allow custom styles
 }
+
+export interface DropdownOption<T = string> {
+    label: string;
+    value: T;
+    icon?: React.ReactNode;
+    disabled?: boolean;
+}
+
+export interface DropdownProps<T = string> {
+    options: DropdownOption<T>[];
+
+    // State control
+    value?: T;
+    defaultValue?: T;
+
+    // Events
+    onChange?: (value: T, option: DropdownOption<T>) => void;
+    onOpen?: () => void;
+    onClose?: () => void;
+
+    // UI  
+    placeholder?: string;
+    disabled?: boolean;
+    error?: string;
+    className?: string;
+
+    // Form integration
+    name?: string;
+    required?: boolean;
+}
