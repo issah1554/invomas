@@ -1,23 +1,27 @@
 import { Link } from "react-router-dom";
+import { useTheme } from "../hooks/useTheme";
 
 export default function LandingPage() {
+    const { toggleTheme } = useTheme();
+
     return (
-        <div className="min-h-screen flex flex-col bg-neutral-950 text-neutral-100">
+        <div className="min-h-screen flex flex-col bg-main-100 text-main-900">            
             {/* Header */}
-            <header className="sticky top-0 z-50 bg-neutral-950/80 backdrop-blur border-b-2 border-neutral-800">
+            <header className="sticky top-0 z-50 bg-main-50/80 backdrop-blur border-b-2 border-main-200">
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full bg-main-200 flex items-center justify-center">
                             <img
                                 src="/invomax.svg"
                                 alt="Invomax logo"
                                 className="w-6 h-6 object-contain"
+                                onClick={toggleTheme}
                             />
                         </div>
-                        <h1 className="text-xl font-semibold text-neutral-100">Inv.max</h1>
+                        <h1 className="text-xl font-semibold text-main-900">Inv.max</h1>
                     </div>
 
-                    <nav className="hidden md:flex gap-6 text-sm text-neutral-500">
+                    <nav className="hidden md:flex gap-6 text-sm text-main-700">
                         <Link to="/auth/login" className="hover:text-accent">Login</Link>
                         <Link to="/auth/register" className="hover:text-accent">Register</Link>
                     </nav>
@@ -34,7 +38,7 @@ export default function LandingPage() {
 
             {/* Footer */}
             <footer id="contact" className="mt-auto">
-                <div className="max-w-7xl mx-auto px-6 py-6 text-sm text-neutral flex justify-center items-center text-center">
+                <div className="max-w-7xl mx-auto px-6 py-6 text-sm text-main flex justify-center items-center text-center">
                     <span>© {new Date().getFullYear()} Inv.max. All rights reserved.</span>
                 </div>
             </footer>

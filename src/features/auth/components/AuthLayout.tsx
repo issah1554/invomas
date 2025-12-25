@@ -25,9 +25,10 @@ export default function AuthContainer({
     return (
         <>
             <ScrollbarWrapper style={{ overflowY: "auto", maxHeight: "100vh" }} >
-                <div className="flex min-h-screen bg-neutral-700">
+                <div className="flex min-h-screen bg-neutral-100">
+
                     {/* Left Column — Image Section */}
-                    <div className="relative hidden md:flex md:w-1/2 bg-neutral-900 items-center justify-center overflow-hidden">
+                    <div className="relative hidden md:flex md:w-1/2 items-center justify-center overflow-hidden">
                         <Link
                             to="/"
                             className="absolute top-4 left-4 flex items-center gap-2 text-primary font-bold text-xl"
@@ -43,13 +44,13 @@ export default function AuthContainer({
                         <img
                             src="/payment-cover.png"
                             alt="Auth Cover"
-                            className="w-full max-w-[550px] p-10 object-contain"
+                            className="w-full max-w-137.5 p-10 object-contain"
                         />
                     </div>
 
                     {/* Right Column — Form Section */}
                     <div
-                        className={`relative flex w-full md:w-1/2 flex-col ${rightClassName}`}
+                        className={`relative bg-neutral-700 flex w-full md:w-1/2 flex-col ${rightClassName}`}
                         style={rightStyle}
                     >
                         {/* Floating navIcon */}
@@ -60,7 +61,7 @@ export default function AuthContainer({
                         )}
 
 
-                        <div className="mx-auto w-full max-w-[700px] px-4">
+                        <div className="mx-auto w-full max-w-175 px-4">
                             {children}
                         </div>
                     </div>
