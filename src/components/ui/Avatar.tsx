@@ -6,12 +6,29 @@ interface AvatarProps {
     size?: number;
     initials?: string;
     className?: string;
-    status?: "online" | "offline" | "away";
-    shape?: "circle" | "rounded";
+    status?: "online" | "offline" | "disabled" | "pending";
+    statusBorderColor?: string;
+    rounded?: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
     showEditButton?: boolean;
     onEdit?: () => void;
-    style?: React.CSSProperties; // allow custom styles
+    style?: React.CSSProperties;
 }
+
+const statusColor: Record<NonNullable<AvatarProps["status"]>, string> = {
+    online: "bg-success",
+    offline: "bg-secondary",
+    disabled: "bg-danger",
+    pending: "bg-warning",
+};
+
+const roundedMap: Record<NonNullable<AvatarProps["rounded"]>, string> = {
+    sm: "rounded-sm",
+    md: "rounded-md",
+    lg: "rounded-lg",
+    xl: "rounded-xl",
+    "2xl": "rounded-2xl",
+    full: "rounded-full",
+};
 
 const Avatar: React.FC<AvatarProps> = ({
     src,
@@ -20,54 +37,40 @@ const Avatar: React.FC<AvatarProps> = ({
     initials,
     className = "",
     status = "offline",
-    shape = "circle",
+    statusBorderColor = "border-main-100",
+    rounded = "full",
     showEditButton = false,
     onEdit,
     style = {},
 }) => {
     const [imgError, setImgError] = useState(false);
 
-    const statusColor: Record<string, string> = {
-        online: "bg-success",
-        offline: "bg-secondary",
-        away: "bg-warning",
-    };
-
-    const handleError = () => setImgError(true);
-
-    const borderClass = shape === "circle" ? "rounded-circle" : "rounded";
-
     const displayInitials = (initials || alt)
         .trim()
         .split(" ")
-        .map(word => word[0].toUpperCase())
+        .map(w => w[0]?.toUpperCase())
         .slice(0, 2)
         .join("");
 
+    const radiusClass = roundedMap[rounded];
     const cornerSize = size / 4;
 
     return (
         <div
-            className={`position-relative d-inline-block ${className}`}
-            style={{
-                width: size,
-                height: size,
-                overflow: "hidden",
-                ...style, // merge user-provided styles
-            }}
+            className={`relative inline-block overflow-hidden  ${className}`}
+            style={{ width: size, height: size, ...style }}
             title={alt}
         >
             {src && !imgError ? (
                 <img
                     src={src}
                     alt={alt}
-                    onError={handleError}
-                    className={`${borderClass} w-100 h-100`}
-                    style={{ objectFit: "cover" }}
+                    onError={() => setImgError(true)}
+                    className={`w-full h-full object-cover border-2 border-main-600 ${radiusClass}`}
                 />
             ) : (
                 <div
-                    className={`${borderClass} bg-secondary d-flex align-items-center justify-content-center text-white fw-bold`}
+                    className={`flex items-center justify-center bg-main-500 text-main-100 border-2 border-main-600 font-semibold ${radiusClass}`}
                     style={{ width: "100%", height: "100%", fontSize: size / 2.5 }}
                 >
                     {displayInitials}
@@ -75,33 +78,47 @@ const Avatar: React.FC<AvatarProps> = ({
             )}
 
             {showEditButton ? (
-                <span
-                    className={`position-absolute bottom-0 end-0 rounded-circle border border-white d-flex align-items-center justify-content-center ${statusColor[status]}`}
-                    style={{
-                        width: cornerSize,
-                        height: cornerSize,
-                        cursor: "pointer",
-                        transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                    }}
+                <button
+                    type="button"
                     onClick={onEdit}
-                    onMouseEnter={e => {
-                        (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
-                        (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
-                    }}
-                    onMouseLeave={e => {
-                        (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-                        (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                    }}
-                >
-                    <i className="bi bi-pencil text-white"></i>
-                </span>
-            ) : status ? (
-                <span
-                    className={`position-absolute bottom-0 end-0 rounded-circle border border-white ${statusColor[status]}`}
+                    className={`
+                        absolute bottom-0 right-0
+                        flex items-center justify-center
+                        rounded-full border-2 border-white
+                        ${statusColor[status]}
+                        transition
+                        hover:scale-105
+                        hover:shadow-md
+                        focus:outline-none
+                    `}
                     style={{ width: cornerSize, height: cornerSize }}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-3 h-3 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M11 5h2m2 0h.01M17.586 3.586a2 2 0 112.828 2.828L7 19l-4 1 1-4L17.586 3.586z"
+                        />
+                    </svg>
+                </button>
+            ) : (
+                <span
+                    className={`
+                        absolute bottom-0 right-0
+                        rounded-full border-2 ${statusBorderColor}
+                        ${statusColor[status]}
+                    `}
+                    style={{ width: cornerSize, height: cornerSize }}
+                    title={status.charAt(0).toUpperCase() + status.slice(1)}
                 />
-            ) : null}
-
+            )}
         </div>
     );
 };
