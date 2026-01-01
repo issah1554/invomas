@@ -1,10 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
-import { Table, Form, Pagination, Card, Button, Dropdown } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import styles from "../../assets/css/CollapsibleTable.module.css";
 
 type Row = { [key: string]: any; id: number };
+
 
 type Props = {
   data: Row[];
@@ -23,7 +20,7 @@ const CollapsibleTable: React.FC<Props> = ({ data, rowsPerPage = 5 }) => {
 
   const columns = data.length > 0 ? Object.keys(data[0]).filter(k => k !== "id") : [];
 
-  // Calculate visible columns dynamically based on table width
+  // Calculate visible columns dynamically
   useEffect(() => {
     const handleResize = () => {
       if (!tableRef.current) return;
@@ -83,64 +80,60 @@ const CollapsibleTable: React.FC<Props> = ({ data, rowsPerPage = 5 }) => {
   };
 
   const rowsPerPageOptions = [5, 10, 25, 50, 100];
-
   const isColumnHidden = (index: number) => index >= visibleColumnsCount;
   const hasHiddenColumns = columns.some((_, index) => isColumnHidden(index));
 
   return (
-    <Card className={`mt-3 ${styles.collapsibleCard}`}>
-      <Card.Header className={`d-flex justify-content-between align-items-center ${styles.tableToolbar}`}>
-        <Form.Control
+    <div className="bg-main-200/80 backdrop-blur-md rounded-sm shadow-lg overflow-hidden mt-4">
+      {/* Toolbar */}
+      <div className="flex justify-between items-center p-4  text-white rounded-t-xl gap-2">
+        <input
           type="text"
           placeholder="Search..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="rounded-pill"
+          className="rounded-sm px-3 py-1 text-sm text-main-800 border-0 ring-main-300 ring focus:ring-2 focus:ring-main-400 focus:border-0 outline-none"
           style={{ maxWidth: "250px" }}
         />
-        <Dropdown>
-          <Dropdown.Toggle variant="outline-secondary btn-sm" className="rounded-pill">
-            Rows: {rowsPerPageOption}
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {rowsPerPageOptions.map(option => (
-              <Dropdown.Item
-                key={option}
-                onClick={() => {
-                  setRowsPerPageOption(option);
-                  setPage(1);
-                }}
-              >
-                {option}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-      </Card.Header>
 
-      <Card.Body className="p-0">
-        <Table ref={tableRef} responsive bordered={false} hover className={`mb-0 align-middle ${styles.modernTable}`}>
-          <thead className="table-light">
+        <div className="relative inline-block">
+          <select
+            value={rowsPerPageOption}
+            onChange={e => { setRowsPerPageOption(Number(e.target.value)); setPage(1); }}
+            className="bg-main-200 text-main-600 text-sm px-3 py-1 rounded-sm border-0 ring-main-300 ring focus:ring-2 focus:ring-main-400 focus:border-0 outline-none"
+          >
+            {rowsPerPageOptions.map(opt => (
+              <option key={opt} value={opt}>
+                Rows: {opt}
+              </option>
+            ))}
+          </select>          
+        </div>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table ref={tableRef} className="min-w-full divide-y divide-main-200">
+          <thead className="bg-primary-100">
             <tr>
-              <th style={{ width: "60px" }}>
+              <th className="px-4 py-2 w-14">
                 {hasHiddenColumns && (
-                  <div className="d-flex align-items-center gap-2">
-                    <h6 className="mb-0">#</h6>
-                    <Button variant="link" size="sm" className={`p-0 ${styles.toggleBtn} ${allExpanded ? styles.open : ""}`} onClick={toggleAllRows}>
+                  <div className="flex items-center gap-2">
+                    <span>#</span>
+                    <button onClick={toggleAllRows} className={`text-main-600 p-1 transform transition-transform ${allExpanded ? "rotate-90" : ""}`}>
                       <i className="bi bi-chevron-right"></i>
-                    </Button>
+                    </button>
                   </div>
                 )}
               </th>
-              {columns.map((col, index) => (
+              {columns.map((col, idx) => (
                 <th
                   key={col}
                   onClick={() => requestSort(col)}
-                  style={{ cursor: "pointer", display: isColumnHidden(index) ? "none" : "table-cell" }}
+                  className={`px-4 py-2 text-left text-primary-600 text-sm font-semibold cursor-pointer ${isColumnHidden(idx) ? "hidden" : ""}`}
                 >
                   {col}{" "}
-                  {sortConfig?.key === col &&
-                    (sortConfig.direction === "asc" ? <i className="bi bi-arrow-up" /> : <i className="bi bi-arrow-down" />)}
+                  {sortConfig?.key === col && (sortConfig.direction === "asc" ? <i className="bi bi-sort-up"></i> : <i className="bi bi-sort-down"></i>)}
                 </th>
               ))}
             </tr>
@@ -150,38 +143,35 @@ const CollapsibleTable: React.FC<Props> = ({ data, rowsPerPage = 5 }) => {
               const isExpanded = expandedRows.has(row.id);
               return (
                 <React.Fragment key={row.id}>
-                  <tr>
-                    <td>
-                      <div className="d-flex align-items-center gap-2">
-                        <h6 className="mb-0">{row.id}</h6>
+                  <tr className="hover:bg-main-300">
+                    <td className="px-4 py-2 align-top">
+                      <div className="flex items-center gap-2">
+                        <span>{row.id}</span>
                         {hasHiddenColumns && (
-                          <Button variant="link" size="sm" className={`p-0 ${styles.toggleBtn} ${isExpanded ? styles.open : ""}`} onClick={() => toggleRow(row.id)}>
+                          <button onClick={() => toggleRow(row.id)} className={`text-main-600 p-1 transform transition-transform ${isExpanded ? "rotate-90" : ""}`}>
                             <i className="bi bi-chevron-right"></i>
-                          </Button>
+                          </button>
                         )}
                       </div>
                     </td>
-                    {columns.map((col, index) => (
-                      <td key={col} style={{ display: isColumnHidden(index) ? "none" : "table-cell" }}>
+                    {columns.map((col, idx) => (
+                      <td key={col} className={`px-4 py-2 text-sm ${isColumnHidden(idx) ? "hidden" : ""}`}>
                         {row[col]}
                       </td>
                     ))}
                   </tr>
                   {isExpanded && (
-                    <tr className={styles.expandedRow}>
-                      <td colSpan={visibleColumnsCount + 1}>
-                        <div className={styles.expandedContent}>
-                          <h6 className="fw-semibold mb-3">Additional Information</h6>
-                          <div className="row">
-                            {columns.map((col, index) => {
-                              if (!isColumnHidden(index)) return null;
-                              return (
-                                <div key={col} className="col-md-6 mb-2">
-                                  <strong>{col}:</strong> {row[col]}
-                                </div>
-                              );
-                            })}
-                          </div>
+                    <tr className="bg-main-50">
+                      <td colSpan={visibleColumnsCount + 1} className="px-4 py-2">
+                        <div className="space-y-2">
+                          {columns.map((col, idx) => {
+                            if (!isColumnHidden(idx)) return null;
+                            return (
+                              <div key={col} className="text-sm">
+                                <span className="font-semibold">{col}:</span> {row[col]}
+                              </div>
+                            );
+                          })}
                         </div>
                       </td>
                     </tr>
@@ -190,26 +180,31 @@ const CollapsibleTable: React.FC<Props> = ({ data, rowsPerPage = 5 }) => {
               );
             })}
           </tbody>
-        </Table>
-      </Card.Body>
+        </table>
+      </div>
 
-      <Card.Footer className="d-flex justify-content-between align-items-center">
+      {/* Footer / Pagination */}
+      <div className="flex justify-between items-center p-4 border-t border-main-200 text-sm">
         <div>
           Showing {((page - 1) * rowsPerPageOption) + 1} to {Math.min(page * rowsPerPageOption, filteredData.length)} of {filteredData.length} entries
         </div>
-        <Pagination className={`mb-0 ${styles.modernPagination}`}>
-          <Pagination.First disabled={page === 1} onClick={() => setPage(1)} />
-          <Pagination.Prev disabled={page === 1} onClick={() => setPage(p => p - 1)} />
+        <div className="flex gap-1">
+          <button disabled={page === 1} onClick={() => setPage(1)} className="px-2 py-1 rounded hover:bg-main-100 disabled:opacity-50">First</button>
+          <button disabled={page === 1} onClick={() => setPage(p => p - 1)} className="px-2 py-1 rounded hover:bg-main-100 disabled:opacity-50">Prev</button>
           {Array.from({ length: totalPages }, (_, i) => (
-            <Pagination.Item key={i + 1} active={i + 1 === page} onClick={() => setPage(i + 1)}>
+            <button
+              key={i + 1}
+              className={`px-2 py-1 rounded ${i + 1 === page ? "bg-primary-600 text-white" : "hover:bg-main-100"}`}
+              onClick={() => setPage(i + 1)}
+            >
               {i + 1}
-            </Pagination.Item>
+            </button>
           ))}
-          <Pagination.Next disabled={page === totalPages} onClick={() => setPage(p => p + 1)} />
-          <Pagination.Last disabled={page === totalPages} onClick={() => setPage(totalPages)} />
-        </Pagination>
-      </Card.Footer>
-    </Card>
+          <button disabled={page === totalPages} onClick={() => setPage(p => p + 1)} className="px-2 py-1 rounded hover:bg-main-100 disabled:opacity-50">Next</button>
+          <button disabled={page === totalPages} onClick={() => setPage(totalPages)} className="px-2 py-1 rounded hover:bg-main-100 disabled:opacity-50">Last</button>
+        </div>
+      </div>
+    </div>
   );
 };
 

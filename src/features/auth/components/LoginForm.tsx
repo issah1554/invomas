@@ -96,6 +96,15 @@ export default function LoginForm({ onLogin, loading = false, error }: LoginForm
                     >
                         Create one
                     </Link>
+
+                </div>
+                <div className="mt-4 text-center text-sm text-gray-500">
+                    <Link
+                        to="/home"
+                        className="text-primary font-semibold hover:underline hover:text-accent"
+                    >
+                       Go to Home Page
+                    </Link>
                 </div>
             </div>
         </div>

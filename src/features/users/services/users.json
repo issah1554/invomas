@@ -1,0 +1,92 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john@doe.com",
+            "role": "admin",
+            "status": "active"
+        },
+        {
+            "id": 2,
+            "firstName": "Jane",
+            "lastName": "Doe",
+            "email": "jane@doe.com",
+            "role": "user",
+            "status": "active"
+        },
+        {
+            "id": 2,
+            "firstName": "Jane",
+            "lastName": "Doe",
+            "email": "jane@doe.com",
+            "role": "user",
+            "status": "active"
+        },
+        {
+            "id": 3,
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "bob@smith.com",
+            "role": "user",
+            "status": "active"
+        },
+        {
+            "id": 4,
+            "firstName": "Alice",
+            "lastName": "Johnson",
+            "email": "alice@johnson.com",
+            "role": "user",
+            "status": "active"
+        },
+        {
+            "id": 5,
+            "firstName": "Charlie",
+            "lastName": "Brown",
+            "email": "charlie@brown.com",
+            "role": "user",
+            "status": "active"
+        },
+        {
+            "id": 6,
+            "firstName": "David",
+            "lastName": "Davis",
+            "email": "david@davis.com",
+            "role": "user",
+            "status": "active"
+        },
+        {
+            "id": 7,
+            "firstName": "Eric",
+            "lastName": "Johnson",
+            "email": "eric@johnson.com",
+            "role": "user",
+            "status": "active"
+        },
+        {
+            "id": 8,
+            "firstName": "Frank",
+            "lastName": "Brown",
+            "email": "frank@brown.com",
+            "role": "user",
+            "status": "active"
+        },
+        {
+            "id": 9,
+            "firstName": "George",
+            "lastName": "Davis",
+            "email": "george@davis.com",
+            "role": "user",
+            "status": "active"
+        },
+        {
+            "id": 10,
+            "firstName": "Henry",
+            "lastName": "Johnson",
+            "email": "henry@johnson.com",
+            "role": "user",
+            "status": "active"
+        }
+    ]
+}
