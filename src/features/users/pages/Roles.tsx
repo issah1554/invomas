@@ -1,0 +1,12 @@
+import { AppLayout } from "../../../components/layout/AppLayout";
+
+export function Roles() {
+    return (
+        <AppLayout>
+            <div className="flex-1 p-6 text-main-700">
+                <h1 className="text-3xl font-bold mb-4">Roles</h1>
+                <p>Welcome to your roles page! Here you can manage your roles.</p>
+            </div>
+        </AppLayout>
+    );
+}

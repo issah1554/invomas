@@ -7,8 +7,11 @@ import ForgotPasswordPage from "./features/auth/pages/ForgotPassword";
 import ResetPasswordPage from "./features/auth/pages/ResetPassword";
 import StatusPage from "./pages/StatusPage";
 import { Dashboard } from "./features/home/pages/Dashboard";
-import { Accounts } from "./features/finance/Accounts";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { Users } from "./features/users/pages/Users";
+import { Roles } from "./features/users/pages/Roles";
+import { Permissions } from "./features/users/pages/Permissions";
+// import { Products } from "./features/products/pages/Products";
 
 function App() {
   return (
@@ -21,14 +24,10 @@ function App() {
           <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
           <Route path="/home" element={<Dashboard />} />
-          <Route path="/accounts" element={<Accounts />} />
-          <Route path="/projects" element={<Accounts />} />
-          <Route path="/settings" element={<Accounts />} />
-          <Route path="/calendar" element={<Accounts />} />
-          <Route path="/tasks" element={<Accounts />} />
-          <Route path="/chats" element={<Accounts />} />
-          <Route path="/obligations" element={<Accounts  />} />
-
+          <Route path="/users" element={<Users />} />
+          <Route path="/roles" element={<Roles />} />
+          <Route path="/permissions" element={<Permissions />} />
+          {/* <Route path="/products" element={<Products />} /> */}
           <Route path="*" element={<StatusPage status="not-found" />} />
         </Routes>
       </ThemeProvider>

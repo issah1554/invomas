@@ -26,20 +26,19 @@ export function Sidebar() {
                             { label: "Dashboard", to: "/home", icon: <i className="bi bi-house" /> },
                             { label: "Calendar", to: "/calendar", icon: <i className="bi bi-calendar" />, badge: 3 },
                             {
-                                label: "ToDo",
-                                icon: <i className="bi bi-list-check" />,
+                                label: "User Management",
+                                icon: <i className="bi bi-people" />,
                                 subItems: [
-                                    { label: "All Projects", to: "/projects" },
-                                    { label: "Active", to: "/tasks" },
-                                    { label: "Archived", to: "/chats" },
+                                    { label: "Users", to: "/users" },
+                                    { label: "Roles", to: "/roles" },
+                                    { label: "Permissions", to: "/permissions" },
                                 ],
                             },
                             {
-                                label: "Finance",
-                                icon: <i className="bi bi-calculator" />,
+                                label: "Products",
+                                icon: <i className="bi bi-box" />,
                                 subItems: [
-                                    { label: "Accounts", to: "/accounts", icon: <i className="bi bi-cash" /> },
-                                    { label: "Obligations", to: "/obligations", icon: <i className="bi bi-credit-card" /> },
+                                    { label: "Products", to: "/products", icon: <i className="bi bi-box" /> },
                                 ],
                             },
                         ]}
