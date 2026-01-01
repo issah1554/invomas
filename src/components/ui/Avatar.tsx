@@ -66,7 +66,7 @@ const Avatar: React.FC<AvatarProps> = ({
                     src={src}
                     alt={alt}
                     onError={() => setImgError(true)}
-                    className={`w-full h-full object-cover border-2 border-main-600 ${radiusClass}`}
+                    className={`w-full h-full object-cover border-2 border-main-300 ${radiusClass}`}
                 />
             ) : (
                 <div

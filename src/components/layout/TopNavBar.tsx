@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { Button } from "../ui/Buttons";
 import useAuth from "../../features/auth/hooks/useAuth";
+import { useTheme } from "../../contexts/ThemeContext";
 import Avatar from "../ui/Avatar";
 
 interface TopNavProps {
@@ -16,6 +16,8 @@ export default function TopNav({
     isCollapsed,
     isMobile,
 }: TopNavProps) {
+
+    const { toggleTheme } = useTheme();
     const { user } = useAuth();
 
     const [open, setOpen] = useState<"notif" | "msg" | "profile" | null>(null);
@@ -35,7 +37,7 @@ export default function TopNav({
     return (
         <nav
             ref={navRef}
-            className={`h-16 bg-[var(--surface)] border-b border-main-200 ${isCollapsed && !isMobile ? "ml-20" : "ml-0"
+            className={`h-16 border-none border-main-200 bg-main-100 ${isCollapsed && !isMobile ? "ml-20" : "ml-0"
                 }`}
         >
             <div className="h-full px-4 flex items-center justify-between">
@@ -50,6 +52,15 @@ export default function TopNav({
 
                 {/* Right section */}
                 <div className="flex items-center gap-4">
+                    {/* Theme toggle */}
+                    <button
+                        onClick={toggleTheme}
+                        className="text-main-500 hover:text-main-700"
+                        aria-label="Toggle theme"
+                    >
+                        <i className="bi bi-circle-half text-xl" />
+                    </button>
+
                     {/* Notifications */}
                     <div className="relative">
                         <button
@@ -63,22 +74,22 @@ export default function TopNav({
                         </button>
 
                         {open === "notif" && (
-                            <div className="absolute right-0 mt-2 w-64 bg-white border rounded-md shadow-lg text-sm z-50">
+                            <div className="absolute right-0 mt-2 w-64 bg-main-200 border border-main-300 rounded-sm shadow-none shadow-main-300 text-main-700 text-sm z-50">
                                 <div className="px-4 py-2 font-semibold">Notifications</div>
-                                <div className="border-t">
-                                    <div className="px-4 py-2 hover:bg-main-50">
+                                <div className="border-t border-main-300">
+                                    <div className="px-4 py-2 hover:bg-main-300">
                                         New user registered
                                     </div>
-                                    <div className="px-4 py-2 hover:bg-main-50">
+                                    <div className="px-4 py-2 hover:bg-main-300">
                                         Backup completed
                                     </div>
-                                    <div className="px-4 py-2 hover:bg-main-50">
+                                    <div className="px-4 py-2 hover:bg-main-300">
                                         Payment received
                                     </div>
                                 </div>
                                 <Link
                                     to="/notifications"
-                                    className="block text-center px-4 py-2 border-t text-primary hover:bg-main-50"
+                                    className="block text-center px-4 py-2 border-t border-main-300 hover:border-primary-300 text-primary-700 hover:bg-primary-200 rounded-b-sm"
                                 >
                                     View all
                                 </Link>
@@ -86,58 +97,23 @@ export default function TopNav({
                         )}
                     </div>
 
-                    {/* Messages */}
-                    {/* <div className="relative">
-                        <button
-                            onClick={() => setOpen(open === "msg" ? null : "msg")}
-                            className="relative text-main-500 hover:text-main-700"
-                        >
-                            <i className="bi bi-envelope text-xl" />
-                            <span className="absolute -top-1 -right-2 text-[10px] px-1.5 rounded-full bg-primary text-white">
-                                5
-                            </span>
-                        </button>
 
-                        {open === "msg" && (
-                            <div className="absolute right-0 mt-2 w-64 bg-white border rounded-md shadow-lg text-sm z-50">
-                                <div className="px-4 py-2 font-semibold">Messages</div>
-                                <div className="border-t">
-                                    <div className="px-4 py-2 hover:bg-main-50">
-                                        New message from Alice
-                                    </div>
-                                    <div className="px-4 py-2 hover:bg-main-50">
-                                        Project update from Bob
-                                    </div>
-                                </div>
-                                <Link
-                                    to="/chat"
-                                    className="block text-center px-4 py-2 border-t text-primary hover:bg-main-50"
-                                >
-                                    View all
-                                </Link>
-                            </div>
-                        )}
-                    </div> */}
 
                     {/* Profile */}
-                    {/* <div className="relative">
-                        <Button
-                            variant="text"
+                    <div className="relative">
+                        <button
                             onClick={() => setOpen(open === "profile" ? null : "profile")}
-                            className="flex items-center gap-2"
+                            className="focus:outline-none"
                         >
                             <Avatar
-                                alt="Profile"
-                                src="https://res.cloudinary.com/dy6frwbfh/image/upload/cyj3kqoatd0i0437py8f.jpg"
+                                alt="Issah Xevier"
+                                size={32}
                             />
-                            <span className="hidden lg:inline font-semibold">
-                                @{user?.username || user?.email.split("@")[0]}
-                            </span>
-                        </Button>
+                        </button>
 
                         {open === "profile" && (
-                            <div className="absolute right-0 mt-2 w-72 bg-white border rounded-md shadow-lg text-sm z-50">
-                                <div className="px-4 py-4 text-center border-b">
+                            <div className="absolute right-0 mt-2 w-72 bg-main-200 border border-main-300 rounded-md shadow-lg text-sm z-50">
+                                <div className="px-4 py-4 text-center border-b border-main-300">
                                     <img
                                         src={
                                             user?.avatar ||
@@ -158,27 +134,27 @@ export default function TopNav({
 
                                 <Link
                                     to="/settings/profile"
-                                    className="flex items-center gap-2 px-4 py-2 hover:bg-main-50"
+                                    className="flex items-center gap-2 px-4 py-2 hover:bg-main-300"
                                 >
                                     <i className="bi bi-person" /> My Profile
                                 </Link>
 
                                 <Link
                                     to="/settings"
-                                    className="flex items-center gap-2 px-4 py-2 hover:bg-main-50"
+                                    className="flex items-center gap-2 px-4 py-2 hover:bg-main-300"
                                 >
                                     <i className="bi bi-gear" /> Settings
                                 </Link>
 
                                 <Link
                                     to="/auth/logout"
-                                    className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 border-t"
+                                    className="flex items-center gap-2 px-4 py-2 text-danger-600 border-t border-main-300 hover:bg-danger-100 hover:border-danger-300 rounded-b-sm"
                                 >
                                     <i className="bi bi-box-arrow-right" /> Logout
                                 </Link>
                             </div>
                         )}
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </nav>

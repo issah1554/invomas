@@ -1,90 +1,162 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 
-export interface DropdownItem {
+/* =======================
+   Types
+======================= */
+
+export type DropdownItem = {
   label: string;
-  icon?: ReactNode;        // user-provided (FA, BI, SVG, anything)
+  icon?: ReactNode;
   onClick?: () => void;
-  href?: string;
-  danger?: boolean;
-}
+  subItems?: DropdownItem[];
+};
 
-interface DropdownProps {
-  trigger: ReactNode;
-  items: DropdownItem[][];
-  align?: "left" | "right";
-}
+export type DropdownMenuProps = {
+  toggler: ReactNode;
+  items: DropdownItem[];
+  openMode: "hover" | "click";
+};
 
-export function Dropdown({
-  trigger,
-  items,
-  align = "right",
-}: DropdownProps) {
+/* =======================
+   Public Component
+======================= */
+
+export function DropdownMenu({ toggler, items, openMode }: DropdownMenuProps) {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  // close on outside click
+  // Close on outside click
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const hoverProps =
+    openMode === "hover"
+      ? {
+        onMouseEnter: () => setOpen(true),
+        onMouseLeave: () => setOpen(false),
+      }
+      : {};
+
   return (
-    <div ref={ref} className="relative inline-block">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-sm font-medium text-white hover:bg-white/20"
+    <div className="relative inline-block text-left" {...hoverProps} ref={menuRef}>
+      {/* Toggler */}
+      <div
+        className="cursor-pointer"
+        onClick={openMode === "click" ? () => setOpen((v) => !v) : undefined}
       >
-        {trigger}
-      </button>
+        {toggler}
+      </div>
 
+      {/* Menu */}
       {open && (
-        <div
-          className={`absolute z-50 mt-2 w-56 rounded-md bg-gray-800 divide-y divide-white/10 shadow-lg ${align === "right" ? "right-0" : "left-0"
-            }`}
-        >
-          {items.map((group, gi) => (
-            <div key={gi} className="py-1">
-              {group.map((item, ii) => {
-                const base =
-                  "flex items-center gap-3 px-4 py-2 text-sm w-full text-left hover:bg-white/5";
-                const color = item.danger
-                  ? "text-red-400"
-                  : "text-gray-300";
-
-                return item.href ? (
-                  <a
-                    key={ii}
-                    href={item.href}
-                    className={`${base} ${color}`}
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </a>
-                ) : (
-                  <button
-                    key={ii}
-                    onClick={() => {
-                      item.onClick?.();
-                      setOpen(false);
-                    }}
-                    className={`${base} ${color}`}
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-          ))}
+        <div className="absolute left-0 mt-0.5 w-56 rounded-sm border border-main-300 bg-main-200 shadow-lg z-20">
+          <DropdownList items={items} openMode={openMode} />
         </div>
       )}
     </div>
+  );
+}
+
+/* =======================
+   Internal Components
+======================= */
+
+type DropdownListProps = {
+  items: DropdownItem[];
+  openMode: "hover" | "click";
+};
+
+function DropdownList({ items, openMode }: DropdownListProps) {
+  return (
+    <ul className="py-1">
+      {items.map((item, index) => (
+        <DropdownItemRow key={index} item={item} openMode={openMode} />
+      ))}
+    </ul>
+  );
+}
+
+type DropdownItemRowProps = {
+  item: DropdownItem;
+  openMode: "hover" | "click";
+};
+
+function DropdownItemRow({ item, openMode }: DropdownItemRowProps) {
+  const hasSubItems = !!item.subItems?.length;
+  const [subOpen, setSubOpen] = useState(false);
+  const itemRef = useRef<HTMLLIElement>(null);
+
+  // Click outside to close submenu (click mode only)
+  useEffect(() => {
+    if (openMode !== "click") return;
+
+    function handleClickOutside(event: MouseEvent) {
+      if (itemRef.current && !itemRef.current.contains(event.target as Node)) {
+        setSubOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [openMode]);
+
+  const hoverProps =
+    openMode === "hover" && hasSubItems
+      ? {
+        onMouseEnter: () => setSubOpen(true),
+        onMouseLeave: () => setSubOpen(false),
+      }
+      : {};
+
+  const clickProps =
+    openMode === "click" && hasSubItems
+      ? {
+        onClick: (e: React.MouseEvent) => {
+          e.stopPropagation();
+          setSubOpen((v) => !v);
+        },
+      }
+      : {};
+
+  return (
+    <li
+      className={`relative ${openMode === "hover" && hasSubItems ? "group" : ""}`}
+      ref={itemRef}
+      {...hoverProps}
+    >
+      {/* Item */}
+      <div
+        {...clickProps}
+        onClick={item.onClick}
+        className="flex items-center justify-between gap-3 px-4 py-2 text-sm hover:bg-main-300 cursor-pointer"
+      >
+        <div className="flex items-center gap-2">
+          {item.icon && <span className="text-main-600">{item.icon}</span>}
+          <span>{item.label}</span>
+        </div>
+        {hasSubItems && (
+          <span className="text-xs text-main-600">
+            <i className="bi bi-chevron-right" />
+          </span>
+        )}
+      </div>
+
+      {/* Submenu */}
+      {hasSubItems && (
+        <div
+          className={`absolute top-0 left-full ml-0.5 min-w-56 rounded-sm border border-main-300 bg-main-200 shadow-lg z-20
+        ${subOpen ? "block" : "hidden"} transition-all duration-150`}
+        >
+          <DropdownList items={item.subItems!} openMode={openMode} />
+        </div>
+      )}
+    </li>
   );
 }

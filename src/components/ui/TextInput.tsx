@@ -14,6 +14,7 @@ interface TextInputProps
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     disabled?: boolean;
     id?: string;
+    name?: string;
     pattern?: string;
     required?: boolean;
 }
@@ -31,6 +32,7 @@ export function TextInput({
     onChange,
     disabled = false,
     id,
+    name,
     pattern,
     required,
     ...rest
@@ -165,6 +167,7 @@ export function TextInput({
                 <input
                     {...rest}
                     id={inputId}
+                    name={name}
                     type={type}
                     pattern={pattern}
                     required={required}
