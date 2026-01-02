@@ -1,4 +1,3 @@
-import { AppLayout } from "../../../components/layout/AppLayout";
 import { DropdownMenu, type DropdownItem } from "../../../components/ui/Dropdown";
 import { Modal } from "../../../components/ui/Modal2";
 import { useState } from "react";
@@ -30,7 +29,6 @@ export function Dashboard() {
     const [open, setOpen] = useState<boolean>(false);
 
     return (
-        <AppLayout>
             <div className="flex-1 p-6  text-main-700">
                 <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
                 <p>Welcome to your dashboard! Here you can find an overview of your activities.</p>
@@ -76,6 +74,5 @@ export function Dashboard() {
                     </div>
                 </Modal>
             </div>
-        </AppLayout>
     );
 }

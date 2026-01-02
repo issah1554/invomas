@@ -1,4 +1,3 @@
-import { AppLayout } from "../../../components/layout/AppLayout";
 import CollapsibleTable from "../../../components/ui/Table";
 import { Button } from "../../../components/ui/Buttons";
 import usersData from "../services/users.json";
@@ -7,7 +6,6 @@ export function Users() {
     const users = usersData.users;
 
     return (
-        <AppLayout>
             <div className="flex-1 text-main-700">
                 <h3 className="text font-bold mb-4">Users Management</h3>
 
@@ -60,6 +58,5 @@ export function Users() {
 
                 <CollapsibleTable data={users} />
             </div>
-        </AppLayout>
     );
 }
