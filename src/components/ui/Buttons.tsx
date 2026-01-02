@@ -93,7 +93,7 @@ export function Button({ color, size, variant = "solid", rounded = "sm", childre
     const classes = `${baseClasses} ${roundedClasses[rounded]} ${sizes[size]} ${variantClasses} ${className}`;
 
     return (
-        <button className={classes}>
+        <button className={`${classes} cursor-pointer`}>
             {children}
         </button>
     );

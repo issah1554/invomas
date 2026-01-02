@@ -16,10 +16,10 @@ function SidebarHeader() {
 
     return (
         <div className={`py-4 flex items-center text-xl font-bold text-primary transition-all duration-300 ${isCollapsed ? 'justify-center px-1' : 'gap-2 px-3'}`}>
-            <i className="bi bi-rocket-takeoff text-primary" />
+            <i className="bi bi-bag text-primary" />
             {!isCollapsed && (
                 <>
-                    <span className="whitespace-nowrap overflow-hidden flex-1">MyApp</span>
+                    <span className="whitespace-nowrap overflow-hidden flex-1">Stationery</span>
                     <button
                         onClick={togglePin}
                         className={`ml-auto rounded p-1 transition-colors

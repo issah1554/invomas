@@ -62,7 +62,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 />
 
                 {/* Scrollable main content */}
-                <main className="flex-1 overflow-y-auto p-2 sm:p-4 md:p-6 min-w-0">
+                <main className="flex-1 overflow-y-auto px-2 sm:p-4 md:px-6 min-w-0">
                     {children}
                 </main>
 

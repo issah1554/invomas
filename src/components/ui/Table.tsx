@@ -84,7 +84,7 @@ const CollapsibleTable: React.FC<Props> = ({ data, rowsPerPage = 5 }) => {
   const hasHiddenColumns = columns.some((_, index) => isColumnHidden(index));
 
   return (
-    <div className="bg-main-200/80 backdrop-blur-md rounded-sm shadow-lg overflow-hidden mt-4">
+    <div className="bg-main-200/80 backdrop-blur-md rounded-sm shadow-sm border border-main-300 overflow-hidden mt-4">
       {/* Toolbar */}
       <div className="flex justify-between items-center p-4  text-white rounded-t-xl gap-2">
         <input
