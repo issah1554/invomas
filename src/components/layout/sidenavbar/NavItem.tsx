@@ -8,6 +8,7 @@ export type NavItemProps = {
     subItems?: NavItemProps[];
     badge?: number;
     depth?: number;
+    className?: string;
 };
 
 export function NavItem({
@@ -17,6 +18,7 @@ export function NavItem({
     subItems,
     badge,
     depth = 0,
+    className,
 }: NavItemProps) {
     const isSubItem = depth > 0;
     const location = useLocation();
@@ -35,7 +37,7 @@ export function NavItem({
 
     const content = (
         <div
-            className={`relative flex items-center justify-between px-1 py-2  text-sm cursor-pointer text-main-600 hover:text-primary
+            className={`relative flex items-center justify-between px-1 py-2  text-sm cursor-pointer text-main-600 hover:text-primary ${className}
                 ${isActive || isChildActive ? "text-primary bg-main-300" : ""} ${isOpen && hasSubItems ? "bg-main-300" : ""}
                 hover:bg-main-300
             `}

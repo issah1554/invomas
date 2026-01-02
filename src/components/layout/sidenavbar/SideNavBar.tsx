@@ -16,6 +16,9 @@ export function Sidebar() {
                 <div className="px-3 py-4 flex items-center gap-2 text-xl font-bold text-primary">
                     <i className="bi bi-rocket-takeoff text-primary" />
                     MyApp
+                    <button className="ml-auto text-main hover:bg-main-400 rounded-sm hover:text-primary-700" title="Collapse">
+                        <i className="bi bi-chevron-left hover:scale-125" />
+                    </button>
                 </div>
             </SideNavHeader>
 
@@ -49,11 +52,13 @@ export function Sidebar() {
             <SideNavFooter sticky={true}>
                 <div className="px-3 py-3 space-y-1">
                     <NavItem
+                        className="rounded-md"
                         label="Help & Support"
                         to="/help"
                         icon={<i className="bi bi-question-circle" />}
                     />
                     <NavItem
+                        className="rounded-md"
                         label="Logout"
                         icon={<i className="bi bi-box-arrow-right" />}
                     />
