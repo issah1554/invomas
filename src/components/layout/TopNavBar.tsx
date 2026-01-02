@@ -133,30 +133,13 @@ export default function TopNav({
                         {open === "profile" && (
                             <div className="absolute right-0 mt-2 w-40 bg-main-200 border border-main-300 rounded-md shadow-lg text-sm z-50">
                                 <div className="px-4 py-4 text-center border-b border-main-300">
-                                    <img
-                                        src={
-                                            user?.avatar ||
-                                            "https://res.cloudinary.com/dy6frwbfh/image/upload/cyj3kqoatd0i0437py8f.jpg"
-                                        }
-                                        className="w-20 h-20 rounded-full mx-auto mb-3 object-cover"
+                                    <Avatar
+                                        alt={user?.name || "User"}
+                                        size={48}
                                     />
-                                    <h5 className="font-semibold">
-                                        {user?.first_name} {user?.last_name}
-                                    </h5>
-                                    <p className="text-main-500 text-xs">{user?.email}</p>
-                                    {user?.roles?.length > 0 && (
-                                        <p className="text-main-500 text-xs mt-1">
-                                            Roles: {user.roles.join(", ")}
-                                        </p>
-                                    )}
+                                    <div className="mt-2 font-semibold">{user?.name || "User"}</div>
+                                    <div className="text-xs text-main-500">{user?.email || "user@example.com"}</div>                                    
                                 </div>
-
-                                <Link
-                                    to="/settings/profile"
-                                    className="flex items-center gap-2 px-4 py-2 hover:bg-main-300"
-                                >
-                                    <i className="bi bi-person" /> My Profile
-                                </Link>
 
                                 <Link
                                     to="/settings"
