@@ -64,7 +64,7 @@ export default function TopNav({
                                 icon?.classList.replace("bi-fullscreen-exit", "bi-fullscreen");
                             }
                         }}
-                        className="text-main-500 hover:text-main-700"
+                        className="text-main-500 hover:text-primary-700 cursor-pointer"
                         aria-label="Toggle fullscreen"
                     >
                         <i className="bi bi-fullscreen text-xl" />
@@ -74,7 +74,7 @@ export default function TopNav({
                     {/* Theme toggle */}
                     <button
                         onClick={toggleTheme}
-                        className="text-main-500 hover:text-main-700"
+                        className="text-main-500 hover:text-main-700 cursor-pointer"
                         aria-label="Toggle theme"
                     >
                         <i className="bi bi-circle-half text-xl" />
@@ -84,7 +84,7 @@ export default function TopNav({
                     <div className="relative">
                         <button
                             onClick={() => setOpen(open === "notif" ? null : "notif")}
-                            className="relative text-main-500 hover:text-main-700"
+                            className="relative text-main-500 hover:text-main-700 cursor-pointer"
                         >
                             <i className="bi bi-bell text-xl" />
                             <span className="absolute -top-1 -right-2 text-[10px] px-1.5 rounded-full bg-red-600 text-white">
@@ -122,7 +122,7 @@ export default function TopNav({
                     <div className="relative">
                         <button
                             onClick={() => setOpen(open === "profile" ? null : "profile")}
-                            className="focus:outline-none"
+                            className="focus:outline-none cursor-pointer "
                         >
                             <Avatar
                                 alt="Issah Xevier"

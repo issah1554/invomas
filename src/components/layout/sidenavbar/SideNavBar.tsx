@@ -22,14 +22,14 @@ function SidebarHeader() {
                     <span className="whitespace-nowrap overflow-hidden flex-1">Stationery</span>
                     <button
                         onClick={togglePin}
-                        className={`ml-auto rounded p-1 transition-colors
+                        className={`ml-auto rounded p-1 transition-colors cursor-pointer
                             ${isPinned
                                 ? 'text-primary hover:bg-primary/10'
                                 : 'text-main-500 hover:text-main-700 hover:bg-main-300'
                             }`}
                         title={isPinned ? "Unpin sidebar" : "Pin sidebar"}
                     >
-                        <i className={`bi ${isPinned ? 'bi-pin-fill' : 'bi-pin-angle'} text-sm`} />
+                        <i className={`bi ${isPinned ? 'bi-pin-fill animation-bounce-in' : 'bi-pin-angle animation-slide-left'} text-sm`} />
                     </button>
                 </>
             )}
