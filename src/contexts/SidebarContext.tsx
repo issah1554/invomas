@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+
+const STORAGE_KEY = "sidebar-state";
+
+type SidebarState = {
+    isCollapsed: boolean;
+    isPinned: boolean;
+};
 
 type SidebarContextType = {
     isCollapsed: boolean;
@@ -11,18 +18,45 @@ type SidebarContextType = {
 
 const SidebarContext = createContext<SidebarContextType | null>(null);
 
+// Helper to get initial state from localStorage
+function getInitialState(): SidebarState {
+    if (typeof window === "undefined") {
+        return { isCollapsed: false, isPinned: true };
+    }
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            return JSON.parse(stored);
+        }
+    } catch (e) {
+        console.error("Failed to parse sidebar state from localStorage", e);
+    }
+    // Default: expanded and pinned
+    return { isCollapsed: false, isPinned: true };
+}
+
 export function SidebarProvider({ children }: { children: ReactNode }) {
-    // Expanded by default
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    // Pinned by default (sidebar stays expanded)
-    const [isPinned, setIsPinned] = useState(true);
+    const initialState = getInitialState();
+
+    const [isCollapsed, setIsCollapsed] = useState(initialState.isCollapsed);
+    const [isPinned, setIsPinned] = useState(initialState.isPinned);
+
+    // Persist state to localStorage whenever it changes
+    useEffect(() => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ isCollapsed, isPinned }));
+        } catch (e) {
+            console.error("Failed to save sidebar state to localStorage", e);
+        }
+    }, [isCollapsed, isPinned]);
 
     const togglePin = () => {
         setIsPinned(prev => {
-            if (!prev) {
+            const newPinned = !prev;
+            if (newPinned) {
                 setIsCollapsed(false); // Expand when pinning
             }
-            return !prev;
+            return newPinned;
         });
     };
 
@@ -60,7 +94,7 @@ export function useSidebarPin() {
     const ctx = useContext(SidebarContext);
     return {
         isPinned: ctx?.isPinned ?? false,
-        togglePin: ctx?.togglePin ?? (() => {}),
+        togglePin: ctx?.togglePin ?? (() => { }),
     };
 }
 

@@ -70,7 +70,7 @@ export function Sidebar() {
                     <NavItems
                         items={[
                             { label: "Dashboard", to: "/home", icon: <i className="bi bi-house" /> },
-                            { label: "Calendar", to: "/calendar", icon: <i className="bi bi-calendar" />, badge: 3 },
+                            { label: "Calendar", to: "/calendar", icon: <i className="bi bi-calendar" /> },
                             {
                                 label: "User Management",
                                 icon: <i className="bi bi-people" />,
