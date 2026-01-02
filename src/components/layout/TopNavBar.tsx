@@ -7,13 +7,11 @@ import Avatar from "../ui/Avatar";
 
 interface TopNavProps {
     toggleSidebar: () => void;
-    isCollapsed: boolean;
     isMobile: boolean;
 }
 
 export default function TopNav({
     toggleSidebar,
-    isCollapsed,
     isMobile,
 }: TopNavProps) {
 
@@ -37,21 +35,23 @@ export default function TopNav({
     return (
         <nav
             ref={navRef}
-            className={`h-16 border-none border-main-200 bg-main-100 ${isCollapsed && !isMobile ? "ml-20" : "ml-0"
-                }`}
+            className="h-14 sm:h-16 border-none border-main-200 bg-main-100 sticky top-0 z-30"
         >
-            <div className="h-full px-4 flex items-center justify-between">
-                {/* Sidebar toggle */}
+            <div className="h-full px-2 sm:px-4 flex items-center justify-between">
+                {/* Sidebar toggle - visible on mobile */}
                 <button
                     onClick={toggleSidebar}
                     aria-label="Toggle sidebar"
-                    className="text-main-500 hover:text-main-700"
+                    className={`text-main-500 hover:text-main-700 ${isMobile ? 'block' : 'hidden'}`}
                 >
                     <i className="bi bi-list text-2xl" />
                 </button>
 
+                {/* Spacer for desktop when sidebar toggle is hidden */}
+                {!isMobile && <div />}
+
                 {/* Right section */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-4">
                     {/* Theme toggle */}
                     <button
                         onClick={toggleTheme}
