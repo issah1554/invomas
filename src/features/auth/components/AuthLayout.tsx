@@ -34,7 +34,7 @@ export default function AuthContainer({
                             className="absolute top-4 left-4 flex items-center gap-2 text-primary font-bold text-xl"
                         >
                             <img
-                                src="/invomax.svg"
+                                src="/bag.svg"
                                 alt={`Logo`}
                                 className="w-11 h-11 object-contain"
                             />

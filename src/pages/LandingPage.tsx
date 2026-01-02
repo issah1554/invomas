@@ -15,7 +15,7 @@ export default function LandingPage() {
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-main-300 flex items-center justify-center">
                             <img
-                                src="/invomax.svg"
+                                src="/bag.svg"
                                 alt="Invomax logo"
                                 className="w-6 h-6 object-contain"
                                 onClick={toggleTheme}

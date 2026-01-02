@@ -50,7 +50,7 @@ export default function StatusPage({ status }: StatusPageProps) {
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-main-800 flex items-center justify-center">
                         <img
-                            src="/invomax.svg"
+                            src="/bag.svg"
                             alt="Invomax logo"
                             className="w-6 h-6 object-contain"
                         />

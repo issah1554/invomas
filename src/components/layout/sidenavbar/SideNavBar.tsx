@@ -70,7 +70,6 @@ export function Sidebar() {
                     <NavItems
                         items={[
                             { label: "Dashboard", to: "/home", icon: <i className="bi bi-house" /> },
-                            { label: "Calendar", to: "/calendar", icon: <i className="bi bi-calendar" /> },
                             {
                                 label: "IAM",
                                 icon: <i className="bi bi-people" />,
@@ -81,12 +80,19 @@ export function Sidebar() {
                                 ],
                             },
                             {
-                                label: "Products",
+                                label: "Products and Services",
                                 icon: <i className="bi bi-box" />,
                                 subItems: [
                                     { label: "Products", to: "/products", icon: <i className="bi bi-box" /> },
+                                    { label: "Categories", to: "/products/categories", icon: <i className="bi bi-tags" /> },
+                                    { label: "Services", to: "/services", icon: <i className="bi bi-gear" /> },
                                 ],
                             },
+                            { label: "Sales", to: "/sales", icon: <i className="bi bi-cart" /> },
+                            { label: "Expenses", to: "/expenses", icon: <i className="bi bi-cash-stack" /> },
+                            { label: "Purchases", to: "/purchases", icon: <i className="bi bi-bag-plus" /> },
+                            { label: "Reports", to: "/reports", icon: <i className="bi bi-bar-chart" /> },
+                            { label: "Settings", to: "/settings", icon: <i className="bi bi-gear-wide" /> },
                         ]}
                     />
                 </div>
