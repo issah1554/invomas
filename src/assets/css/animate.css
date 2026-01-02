@@ -135,3 +135,19 @@
         transform: scale(1);
     }
 }
+
+.animation-zoom-out {
+    animation: scaleOut 0.4s ease forwards;
+}
+
+@keyframes scaleOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
