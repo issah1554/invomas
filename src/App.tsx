@@ -8,9 +8,9 @@ import ResetPasswordPage from "./features/auth/pages/ResetPassword";
 import StatusPage from "./pages/StatusPage";
 import { Dashboard } from "./features/home/pages/Dashboard";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { Users } from "./features/users/pages/Users";
-import { Roles } from "./features/users/pages/Roles";
-import { Permissions } from "./features/users/pages/Permissions";
+import { Users } from "./features/iam/pages/Users";
+import { Roles } from "./features/iam/pages/Roles";
+import { Permissions } from "./features/iam/pages/Permissions";
 // import { Products } from "./features/products/pages/Products";
 
 function App() {

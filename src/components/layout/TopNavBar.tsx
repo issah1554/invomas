@@ -52,6 +52,25 @@ export default function TopNav({
 
                 {/* Right section */}
                 <div className="flex items-center gap-2 sm:gap-4">
+                    <button
+                        onClick={(e) => {
+                            const icon = e.currentTarget.querySelector("i");
+
+                            if (!document.fullscreenElement) {
+                                document.documentElement.requestFullscreen();
+                                icon?.classList.replace("bi-fullscreen", "bi-fullscreen-exit");
+                            } else {
+                                document.exitFullscreen();
+                                icon?.classList.replace("bi-fullscreen-exit", "bi-fullscreen");
+                            }
+                        }}
+                        className="text-main-500 hover:text-main-700"
+                        aria-label="Toggle fullscreen"
+                    >
+                        <i className="bi bi-fullscreen text-xl" />
+                    </button>
+
+
                     {/* Theme toggle */}
                     <button
                         onClick={toggleTheme}

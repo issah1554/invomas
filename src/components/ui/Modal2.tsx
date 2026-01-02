@@ -1,35 +1,78 @@
 import { useEffect, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
+/* =======================
+   Types
+======================= */
+
+export type ModalPosition =
+  | "center"
+  | "top"
+  | "bottom"
+  | "left"
+  | "right"
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right";
+
 export type ModalProps = {
   open: boolean;
   onClose: () => void;
-  title?: ReactNode;
   children: ReactNode;
-  footer?: ReactNode;
-  size?: "sm" | "md" | "lg" | "xl";
+
+  size?: "sm" | "md" | "lg" | "xl" | "full";
+  position?: ModalPosition;
+
+  blur?: boolean;
   closeOnBackdrop?: boolean;
   closeOnEsc?: boolean;
+
+  className?: string; // modal panel
+  backdropClassName?: string;
 };
+
+/* =======================
+   Config
+======================= */
 
 const sizeClasses: Record<NonNullable<ModalProps["size"]>, string> = {
   sm: "max-w-sm",
   md: "max-w-md",
   lg: "max-w-lg",
   xl: "max-w-xl",
+  full: "w-full h-full max-w-none",
 };
 
-export function Modal2({
+const positionClasses: Record<ModalPosition, string> = {
+  center: "items-center justify-center",
+  top: "items-start justify-center",
+  bottom: "items-end justify-center",
+  left: "items-center justify-start",
+  right: "items-center justify-end",
+  "top-left": "items-start justify-start",
+  "top-right": "items-start justify-end",
+  "bottom-left": "items-end justify-start",
+  "bottom-right": "items-end justify-end",
+};
+
+/* =======================
+   Component
+======================= */
+
+export function Modal({
   open,
   onClose,
-  title,
   children,
-  footer,
   size = "md",
+  position = "center",
+  blur = true,
   closeOnBackdrop = true,
   closeOnEsc = true,
+  className = "",
+  backdropClassName = "",
 }: ModalProps) {
-  // ESC key handling
+  /* ESC handling */
   useEffect(() => {
     if (!open || !closeOnEsc) return;
 
@@ -41,53 +84,36 @@ export function Modal2({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open, closeOnEsc, onClose]);
 
-  // Prevent body scroll
+  /* Scroll lock */
   useEffect(() => {
     if (!open) return;
+    const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = prev;
     };
   }, [open]);
 
   if (!open) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div
+      className={`fixed inset-0 z-50 flex ${positionClasses[position]}`}
+    >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className={`absolute inset-0 bg-black/50 ${blur ? "backdrop-blur-sm" : ""
+          } ${backdropClassName}`}
         onClick={closeOnBackdrop ? onClose : undefined}
       />
 
-      {/* Modal */}
+      {/* Panel */}
       <div
         role="dialog"
         aria-modal="true"
-        className={`relative z-10 w-full ${sizeClasses[size]} rounded-xl bg-white shadow-xl dark:bg-gray-900`}
+        className={`relative z-10 w-full ${sizeClasses[size]} ${className}`}
       >
-        {/* Header */}
-        {title && (
-          <div className="flex items-center justify-between border-b px-5 py-4 dark:border-gray-800">
-            <div className="text-lg font-semibold">{title}</div>
-            <button
-              onClick={onClose}
-              className="rounded-md p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800"
-            >
-              ✕
-            </button>
-          </div>
-        )}
-
-        {/* Body */}
-        <div className="px-5 py-4">{children}</div>
-
-        {/* Footer */}
-        {footer && (
-          <div className="border-t px-5 py-3 dark:border-gray-800">
-            {footer}
-          </div>
-        )}
+        {children}
       </div>
     </div>,
     document.body

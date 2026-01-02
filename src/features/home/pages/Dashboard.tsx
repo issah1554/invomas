@@ -1,6 +1,6 @@
 import { AppLayout } from "../../../components/layout/AppLayout";
 import { DropdownMenu, type DropdownItem } from "../../../components/ui/Dropdown";
-import { Modal2 } from "../../../components/ui/Modal2";
+import { Modal } from "../../../components/ui/Modal2";
 import { useState } from "react";
 
 const items: DropdownItem[] = [
@@ -53,27 +53,28 @@ export function Dashboard() {
                     Open Modal
                 </button>
 
-                <Modal2
+                <Modal                    
                     open={open}
                     onClose={() => setOpen(false)}
-                    title="Confirm action"
-                    size="md"
-                    footer={
-                        <div className="flex justify-end gap-2">
-                            <button
-                                onClick={() => setOpen(false)}
-                                className="rounded-md px-4 py-2 text-gray-600 hover:bg-gray-100"
-                            >
-                                Cancel
-                            </button>
-                            <button className="rounded-md bg-blue-600 px-4 py-2 text-white">
-                                Confirm
-                            </button>
-                        </div>
-                    }
+                    size="lg"
+                    position="right"
+                    blur={false}
+                    closeOnBackdrop={false}
                 >
-                    Are you sure you want to continue?
-                </Modal2>
+                    <div className="p-4 mr-3 bg-main-200 border border-main-300 rounded-lg shadow-lg text-main-700 max-h-full overflow-y-auto">
+                        <h2 className="text-2xl font-bold mb-4">Modal Title</h2>
+                        <p>This is the content of the modal. You can put any information here.</p>
+                        {/* Long form content */}
+                        <p className="mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p className="mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <button
+                            onClick={() => setOpen(false)}
+                            className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-white"
+                        >
+                            Close Modal
+                        </button>
+                    </div>
+                </Modal>
             </div>
         </AppLayout>
     );

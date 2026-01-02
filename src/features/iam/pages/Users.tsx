@@ -16,19 +16,19 @@ export function Users() {
                     {/* Left: Filters */}
                     <div className="flex flex-wrap items-center gap-2">
                         <select
-                            className="h-9 rounded-md border border-main-200 bg--main-50 px-2 text-sm outline-none focus:ring-2 focus:ring-main-300"
+                            className="h-9 rounded-md border border-main-200 bg-main-200 px-2 text-sm outline-none focus:ring-2 focus:ring-main-300"
                         >
-                            <option value="">All roles</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
+                            <option value="" className="bg-main-200">All roles</option>
+                            <option value="admin" className="bg-main-200">Admin</option>
+                            <option value="user" className="bg-main-200">User</option>
                         </select>
 
                         <select
-                            className="h-9 rounded-md border border-main-200 bg--main-50 px-2 text-sm outline-none focus:ring-2 focus:ring-main-300"
+                            className="h-9 rounded-md border border-main-200 bg-main-200 px-2 text-sm outline-none focus:ring-2 focus:ring-main-300"
                         >
-                            <option value="">Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="" className="bg-main-200">Status</option>
+                            <option value="active" className="bg-main-200">Active</option>
+                            <option value="inactive" className="bg-main-200">Inactive</option>
                         </select>
                     </div>
 

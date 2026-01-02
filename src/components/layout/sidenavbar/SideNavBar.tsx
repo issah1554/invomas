@@ -72,7 +72,7 @@ export function Sidebar() {
                             { label: "Dashboard", to: "/home", icon: <i className="bi bi-house" /> },
                             { label: "Calendar", to: "/calendar", icon: <i className="bi bi-calendar" /> },
                             {
-                                label: "User Management",
+                                label: "IAM",
                                 icon: <i className="bi bi-people" />,
                                 subItems: [
                                     { label: "Users", to: "/users" },

@@ -97,4 +97,3 @@ export function useSidebarPin() {
         togglePin: ctx?.togglePin ?? (() => { }),
     };
 }
-
