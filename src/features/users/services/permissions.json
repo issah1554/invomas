@@ -1,0 +1,24 @@
+{
+    "permissions": [
+        {
+            "id": 1,
+            "name": "users:view",
+            "description": "Ability to view users"
+        },
+        {
+            "id": 2,
+            "name": "users:create",
+            "description": "Ability to create users"
+        },
+        {
+            "id": 3,
+            "name": "users:edit",
+            "description": "Ability to edit users"
+        },
+        {
+            "id": 4,
+            "name": "users:delete",
+            "description": "Ability to delete users"
+        }
+    ]
+}

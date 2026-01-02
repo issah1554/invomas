@@ -5,6 +5,7 @@ interface ButtonProps {
     rounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
     className?: string;
     children: React.ReactNode;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export function Button({ color, size, variant = "solid", rounded = "sm", children, className }: ButtonProps) {

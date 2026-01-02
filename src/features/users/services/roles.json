@@ -1,0 +1,19 @@
+{
+    "roles": [
+        {
+            "id": 1,
+            "name": "Admin",
+            "description": "Administrator role with full access"
+        },
+        {
+            "id": 2,
+            "name": "Manager",
+            "description": "Standard manager role with limited access"
+        },
+        {
+            "id": 3,
+            "name": "Guest",
+            "description": "Guest role with minimal access"
+        }
+    ]
+}
