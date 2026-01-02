@@ -131,7 +131,7 @@ export default function TopNav({
                         </button>
 
                         {open === "profile" && (
-                            <div className="absolute right-0 mt-2 w-72 bg-main-200 border border-main-300 rounded-md shadow-lg text-sm z-50">
+                            <div className="absolute right-0 mt-2 w-40 bg-main-200 border border-main-300 rounded-md shadow-lg text-sm z-50">
                                 <div className="px-4 py-4 text-center border-b border-main-300">
                                     <img
                                         src={
