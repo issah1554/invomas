@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "../../../components/ui/Buttons";
-import { Modal } from "../../../components/ui/Modal2";
+import { Modal } from "../../../components/ui/Modal";
 import { TextInput } from "../../../components/ui/TextInput";
 
 const samplePurchases = [
@@ -94,9 +94,9 @@ export function Purchases() {
                                 <td className="p-4 font-medium">${purchase.total.toFixed(2)}</td>
                                 <td className="p-4">
                                     <span className={`px-2 py-1 rounded-full text-xs font-medium
-                                        ${purchase.status === "Received" ? "bg-success/20 text-success" : 
-                                          purchase.status === "In Transit" ? "bg-info/20 text-info" : 
-                                          "bg-warning/20 text-warning"}`}>
+                                        ${purchase.status === "Received" ? "bg-success/20 text-success" :
+                                            purchase.status === "In Transit" ? "bg-info/20 text-info" :
+                                                "bg-warning/20 text-warning"}`}>
                                         {purchase.status}
                                     </span>
                                 </td>

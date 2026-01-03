@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "../../../components/ui/Buttons";
-import { Modal } from "../../../components/ui/Modal2";
+import { Modal } from "../../../components/ui/Modal";
 import { TextInput } from "../../../components/ui/TextInput";
 
 const sampleProducts = [
@@ -55,9 +55,9 @@ export function Products() {
                                 <td className="p-4">{product.stock}</td>
                                 <td className="p-4">
                                     <span className={`px-2 py-1 rounded-full text-xs font-medium
-                                        ${product.status === "In Stock" ? "bg-success/20 text-success" : 
-                                          product.status === "Low Stock" ? "bg-warning/20 text-warning" : 
-                                          "bg-error/20 text-error"}`}>
+                                        ${product.status === "In Stock" ? "bg-success/20 text-success" :
+                                            product.status === "Low Stock" ? "bg-warning/20 text-warning" :
+                                                "bg-error/20 text-error"}`}>
                                         {product.status}
                                     </span>
                                 </td>
@@ -82,15 +82,15 @@ export function Products() {
                         <button onClick={handleClose}><i className="bi bi-x-lg" /></button>
                     </div>
                     <form className="p-6 space-y-4">
-                        <TextInput label="Product Name" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" 
-                            value={formData.name} onChange={e => setFormData(p => ({...p, name: e.target.value}))} required />
+                        <TextInput label="Product Name" labelBgColor="bg-main-100" color="primary" size="md" rounded="md"
+                            value={formData.name} onChange={e => setFormData(p => ({ ...p, name: e.target.value }))} required />
                         <TextInput label="Category" labelBgColor="bg-main-100" color="primary" size="md" rounded="md"
-                            value={formData.category} onChange={e => setFormData(p => ({...p, category: e.target.value}))} />
+                            value={formData.category} onChange={e => setFormData(p => ({ ...p, category: e.target.value }))} />
                         <div className="grid grid-cols-2 gap-4">
                             <TextInput label="Price" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" type="number"
-                                value={formData.price} onChange={e => setFormData(p => ({...p, price: e.target.value}))} />
+                                value={formData.price} onChange={e => setFormData(p => ({ ...p, price: e.target.value }))} />
                             <TextInput label="Stock" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" type="number"
-                                value={formData.stock} onChange={e => setFormData(p => ({...p, stock: e.target.value}))} />
+                                value={formData.stock} onChange={e => setFormData(p => ({ ...p, stock: e.target.value }))} />
                         </div>
                         <div className="flex justify-end gap-3 pt-4 border-t border-main-200">
                             <Button color="neutral" size="sm" variant="outline" onClick={handleClose}>Cancel</Button>

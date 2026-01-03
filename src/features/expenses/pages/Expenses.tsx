@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "../../../components/ui/Buttons";
-import { Modal } from "../../../components/ui/Modal2";
+import { Modal } from "../../../components/ui/Modal";
 import { TextInput } from "../../../components/ui/TextInput";
 
 const sampleExpenses = [
@@ -119,14 +119,14 @@ export function Expenses() {
                     </div>
                     <form className="p-6 space-y-4">
                         <TextInput label="Description" labelBgColor="bg-main-100" color="primary" size="md" rounded="md"
-                            value={formData.description} onChange={e => setFormData(p => ({...p, description: e.target.value}))} required />
+                            value={formData.description} onChange={e => setFormData(p => ({ ...p, description: e.target.value }))} required />
                         <TextInput label="Category" labelBgColor="bg-main-100" color="primary" size="md" rounded="md"
-                            value={formData.category} onChange={e => setFormData(p => ({...p, category: e.target.value}))} />
+                            value={formData.category} onChange={e => setFormData(p => ({ ...p, category: e.target.value }))} />
                         <div className="grid grid-cols-2 gap-4">
                             <TextInput label="Amount" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" type="number"
-                                value={formData.amount} onChange={e => setFormData(p => ({...p, amount: e.target.value}))} required />
+                                value={formData.amount} onChange={e => setFormData(p => ({ ...p, amount: e.target.value }))} required />
                             <TextInput label="Date" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" type="date"
-                                value={formData.date} onChange={e => setFormData(p => ({...p, date: e.target.value}))} />
+                                value={formData.date} onChange={e => setFormData(p => ({ ...p, date: e.target.value }))} />
                         </div>
                         <div className="flex justify-end gap-3 pt-4 border-t border-main-200">
                             <Button color="neutral" size="sm" variant="outline" onClick={handleClose}>Cancel</Button>

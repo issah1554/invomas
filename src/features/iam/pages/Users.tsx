@@ -1,5 +1,5 @@
 import CollapsibleTable from "../../../components/ui/Table";
-import { Modal } from "../../../components/ui/Modal2";
+import { Modal } from "../../../components/ui/Modal";
 import { Button } from "../../../components/ui/Buttons";
 import { TextInput } from "../../../components/ui/TextInput";
 import usersData from "../services/users.json";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "../../../components/ui/Buttons";
-import { Modal } from "../../../components/ui/Modal2";
+import { Modal } from "../../../components/ui/Modal";
 import { TextInput } from "../../../components/ui/TextInput";
 
 const sampleCategories = [
@@ -63,9 +63,9 @@ export function Categories() {
                     </div>
                     <form className="p-6 space-y-4">
                         <TextInput label="Category Name" labelBgColor="bg-main-100" color="primary" size="md" rounded="md"
-                            value={formData.name} onChange={e => setFormData(p => ({...p, name: e.target.value}))} required />
+                            value={formData.name} onChange={e => setFormData(p => ({ ...p, name: e.target.value }))} required />
                         <TextInput label="Description" labelBgColor="bg-main-100" color="primary" size="md" rounded="md"
-                            value={formData.description} onChange={e => setFormData(p => ({...p, description: e.target.value}))} />
+                            value={formData.description} onChange={e => setFormData(p => ({ ...p, description: e.target.value }))} />
                         <div className="flex justify-end gap-3 pt-4 border-t border-main-200">
                             <Button color="neutral" size="sm" variant="outline" onClick={handleClose}>Cancel</Button>
                             <Button color="primary" size="sm"><i className="bi bi-check-lg mr-2" />Add Category</Button>

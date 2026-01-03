@@ -52,7 +52,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
             {extraCount > 0 && (
                 <div
                     className="relative flex items-center justify-center hover:scale-110 transition-transform
-                               bg-main-300 text-main-800 border-2 border-main-400 mb-1.5
+                               bg-main-200 text-main-800 border-2 border-main-300 mb-1.5
                                font-semibold"
                     style={{
                         width:  size - 0,

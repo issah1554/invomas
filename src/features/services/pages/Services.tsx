@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "../../../components/ui/Buttons";
-import { Modal } from "../../../components/ui/Modal2";
+import { Modal } from "../../../components/ui/Modal";
 import { TextInput } from "../../../components/ui/TextInput";
 
 const sampleServices = [
@@ -73,14 +73,14 @@ export function Services() {
                     </div>
                     <form className="p-6 space-y-4">
                         <TextInput label="Service Name" labelBgColor="bg-main-100" color="primary" size="md" rounded="md"
-                            value={formData.name} onChange={e => setFormData(p => ({...p, name: e.target.value}))} required />
+                            value={formData.name} onChange={e => setFormData(p => ({ ...p, name: e.target.value }))} required />
                         <TextInput label="Description" labelBgColor="bg-main-100" color="primary" size="md" rounded="md"
-                            value={formData.description} onChange={e => setFormData(p => ({...p, description: e.target.value}))} />
+                            value={formData.description} onChange={e => setFormData(p => ({ ...p, description: e.target.value }))} />
                         <div className="grid grid-cols-2 gap-4">
                             <TextInput label="Rate" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" type="number"
-                                value={formData.rate} onChange={e => setFormData(p => ({...p, rate: e.target.value}))} />
+                                value={formData.rate} onChange={e => setFormData(p => ({ ...p, rate: e.target.value }))} />
                             <TextInput label="Unit (e.g., per page)" labelBgColor="bg-main-100" color="primary" size="md" rounded="md"
-                                value={formData.unit} onChange={e => setFormData(p => ({...p, unit: e.target.value}))} />
+                                value={formData.unit} onChange={e => setFormData(p => ({ ...p, unit: e.target.value }))} />
                         </div>
                         <div className="flex justify-end gap-3 pt-4 border-t border-main-200">
                             <Button color="neutral" size="sm" variant="outline" onClick={handleClose}>Cancel</Button>

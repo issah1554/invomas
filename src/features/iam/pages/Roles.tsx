@@ -1,5 +1,5 @@
 import CollapsibleTable from "../../../components/ui/Table";
-import { Modal } from "../../../components/ui/Modal2";
+import { Modal } from "../../../components/ui/Modal";
 import AvatarGroup from "../../../components/ui/AvatarGroup";
 import { Button } from "../../../components/ui/Buttons";
 import { TextInput } from "../../../components/ui/TextInput";
@@ -117,7 +117,7 @@ export function Roles() {
 
             <AvatarGroup
                 size={40}
-                max={2}
+                max={3}
                 avatars={[
                     { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
                     { id: 2, alt: "Jane Smith", src: "https://randomuser.me/api/portraits/women/44.jpg", status: "offline" },
