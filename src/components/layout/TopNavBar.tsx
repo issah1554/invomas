@@ -108,7 +108,7 @@ export default function TopNav({
                                 </div>
                                 <Link
                                     to="/notifications"
-                                    className="block text-center px-4 py-2 border-t border-main-300 hover:border-primary-300 text-primary-700 hover:bg-primary-200 rounded-b-sm"
+                                    className="block text-center px-4 py-2 border-t hover:border border-main-300 hover:border-primary-300 text-primary-700 hover:bg-primary-200 rounded-b-sm"
                                 >
                                     View all
                                 </Link>
@@ -150,7 +150,7 @@ export default function TopNav({
 
                                 <Link
                                     to="/auth/logout"
-                                    className="flex items-center gap-2 px-4 py-2 text-danger-600 border-t border-main-300 hover:bg-danger-100 hover:border-danger-300 rounded-b-sm"
+                                    className="flex items-center gap-2 px-4 py-2 text-danger-600 border-t hover:border border-main-300 hover:bg-danger-100 hover:border-danger-300 rounded-b-sm"
                                 >
                                     <i className="bi bi-box-arrow-right" /> Logout
                                 </Link>

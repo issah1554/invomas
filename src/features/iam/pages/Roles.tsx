@@ -1,5 +1,6 @@
 import CollapsibleTable from "../../../components/ui/Table";
 import { Modal } from "../../../components/ui/Modal2";
+import AvatarGroup from "../../../components/ui/AvatarGroup";
 import { Button } from "../../../components/ui/Buttons";
 import { TextInput } from "../../../components/ui/TextInput";
 import rolesData from "../services/roles.json";
@@ -74,23 +75,19 @@ export function Roles() {
                     {/* Body */}
                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
                         <TextInput
-                            label="Role Name"
-                            labelBgColor="bg-main-100"
                             color="primary"
                             size="md"
-                            rounded="md"
-                            placeholder="Admin"
+                            rounded="none"
+                            placeholder="Role name"
                             value={formData.name}
                             onChange={handleInputChange("name")}
                             required
                         />
 
                         <TextInput
-                            label="Description"
-                            labelBgColor="bg-main-100"
                             color="primary"
                             size="md"
-                            rounded="md"
+                            rounded="none"
                             placeholder="Role description"
                             value={formData.description}
                             onChange={handleInputChange("description")}
@@ -117,6 +114,19 @@ export function Roles() {
 
             {/* Roles Table */}
             <CollapsibleTable data={roles} />
+
+            <AvatarGroup
+                size={40}
+                max={2}
+                avatars={[
+                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
+                    { id: 2, alt: "Jane Smith", src: "https://randomuser.me/api/portraits/women/44.jpg", status: "offline" },
+                    { id: 3, alt: "Alex Ray", src: "https://randomuser.me/api/portraits/men/65.jpg", status: "pending" },
+                    { id: 4, alt: "Kim Lee", src: "https://randomuser.me/api/portraits/women/12.jpg" },
+                    { id: 5, alt: "Issah Xevier ", src: "https://randomuser.me/api/portraits/men/78.jpg" },
+                ]}
+            />
+
         </div>
     );
 }
