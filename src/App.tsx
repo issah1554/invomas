@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
+import AuthLayout from "./features/auth/components/AuthLayout";
 import LoginPage from "./features/auth/pages/Login";
 import RegisterPage from "./features/auth/pages/Register";
 import ForgotPasswordPage from "./features/auth/pages/ForgotPassword";
@@ -31,10 +32,12 @@ function App() {
           <Route path="/" element={<LandingPage />} />
 
           {/* auth */}
-          <Route path="/auth/login" element={<LoginPage />} />
-          <Route path="/auth/register" element={<RegisterPage />} />
-          <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/auth" element={<AuthLayout />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="reset-password" element={<ResetPasswordPage />} />
+          </Route>
 
           {/* app layout */}
           <Route element={<AppLayout />}>

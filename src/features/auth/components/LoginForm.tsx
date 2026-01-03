@@ -20,7 +20,7 @@ export default function LoginForm({ onLogin, loading = false, error }: LoginForm
     };
 
     return (
-        <div className="bg-transparent p-4 md:p-6 rounded-lg animate-zoom-in">
+        <div className="bg-transparent p-4 md:p-6 rounded-lg animation-zoom-in">
             <div className="space-y-4">
                 {error && (
                     <div className="bg-red-100 text-red-700 px-4 py-2 rounded" role="alert">
