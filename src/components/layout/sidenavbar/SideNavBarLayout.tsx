@@ -121,7 +121,11 @@ export function SideNavHeader({ children, sticky = true }: SideNavHeaderProps) {
 
 // ------------------ Main ------------------
 export function SideNavMain({ children }: SideNavMainProps) {
-    return <div className="px-0 py-0 space-y-3">{children}</div>;
+    return (
+        <div className="px-0 py-0 space-y-3 scrollbar-thin">
+            {children}
+        </div>
+    );
 }
 
 // ------------------ Footer ------------------

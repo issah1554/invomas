@@ -32,7 +32,7 @@ export default function RegisterForm({
                     <div className="alert alert-danger">{error}</div>
                 )}
 
-                <form onSubmit={handleSubmit} className="d-grid gap-3">
+                <form onSubmit={handleSubmit} className="grid gap-3">
                     <TextInput
                         color="primary"
                         labelBgColor="bg-main-200"
@@ -74,14 +74,36 @@ export default function RegisterForm({
                         rounded="none"
                         required
                     />
+                    <div className="flex justify-between items-center mb-2">
+                        <label className="flex items-center space-x-2 text-sm">
+                            <input
+                                type="checkbox"
+                                className="form-checkbox text-primary"
+                            />
+                            <span className="text-main">
+                                I agree to the <a href="#" className="text-primary hover:underline hover:text-accent">Terms of Service</a> and <a href="#" className="text-primary hover:underline hover:text-accent">Privacy Policy</a>
+                            </span>
+                        </label>
+
+                    </div>
+
+                    <Button color="primary" size="lg" rounded="full">
+                        {loading ? (
+                            <>
+                                <span
+                                    className="animate-spin inline-block border-2 border-t-2 border-white rounded-full w-4 h-4 mr-2"
+                                    aria-hidden="true"
+                                ></span>
+                                <span role="status">Signing you up...</span>
+                            </>
+                        ) : (
+                            "Register"
+                        )}
+                    </Button>
 
                 </form>
 
-
-                <div className="flex justify-between items-end mb-2">
-                    <Button color="primary" size="md" className="mt-3">
-                        {loading ? "Creating account..." : "Register"}
-                    </Button>
+                <div className="flex justify-center items-end mt-2">
                     <div className="text-center">
                         <span className="text-main">Already have an account? </span>
                         <Link to="/auth/login" className="text-primary fw-semibold hover:text-accent hover:underline">

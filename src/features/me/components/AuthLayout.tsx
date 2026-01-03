@@ -1,6 +1,5 @@
 import React, { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import ScrollbarWrapper from "../../../components/ScrollbarWrapper";
 
 interface AuthLayoutProps {
     children: React.ReactNode;
@@ -78,18 +77,9 @@ export default function AuthContainer({
                     </div>
                 )}
 
-                {/* Scrollable area */}
-                <ScrollbarWrapper
-                    style={{
-                        overflowY: "auto",
-                        maxHeight: "100vh",
-                        paddingTop: "48px", // optional: leave space below navIcon
-                    }}
-                >
-                    <div className="w-100 px-4" style={{ maxWidth: "700px", margin: "0 auto" }}>
-                        {children}
-                    </div>
-                </ScrollbarWrapper>
+                <div className="w-100 px-4" style={{ maxWidth: "700px", margin: "0 auto" }}>
+                    {children}
+                </div>
             </div>
         </div>
     );

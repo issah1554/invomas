@@ -311,9 +311,9 @@
   --accent-400: var(--color-amber-400);
   --accent-500: var(--color-amber-500);
   --accent-600: var(--color-amber-600);
-  --accent-700: var(--color-amber-700); 
-  --accent-800: var(--color-amber-800); 
-  --accent-900: var(--color-amber-900); 
+  --accent-700: var(--color-amber-700);
+  --accent-800: var(--color-amber-800);
+  --accent-900: var(--color-amber-900);
   --accent-950: var(--color-amber-950);
 
   --warning-50: var(--color-orange-50);
@@ -326,7 +326,7 @@
   --warning-700: var(--color-orange-700);
   --warning-800: var(--color-orange-800);
   --warning-900: var(--color-orange-900);
-  --warning-950: var(--color-orange-950); 
+  --warning-950: var(--color-orange-950);
 
   --info-50: var(--color-cyan-50);
   --info-100: var(--color-cyan-100);
@@ -386,7 +386,7 @@
   --pending-700: var(--color-orange-700);
   --pending-800: var(--color-orange-800);
   --pending-900: var(--color-orange-900);
-  --pending-950: var(--color-orange-950);       
+  --pending-950: var(--color-orange-950);
 
 }
 
@@ -444,7 +444,7 @@
   --danger-50: var(--color-red-950);
   --danger-100: var(--color-red-900);
   --danger-200: var(--color-red-800);
-  --danger-300: var(--color-red-700); 
+  --danger-300: var(--color-red-700);
   --danger-400: var(--color-red-600);
   --danger-500: var(--color-red-500);
   --danger-600: var(--color-red-400);
@@ -687,4 +687,26 @@
   /* === Additional Colors === */
   --color-dark: var(--color-main-900);
   --color-light: var(--color-main-50);
+}
+
+/* Firefox */
+/* * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-500) transparent;
+} */
+
+/* WebKit (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  box-shadow: none;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--primary-500);
+  border-radius: 9999px;
 }

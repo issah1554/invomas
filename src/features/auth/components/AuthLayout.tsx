@@ -1,6 +1,5 @@
 import React, { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import ScrollbarWrapper from "../../../components/ui/ScrollbarWrapper";
 
 interface AuthLayoutProps {
     children: React.ReactNode;
@@ -24,7 +23,6 @@ export default function AuthContainer({
 }: AuthLayoutProps) {
     return (
         <>
-            <ScrollbarWrapper style={{ overflowY: "auto", maxHeight: "100vh" }} >
                 <div className="flex min-h-screen bg-main-100">
 
                     {/* Left Column — Image Section */}
@@ -66,7 +64,6 @@ export default function AuthContainer({
                         </div>
                     </div>
                 </div>
-            </ScrollbarWrapper >
         </>
     );
 }
