@@ -25,7 +25,7 @@ export type Column<T extends BaseRow> = {
   render?: (row: T) => ReactNode;
   priority?: number;
   width?: string | number;
-  align?: "left" | "center" | "right";  
+  align?: "left" | "center" | "right";
 };
 
 type Props<T extends BaseRow> = {
@@ -234,13 +234,13 @@ export default function CollapsibleTable<T extends BaseRow>({
                     className={`transition-transform ${allExpanded ? "rotate-90" : ""
                       }`}
                   >
-                    <i className="bi bi-plus-circle" />
+                    <i className="bi bi-plus-circle hover:text-accent" />
                   </button>
                 )}
               </th>
 
               {columns.map((col, i) => {
-                const canSort = col.sortable && typeof col.key !== "string";
+                const canSort = col.sortable && col.key in (data[0] ?? {});
                 return (
                   <th
                     key={String(col.key)}
@@ -266,12 +266,12 @@ export default function CollapsibleTable<T extends BaseRow>({
 
               return (
                 <React.Fragment key={row.id}>
-                  <tr className="hover:bg-main-300">
+                  <tr className={` ${expanded ? "hover:bg-main-100" : "hover:bg-main-300"}`}>
                     <td className="px-4 py-2">
                       {hasHiddenColumns && (
                         <button onClick={() => toggleRow(row.id)}>
                           <i
-                            className={`bi ${expanded
+                            className={`bi hover:text-accent ${expanded
                               ? "bi-dash-circle"
                               : "bi-plus-circle"
                               }`}
@@ -288,15 +288,15 @@ export default function CollapsibleTable<T extends BaseRow>({
                       >
                         {col.render
                           ? col.render(row)
-                          : typeof col.key !== "string"
-                            ? (row[col.key] as ReactNode)
+                          : col.key in row
+                            ? (row[col.key as keyof T] as ReactNode)
                             : null}
                       </td>
                     ))}
                   </tr>
 
                   {expanded && (
-                    <tr className="bg-main-50">
+                    <tr className="bg-main-100">
                       <td
                         colSpan={visibleColumnsCount + 1}
                         className="px-4 py-2 space-y-1"
@@ -307,8 +307,8 @@ export default function CollapsibleTable<T extends BaseRow>({
                               <strong>{col.header}:</strong>{" "}
                               {col.render
                                 ? col.render(row)
-                                : typeof col.key !== "string"
-                                  ? (row[col.key] as ReactNode)
+                                : col.key in row
+                                  ? (row[col.key as keyof T] as ReactNode)
                                   : null}
                             </div>
                           ) : null
