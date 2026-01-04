@@ -70,7 +70,7 @@ const Avatar: React.FC<AvatarProps> = ({
                 />
             ) : (
                 <div
-                        className={`flex items-center justify-center bg-main-500 text-main-100 border-2 border-main-600 font-semibold ${radiusClass}`}
+                        className={`flex items-center justify-center bg-main-500 text-main-100 border-2 border-main-300 font-semibold ${radiusClass}`}
                     style={{ width: "100%", height: "100%", fontSize: size / 2.5 }}
                 >
                     {displayInitials}

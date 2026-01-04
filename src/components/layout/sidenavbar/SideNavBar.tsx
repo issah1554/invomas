@@ -76,7 +76,6 @@ export function Sidebar() {
                                 subItems: [
                                     { label: "Users", to: "/users", icon: <i className="bi bi-person" /> },
                                     { label: "Roles", to: "/roles", icon: <i className="bi bi-shield" /> },
-                                    { label: "Users2", to: "/users2", icon: <i className="bi bi-person" /> },
                                 ],
                             },
                             {

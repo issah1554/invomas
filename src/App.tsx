@@ -9,9 +9,8 @@ import StatusPage from "./pages/StatusPage";
 import { AppLayout } from "./components/layout/AppLayout";
 import { Dashboard } from "./features/home/pages/Dashboard";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { Users } from "./features/iam/pages/Users";
 import { Roles } from "./features/iam/pages/Roles";
-import UsersPage from "./features/iam/pages/Users2";
+import UsersPage from "./features/iam/pages/Users";
 import { Products } from "./features/products/pages/Products";
 import { Categories } from "./features/products/pages/Categories";
 import { Services } from "./features/services/pages/Services";
@@ -43,9 +42,8 @@ function App() {
           <Route element={<AppLayout />}>
             <Route path="/home" element={<Dashboard />} />
             {/* IAM */}
-            <Route path="/users" element={<Users />} />
             <Route path="/roles" element={<Roles />} />
-            <Route path="/users2" element={<UsersPage />} />
+            <Route path="/users" element={<UsersPage />} />
             {/* Products & Services */}
             <Route path="/products" element={<Products />} />
             <Route path="/products/categories" element={<Categories />} />

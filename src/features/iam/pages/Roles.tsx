@@ -1,14 +1,123 @@
-import CollapsibleTable from "../../../components/ui/Table";
+import CollapsibleTable, { type Column } from "../../../components/ui/Table2";
 import { Modal } from "../../../components/ui/Modal";
 import AvatarGroup from "../../../components/ui/AvatarGroup";
 import { Button } from "../../../components/ui/Buttons";
 import { TextInput } from "../../../components/ui/TextInput";
 import rolesData from "../services/roles.json";
 import { useState } from "react";
-import Pagination from "../../../components/ui/Pagination";
+import { Toast } from "../../../components/ui/Toast";
+
+/* =======================
+   Types
+======================= */
+
+type UserInRole = {
+    id: number;
+    name: string;
+    src?: string;
+    status?: "online" | "offline" | "disabled" | "pending";
+};
+
+type RoleRow = {
+    id: number;
+    name: string;
+    description: string;
+    users: UserInRole[];
+};
+
+/* =======================
+   Mock users data by role
+======================= */
+
+const usersPerRole: Record<string, UserInRole[]> = {
+    Admin: [
+        { id: 1, name: "Jane Doe", src: "https://randomuser.me/api/portraits/women/44.jpg", status: "online" },
+        { id: 6, name: "Diana Evans", src: "https://randomuser.me/api/portraits/women/68.jpg", status: "online" },
+    ],
+    Manager: [
+        { id: 7, name: "Mike Wilson", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "offline" },
+        { id: 8, name: "Sarah Connor", status: "online" },
+        { id: 9, name: "Tom Hardy", src: "https://randomuser.me/api/portraits/men/65.jpg", status: "pending" },
+    ],
+    Editor: [
+        { id: 2, name: "John Smith", status: "offline" },
+        { id: 4, name: "Bob Brown", src: "https://randomuser.me/api/portraits/men/78.jpg", status: "online" },
+    ],
+    Viewer: [
+        { id: 3, name: "Alice Johnson", src: "https://randomuser.me/api/portraits/women/22.jpg", status: "online" },
+        { id: 5, name: "Charlie Davis", src: "https://randomuser.me/api/portraits/men/55.jpg", status: "offline" },
+    ],
+    Guest: [
+        { id: 10, name: "Guest User", status: "pending" },
+    ],
+};
+
+/* =======================
+   Transform roles data
+======================= */
+
+const roles: RoleRow[] = rolesData.roles.map(role => ({
+    ...role,
+    users: usersPerRole[role.name] || [],
+}));
+
+/* =======================
+   Columns
+======================= */
+
+const columns: Column<RoleRow>[] = [
+    {
+        key: "name",
+        header: "Role Name",
+        sortable: true,
+        priority: 10,
+    },
+    {
+        key: "description",
+        header: "Description",
+        sortable: true,
+        priority: 7,
+    },
+    {
+        key: "users",
+        header: "Users",
+        priority: 9,
+        render: row => (
+            <AvatarGroup
+                size={28}
+                max={4}
+                overlap={8}
+                avatars={row.users.map(user => ({
+                    id: user.id,
+                    alt: user.name,
+                    src: user.src,
+                    status: user.status,
+                }))}
+            />
+        ),
+    },
+    {
+        key: "actions",
+        header: "Actions",
+        priority: 8,
+        render: () => (
+            <div className="flex gap-2">
+                <Button size="xs" color="primary" onClick={() => Toast.fire({ icon: "success", title: "Role updated!" })}>
+                    Edit
+                </Button>
+                <Button size="xs" color="error" onClick={() => Toast.fire({ icon: "success", title: "Role deleted!" })}>
+                    Delete
+                </Button>
+            </div>
+        ),
+    },
+];
+
+/* =======================
+   Component
+======================= */
 
 export function Roles() {
-    const roles = rolesData.roles;
     const [open, setOpen] = useState(false);
 
     const [formData, setFormData] = useState({
@@ -114,36 +223,11 @@ export function Roles() {
             </Modal>
 
             {/* Roles Table */}
-            <CollapsibleTable data={roles} />
-
-            <AvatarGroup
-                size={40}
-                max={5}
-                overlap={10}
-                avatars={[
-                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
-                    { id: 2, alt: "Jane Smith", src: "https://randomuser.me/api/portraits/women/44.jpg", status: "offline" },
-                    { id: 3, alt: "Alex Ray", src: "https://randomuser.me/api/portraits/men/65.jpg", status: "pending" },
-                    { id: 4, alt: "Kim Lee", src: "https://randomuser.me/api/portraits/women/12.jpg" },
-                    { id: 5, alt: "Issah Xevier ", src: "https://randomuser.me/api/portraits/men/78.jpg" },
-                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
-                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
-                    { id: 2, alt: "Jane Smith", src: "https://randomuser.me/api/portraits/women/44.jpg", status: "offline" },
-                    { id: 3, alt: "Alex Ray", src: "https://randomuser.me/api/portraits/men/65.jpg", status: "pending" },
-                    { id: 4, alt: "Kim Lee", src: "https://randomuser.me/api/portraits/women/12.jpg" },
-                    { id: 5, alt: "Issah Xevier ", src: "https://randomuser.me/api/portraits/men/78.jpg" },
-                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
-                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
-                    { id: 2, alt: "Jane Smith", src: "https://randomuser.me/api/portraits/women/44.jpg", status: "offline" },
-                    { id: 3, alt: "Alex Ray", src: "https://randomuser.me/api/portraits/men/65.jpg", status: "pending" },
-                    { id: 4, alt: "Kim Lee", src: "https://randomuser.me/api/portraits/women/12.jpg" },
-                    { id: 5, alt: "Issah Xevier ", src: "https://randomuser.me/api/portraits/men/78.jpg" },
-                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
-                ]}
+            <CollapsibleTable
+                data={roles}
+                columns={columns}
+                rowsPerPage={5}
             />
-            
-            <Pagination page={5} pageSize={10} totalItems={100} onChange={page => console.log(page)} showHelper size="sm" rounded="full" />
-
         </div>
     );
 }
