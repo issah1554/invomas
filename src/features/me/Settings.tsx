@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Button } from "../../../components/ui/Buttons";
-import { TextInput } from "../../../components/ui/TextInput";
+import { Button } from "../../components/ui/Buttons";
+import { TextInput } from "../../components/ui/TextInput";
+import ProfilePictureEditor from "../../components/ui/PictureCroper";
+import { Modal } from "../../components/ui/Modal";
 
 const settingsSections = [
     { id: "general", label: "General", icon: "bi-gear" },
@@ -12,6 +14,7 @@ const settingsSections = [
 
 export function Settings() {
     const [activeSection, setActiveSection] = useState("general");
+    const [openPictureEditor, setOpenPictureEditor] = useState(false);
 
     return (
         <div className="flex-1 text-main-700">
@@ -59,22 +62,27 @@ export function Settings() {
                     )}
 
                     {activeSection === "profile" && (
-                        <div>
-                            <h4 className="text-lg font-semibold mb-4">Profile Settings</h4>
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center">
-                                    <i className="bi bi-person text-primary text-3xl" />
+                        <>
+                            <div>
+                                <h4 className="text-lg font-semibold mb-4">Profile Settings</h4>
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center">
+                                        <i className="bi bi-person text-primary text-3xl" />
+                                    </div>
+                                    <Button color="primary" size="sm" variant="outline" rounded="md" onClick={() => setOpenPictureEditor(true)}>Change Photo</Button>
                                 </div>
-                                <Button color="primary" size="sm" variant="outline" rounded="md">Change Photo</Button>
-                            </div>
-                            <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <TextInput label="First Name" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" />
-                                    <TextInput label="Last Name" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" />
+                                <div className="space-y-4">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <TextInput label="First Name" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" />
+                                        <TextInput label="Last Name" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" />
+                                    </div>
+                                    <TextInput label="Email" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" type="email" />
                                 </div>
-                                <TextInput label="Email" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" type="email" />
                             </div>
-                        </div>
+                            <Modal open={openPictureEditor} onClose={() => setOpenPictureEditor(false)} size="xl">
+                                <ProfilePictureEditor />
+                            </Modal>
+                        </>
                     )}
 
                     {activeSection === "notifications" && (

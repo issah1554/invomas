@@ -11,7 +11,7 @@ import { Dashboard } from "./features/home/pages/Dashboard";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { Users } from "./features/iam/pages/Users";
 import { Roles } from "./features/iam/pages/Roles";
-import { Permissions } from "./features/iam/pages/Permissions";
+import UsersPage from "./features/iam/pages/Permissions";
 import { Products } from "./features/products/pages/Products";
 import { Categories } from "./features/products/pages/Categories";
 import { Services } from "./features/services/pages/Services";
@@ -19,7 +19,7 @@ import { Sales } from "./features/sales/pages/Sales";
 import { Expenses } from "./features/expenses/pages/Expenses";
 import { Purchases } from "./features/purchases/pages/Purchases";
 import { Reports } from "./features/reports/pages/Reports";
-import { Settings } from "./features/settings/pages/Settings";
+import { Settings } from "./features/me/Settings";
 import { Help } from "./features/help/pages/Help";
 import { Notifications } from "./features/notifications/pages/Notifications";
 
@@ -45,7 +45,7 @@ function App() {
             {/* IAM */}
             <Route path="/users" element={<Users />} />
             <Route path="/roles" element={<Roles />} />
-            <Route path="/permissions" element={<Permissions />} />
+            <Route path="/permissions" element={<UsersPage />} />
             {/* Products & Services */}
             <Route path="/products" element={<Products />} />
             <Route path="/products/categories" element={<Categories />} />

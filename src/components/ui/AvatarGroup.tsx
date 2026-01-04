@@ -52,7 +52,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
             {extraCount > 0 && (
                 <div
                     className="relative flex items-center justify-center hover:scale-110 transition-transform
-                               bg-main-200 text-main-800 border-2 border-main-300 mb-1.5
+                               bg-main-200 text-main-800 border-2 border-main-300 mb-1.5 hover:z-30 cursor-pointer
                                font-semibold"
                     style={{
                         width:  size - 0,
@@ -60,7 +60,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
                         marginLeft: -overlap,
                         borderRadius: rounded === "full" ? "9999px" : undefined,
                         fontSize: size / 2.5,
-                        zIndex: 0,
+                        // zIndex: 0,
                     }}
                     // names
                     title={avatars.slice(max).map(avatar => avatar.alt).join(", ")}

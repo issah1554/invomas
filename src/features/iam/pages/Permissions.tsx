@@ -1,122 +1,104 @@
-import CollapsibleTable from "../../../components/ui/Table";
-import { Modal } from "../../../components/ui/Modal";
+import CollapsibleTable, { type Column } from "../../../components/ui/Table2";
 import { Button } from "../../../components/ui/Buttons";
-import { TextInput } from "../../../components/ui/TextInput";
-import permissionsData from "../services/permissions.json";
-import { useState } from "react";
+import Avatar from "../../../components/ui/Avatar";
 
-export function Permissions() {
-    const permissions = permissionsData.permissions;
-    const [open, setOpen] = useState(false);
+/* =======================
+   Row type
+======================= */
 
-    const [formData, setFormData] = useState({
-        name: "",
-        description: "",
-    });
+type UserRow = {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+    status: "active" | "disabled";
+    avatar: React.ReactNode;
+};
 
-    const handleInputChange =
-        (field: keyof typeof formData) =>
-            (e: React.ChangeEvent<HTMLInputElement>) => {
-                setFormData(prev => ({ ...prev, [field]: e.target.value }));
-            };
+/* =======================
+   Columns
+======================= */
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Permission submitted:", formData);
-        setOpen(false);
-        setFormData({ name: "", description: "" });
-    };
-
-    const handleClose = () => setOpen(false);
-
-    return (
-        <div className="flex-1 text-main-700">
-            <h3 className="font-bold mb-4">Permissions Management</h3>
-
-            {/* Toolbar */}
-            <div className="mb-4 flex items-center justify-end gap-2">
-                <Button
-                    color="primary"
-                    size="sm"
-                    rounded="md"
-                    onClick={() => setOpen(true)}
-                >
-                    <i className="bi bi-plus-lg mr-2" />
-                    Add Permission
+const columns: Column<UserRow>[] = [
+    {
+        key: "name",
+        header: "Name",
+        sortable: true,
+    },
+    {
+        key: "email",
+        header: "Email",
+        sortable: true,
+    },
+    {
+        key: "role",
+        header: "Role",
+        sortable: true,
+    },
+    {
+        key: "status",
+        header: "Status",
+        sortable: true,
+        render: row => (
+            <span
+                className={`px-2 py-0.5 rounded text-xs font-semibold ${row.status === "active"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
+                    }`}
+            >
+                {row.status}
+            </span>
+        ),
+    },
+    {
+        key: "actions", // virtual column
+        header: "Actions",
+        render: row => (
+            <div className="flex gap-2">
+                <Button size="xs" onClick={() => console.log("Edit", row.id)} color={"primary"}>
+                    Edit
+                </Button>
+                <Button size="xs"  color={"error"} onClick={() => console.log("Delete", row.id)}>
+                    Delete
                 </Button>
             </div>
+        ),
+    },
+];
 
-            {/* Add Permission Modal */}
-            <Modal
-                open={open}
-                onClose={handleClose}
-                size="md"
-                position="center"
-                blur
-                closeOnBackdrop
-                closeOnEsc
-            >
-                <div
-                    className={`bg-main-100 rounded-lg shadow-xl overflow-hidden ${open ? "animation-zoom-in" : "animation-zoom-out"
-                        }`}
-                >
-                    {/* Header */}
-                    <div className="flex items-center justify-between px-6 py-4 text-main-700">
-                        <h3 className="text-lg font-semibold flex items-center gap-2">
-                            <i className="bi bi-key" />
-                            Add New Permission
-                        </h3>
-                        <button onClick={handleClose}>
-                            <i className="bi bi-x-lg" />
-                        </button>
-                    </div>
+/* =======================
+   Data
+======================= */
 
-                    {/* Body */}
-                    <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                        <TextInput
-                            label="Permission Name"
-                            labelBgColor="bg-main-100"
-                            color="primary"
-                            size="md"
-                            rounded="md"
-                            placeholder="users:view"
-                            value={formData.name}
-                            onChange={handleInputChange("name")}
-                            required
-                        />
+const users: UserRow[] = [
+    {
+        id: 1,
+        name: "Jane Doe",
+        email: "jane@example.com",
+        role: "Admin",
+        status: "active",
+        avatar: <Avatar alt="Jane Doe" size={28} />,
+    },
+    {
+        id: 2,
+        name: "John Smith",
+        email: "john@example.com",
+        role: "Editor",
+        status: "disabled",
+        avatar: <Avatar alt="John Smith" size={28} />,
+    },
+];
 
-                        <TextInput
-                            label="Description"
-                            labelBgColor="bg-main-100"
-                            color="primary"
-                            size="md"
-                            rounded="md"
-                            placeholder="Ability to view users"
-                            value={formData.description}
-                            onChange={handleInputChange("description")}
-                        />
+/* =======================
+   Component
+======================= */
 
-                        {/* Footer */}
-                        <div className="flex justify-end gap-3 pt-4 border-t border-main-200">
-                            <Button
-                                color="neutral"
-                                size="sm"
-                                variant="outline"
-                                onClick={handleClose}
-                            >
-                                Cancel
-                            </Button>
-                            <Button color="primary" size="sm">
-                                <i className="bi bi-check-lg mr-2" />
-                                Create Permission
-                            </Button>
-                        </div>
-                    </form>
-                </div>
-            </Modal>
-
-            {/* Permissions Table */}
-            <CollapsibleTable data={permissions} />
-        </div>
+export default function UsersPage() {
+    return (
+        <CollapsibleTable
+            data={users}
+            columns={columns}
+            rowsPerPage={5}
+        />
     );
 }

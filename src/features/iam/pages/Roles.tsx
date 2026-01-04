@@ -5,6 +5,7 @@ import { Button } from "../../../components/ui/Buttons";
 import { TextInput } from "../../../components/ui/TextInput";
 import rolesData from "../services/roles.json";
 import { useState } from "react";
+import Pagination from "../../../components/ui/Pagination";
 
 export function Roles() {
     const roles = rolesData.roles;
@@ -117,15 +118,31 @@ export function Roles() {
 
             <AvatarGroup
                 size={40}
-                max={3}
+                max={5}
+                overlap={10}
                 avatars={[
                     { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
                     { id: 2, alt: "Jane Smith", src: "https://randomuser.me/api/portraits/women/44.jpg", status: "offline" },
                     { id: 3, alt: "Alex Ray", src: "https://randomuser.me/api/portraits/men/65.jpg", status: "pending" },
                     { id: 4, alt: "Kim Lee", src: "https://randomuser.me/api/portraits/women/12.jpg" },
                     { id: 5, alt: "Issah Xevier ", src: "https://randomuser.me/api/portraits/men/78.jpg" },
+                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
+                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
+                    { id: 2, alt: "Jane Smith", src: "https://randomuser.me/api/portraits/women/44.jpg", status: "offline" },
+                    { id: 3, alt: "Alex Ray", src: "https://randomuser.me/api/portraits/men/65.jpg", status: "pending" },
+                    { id: 4, alt: "Kim Lee", src: "https://randomuser.me/api/portraits/women/12.jpg" },
+                    { id: 5, alt: "Issah Xevier ", src: "https://randomuser.me/api/portraits/men/78.jpg" },
+                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
+                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
+                    { id: 2, alt: "Jane Smith", src: "https://randomuser.me/api/portraits/women/44.jpg", status: "offline" },
+                    { id: 3, alt: "Alex Ray", src: "https://randomuser.me/api/portraits/men/65.jpg", status: "pending" },
+                    { id: 4, alt: "Kim Lee", src: "https://randomuser.me/api/portraits/women/12.jpg" },
+                    { id: 5, alt: "Issah Xevier ", src: "https://randomuser.me/api/portraits/men/78.jpg" },
+                    { id: 1, alt: "John Doe", src: "https://randomuser.me/api/portraits/men/32.jpg", status: "online" },
                 ]}
             />
+            
+            <Pagination page={5} pageSize={10} totalItems={100} onChange={page => console.log(page)} showHelper size="sm" rounded="full" />
 
         </div>
     );

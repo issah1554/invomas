@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
+import Pagination from "./Pagination";
 
 type Row = { [key: string]: any; id: number };
 
@@ -184,26 +185,10 @@ const CollapsibleTable: React.FC<Props> = ({ data, rowsPerPage = 5 }) => {
       </div>
 
       {/* Footer / Pagination */}
-      <div className="flex justify-between items-center p-4 border-t border-main-200 text-sm">
-        <div>
-          Showing {((page - 1) * rowsPerPageOption) + 1} to {Math.min(page * rowsPerPageOption, filteredData.length)} of {filteredData.length} entries
-        </div>
-        <div className="flex gap-1">
-          <button disabled={page === 1} onClick={() => setPage(1)} className="px-2 py-1 rounded hover:bg-main-100 disabled:opacity-50">First</button>
-          <button disabled={page === 1} onClick={() => setPage(p => p - 1)} className="px-2 py-1 rounded hover:bg-main-100 disabled:opacity-50">Prev</button>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i + 1}
-              className={`px-2 py-1 rounded ${i + 1 === page ? "bg-primary-600 text-white" : "hover:bg-main-100"}`}
-              onClick={() => setPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-          <button disabled={page === totalPages} onClick={() => setPage(p => p + 1)} className="px-2 py-1 rounded hover:bg-main-100 disabled:opacity-50">Next</button>
-          <button disabled={page === totalPages} onClick={() => setPage(totalPages)} className="px-2 py-1 rounded hover:bg-main-100 disabled:opacity-50">Last</button>
-        </div>
+      <div className=" p-4 ">
+        <Pagination page={5} pageSize={10} totalItems={100} onChange={page => console.log(page)} showHelper size="sm" rounded="full" />
       </div>
+
     </div>
   );
 };

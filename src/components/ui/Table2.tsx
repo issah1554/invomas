@@ -5,6 +5,7 @@ import React, {
   useRef,
   type ReactNode,
 } from "react";
+import Pagination from "./Pagination";
 
 /* =========================================================
    Types
@@ -18,7 +19,7 @@ export type BaseRow = {
 };
 
 export type Column<T extends BaseRow> = {
-  key: keyof T | string; // allows virtual columns like "actions"
+  key: keyof T | string; // allows virtual columns
   header: string;
   sortable?: boolean;
   render?: (row: T) => ReactNode;
@@ -29,6 +30,19 @@ type Props<T extends BaseRow> = {
   columns: Column<T>[];
   rowsPerPage?: number;
 };
+
+/* =========================================================
+   Helpers
+========================================================= */
+
+function isPrimitive(v: unknown): v is Primitive {
+  return (
+    typeof v === "string" ||
+    typeof v === "number" ||
+    typeof v === "boolean" ||
+    v == null
+  );
+}
 
 /* =========================================================
    Component
@@ -46,10 +60,14 @@ export default function CollapsibleTable<T extends BaseRow>({
   } | null>(null);
 
   const [page, setPage] = useState(1);
-  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const [rowsPerPageOption, setRowsPerPageOption] = useState(rowsPerPage);
+  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const [allExpanded, setAllExpanded] = useState(false);
-  const [visibleColumnsCount, setVisibleColumnsCount] = useState(0);
+
+  // ✅ CRITICAL FIX: start with all columns visible
+  const [visibleColumnsCount, setVisibleColumnsCount] = useState(
+    columns.length
+  );
 
   const tableRef = useRef<HTMLTableElement>(null);
 
@@ -60,18 +78,24 @@ export default function CollapsibleTable<T extends BaseRow>({
   useEffect(() => {
     const handleResize = () => {
       if (!tableRef.current) return;
+
       const tableWidth = tableRef.current.offsetWidth;
+      if (tableWidth === 0) return; // prevents hidden-table bug
+
       const minColWidth = 140;
       const maxVisible = Math.max(1, Math.floor(tableWidth / minColWidth));
+
       setVisibleColumnsCount(Math.min(maxVisible, columns.length));
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [columns]);
+  }, [columns.length]);
 
-  const isColumnHidden = (index: number) => index >= visibleColumnsCount;
+  const isColumnHidden = (index: number) =>
+    visibleColumnsCount > 0 && index >= visibleColumnsCount;
+
   const hasHiddenColumns = columns.some((_, i) => isColumnHidden(i));
 
   /* =======================
@@ -85,6 +109,7 @@ export default function CollapsibleTable<T extends BaseRow>({
       const av = a[sortConfig.key];
       const bv = b[sortConfig.key];
 
+      if (!isPrimitive(av) || !isPrimitive(bv)) return 0;
       if (av == null || bv == null) return 0;
 
       if (av < bv) return sortConfig.direction === "asc" ? -1 : 1;
@@ -102,22 +127,26 @@ export default function CollapsibleTable<T extends BaseRow>({
   };
 
   /* =======================
-     Search
+     Search (primitive-only)
   ======================= */
 
   const filteredData = useMemo(() => {
+    const q = search.toLowerCase();
+
     return sortedData.filter(row =>
-      Object.values(row).some(val =>
-        String(val).toLowerCase().includes(search.toLowerCase())
+      Object.values(row).some(
+        v => isPrimitive(v) && String(v).toLowerCase().includes(q)
       )
     );
   }, [sortedData, search]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [search, rowsPerPageOption]);
+
   /* =======================
      Pagination
   ======================= */
-
-  const totalPages = Math.ceil(filteredData.length / rowsPerPageOption);
 
   const paginatedData = filteredData.slice(
     (page - 1) * rowsPerPageOption,
@@ -129,16 +158,18 @@ export default function CollapsibleTable<T extends BaseRow>({
   ======================= */
 
   const toggleRow = (id: number) => {
-    const next = new Set(expandedRows);
-    next.has(id) ? next.delete(id) : next.add(id);
-    setExpandedRows(next);
+    setExpandedRows(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
   };
 
   const toggleAllRows = () => {
     setExpandedRows(
-      allExpanded ? new Set() : new Set(data.map(r => r.id))
+      allExpanded ? new Set() : new Set(paginatedData.map(r => r.id))
     );
-    setAllExpanded(!allExpanded);
+    setAllExpanded(v => !v);
   };
 
   /* =======================
@@ -159,10 +190,7 @@ export default function CollapsibleTable<T extends BaseRow>({
 
         <select
           value={rowsPerPageOption}
-          onChange={e => {
-            setRowsPerPageOption(Number(e.target.value));
-            setPage(1);
-          }}
+          onChange={e => setRowsPerPageOption(Number(e.target.value))}
           className="bg-main-200 text-main-600 text-sm px-3 py-1 rounded-sm ring ring-main-300"
         >
           {[5, 10, 25, 50].map(n => (
@@ -175,17 +203,14 @@ export default function CollapsibleTable<T extends BaseRow>({
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table
-          ref={tableRef}
-          className="min-w-full divide-y divide-main-200"
-        >
+        <table ref={tableRef} className="min-w-full divide-y divide-main-200">
           <thead className="bg-primary-100">
             <tr>
               <th className="px-4 py-2 w-14">
                 {hasHiddenColumns && (
                   <button
                     onClick={toggleAllRows}
-                    className={`transform transition ${allExpanded ? "rotate-90" : ""
+                    className={`transition-transform ${allExpanded ? "rotate-90" : ""
                       }`}
                   >
                     <i className="bi bi-plus-circle" />
@@ -201,8 +226,8 @@ export default function CollapsibleTable<T extends BaseRow>({
                       ? () => requestSort(col.key)
                       : undefined
                   }
-                  className={`px-4 py-2 text-left text-sm font-semibold cursor-pointer ${isColumnHidden(i) ? "hidden" : ""
-                    }`}
+                  className={`px-4 py-2 text-left text-sm font-semibold ${col.sortable ? "cursor-pointer" : ""
+                    } ${isColumnHidden(i) ? "hidden" : ""}`}
                 >
                   {col.header}
                 </th>
@@ -219,24 +244,14 @@ export default function CollapsibleTable<T extends BaseRow>({
                   <tr className="hover:bg-main-300">
                     <td className="px-4 py-2">
                       {hasHiddenColumns && (
-                        <button
-                          onClick={() => toggleRow(row.id)}
-                          className={`transform transition-transform duration-300 ease-in-out`}
-                        >
-                          <div className="relative w-6 h-6">
-                            <i
-                              className={`bi bi-plus-circle absolute top-0 left-0 transform transition-all duration-300 ${expanded ? "opacity-0 scale-75 rotate-90" : "opacity-100 scale-100 rotate-0"
-                                }`}
-                            />
-                            <i
-                              className={`bi bi-dash-circle absolute top-0 left-0 transform transition-all duration-300 ${expanded ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-75 -rotate-90"
-                                }`}
-                            />
-                          </div>
-
-
+                        <button onClick={() => toggleRow(row.id)}>
+                          <i
+                            className={`bi ${expanded
+                                ? "bi-dash-circle"
+                                : "bi-plus-circle"
+                              }`}
+                          />
                         </button>
-
                       )}
                     </td>
 
@@ -248,21 +263,28 @@ export default function CollapsibleTable<T extends BaseRow>({
                       >
                         {col.render
                           ? col.render(row)
-                          : (row[col.key as keyof T] as ReactNode)}
+                          : typeof col.key !== "string"
+                            ? (row[col.key] as ReactNode)
+                            : null}
                       </td>
                     ))}
                   </tr>
 
                   {expanded && (
                     <tr className="bg-main-50">
-                      <td colSpan={visibleColumnsCount + 1} className="px-4 py-2">
+                      <td
+                        colSpan={visibleColumnsCount + 1}
+                        className="px-4 py-2 space-y-1"
+                      >
                         {columns.map((col, i) =>
                           isColumnHidden(i) ? (
                             <div key={String(col.key)} className="text-sm">
                               <strong>{col.header}:</strong>{" "}
                               {col.render
                                 ? col.render(row)
-                                : (row[col.key as keyof T] as ReactNode)}
+                                : typeof col.key !== "string"
+                                  ? (row[col.key] as ReactNode)
+                                  : null}
                             </div>
                           ) : null
                         )}
@@ -276,34 +298,17 @@ export default function CollapsibleTable<T extends BaseRow>({
         </table>
       </div>
 
-      {/* Footer */}
-      <div className="flex justify-between items-center p-4 text-sm">
-        <span>
-          Showing {(page - 1) * rowsPerPageOption + 1}–
-          {Math.min(page * rowsPerPageOption, filteredData.length)} of{" "}
-          {filteredData.length}
-        </span>
-
-        <div className="flex gap-1">
-          <button disabled={page === 1} onClick={() => setPage(1)}>
-            First
-          </button>
-          <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>
-            Prev
-          </button>
-          <button
-            disabled={page === totalPages}
-            onClick={() => setPage(p => p + 1)}
-          >
-            Next
-          </button>
-          <button
-            disabled={page === totalPages}
-            onClick={() => setPage(totalPages)}
-          >
-            Last
-          </button>
-        </div>
+      {/* Pagination */}
+      <div className="p-4">
+        <Pagination
+          page={page}
+          pageSize={rowsPerPageOption}
+          totalItems={filteredData.length}
+          onChange={setPage}
+          showHelper
+          size="sm"
+          rounded="full"
+        />
       </div>
     </div>
   );
