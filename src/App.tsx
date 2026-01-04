@@ -11,7 +11,7 @@ import { Dashboard } from "./features/home/pages/Dashboard";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { Users } from "./features/iam/pages/Users";
 import { Roles } from "./features/iam/pages/Roles";
-import UsersPage from "./features/iam/pages/Permissions";
+import UsersPage from "./features/iam/pages/Users2";
 import { Products } from "./features/products/pages/Products";
 import { Categories } from "./features/products/pages/Categories";
 import { Services } from "./features/services/pages/Services";
@@ -45,7 +45,7 @@ function App() {
             {/* IAM */}
             <Route path="/users" element={<Users />} />
             <Route path="/roles" element={<Roles />} />
-            <Route path="/permissions" element={<UsersPage />} />
+            <Route path="/users2" element={<UsersPage />} />
             {/* Products & Services */}
             <Route path="/products" element={<Products />} />
             <Route path="/products/categories" element={<Categories />} />

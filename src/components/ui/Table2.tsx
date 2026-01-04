@@ -23,6 +23,7 @@ export type Column<T extends BaseRow> = {
   header: string;
   sortable?: boolean;
   render?: (row: T) => ReactNode;
+  priority?: number; // lower priority columns hide first on smaller screens (default: index order)
 };
 
 type Props<T extends BaseRow> = {
@@ -93,10 +94,28 @@ export default function CollapsibleTable<T extends BaseRow>({
     return () => window.removeEventListener("resize", handleResize);
   }, [columns.length]);
 
-  const isColumnHidden = (index: number) =>
-    visibleColumnsCount > 0 && index >= visibleColumnsCount;
+  // Sort columns by priority to determine which to hide first
+  // Lower priority values hide first; columns without priority default to their index
+  const columnPriorities = useMemo(() => {
+    return columns
+      .map((col, index) => ({
+        index,
+        priority: col.priority ?? index,
+      }))
+      .sort((a, b) => a.priority - b.priority);
+  }, [columns]);
 
-  const hasHiddenColumns = columns.some((_, i) => isColumnHidden(i));
+  // Get the set of column indices that should be hidden
+  const hiddenColumnIndices = useMemo(() => {
+    const numToHide = columns.length - visibleColumnsCount;
+    if (numToHide <= 0) return new Set<number>();
+    // Hide the columns with lowest priority first
+    return new Set(columnPriorities.slice(0, numToHide).map(c => c.index));
+  }, [columns.length, visibleColumnsCount, columnPriorities]);
+
+  const isColumnHidden = (index: number) => hiddenColumnIndices.has(index);
+
+  const hasHiddenColumns = hiddenColumnIndices.size > 0;
 
   /* =======================
      Sorting
@@ -177,7 +196,7 @@ export default function CollapsibleTable<T extends BaseRow>({
   ======================= */
 
   return (
-    <div className="bg-main-200/80 backdrop-blur-md rounded-sm shadow-lg overflow-hidden mt-4">
+    <div className="bg-main-200/80 backdrop-blur-md rounded-sm border border-main-300 overflow-hidden mt-4">
       {/* Toolbar */}
       <div className="flex justify-between items-center p-4 gap-2">
         <input
@@ -204,7 +223,7 @@ export default function CollapsibleTable<T extends BaseRow>({
       {/* Table */}
       <div className="overflow-x-auto">
         <table ref={tableRef} className="min-w-full divide-y divide-main-200">
-          <thead className="bg-primary-100">
+          <thead className="bg-primary-200 border-y border-primary-300 text-primary">
             <tr>
               <th className="px-4 py-2 w-14">
                 {hasHiddenColumns && (
@@ -218,20 +237,24 @@ export default function CollapsibleTable<T extends BaseRow>({
                 )}
               </th>
 
-              {columns.map((col, i) => (
-                <th
-                  key={String(col.key)}
-                  onClick={
-                    col.sortable && typeof col.key !== "string"
-                      ? () => requestSort(col.key)
-                      : undefined
-                  }
-                  className={`px-4 py-2 text-left text-sm font-semibold ${col.sortable ? "cursor-pointer" : ""
-                    } ${isColumnHidden(i) ? "hidden" : ""}`}
-                >
-                  {col.header}
-                </th>
-              ))}
+              {columns.map((col, i) => {
+                const canSort = col.sortable && typeof col.key !== "string";
+                return (
+                  <th
+                    key={String(col.key)}
+                    onClick={canSort ? () => requestSort(col.key as keyof T) : undefined}
+                    className={`px-4 py-2 text-left text-sm font-semibold ${canSort ? "cursor-pointer select-none" : ""
+                      } ${isColumnHidden(i) ? "hidden" : ""}`}
+                  >
+                    {col.header}
+                    {canSort && sortConfig?.key === col.key && (
+                      <span className="ml-1">
+                        {sortConfig.direction === "asc" ? "▲" : "▼"}
+                      </span>
+                    )}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
 
@@ -247,8 +270,8 @@ export default function CollapsibleTable<T extends BaseRow>({
                         <button onClick={() => toggleRow(row.id)}>
                           <i
                             className={`bi ${expanded
-                                ? "bi-dash-circle"
-                                : "bi-plus-circle"
+                              ? "bi-dash-circle"
+                              : "bi-plus-circle"
                               }`}
                           />
                         </button>
@@ -258,7 +281,7 @@ export default function CollapsibleTable<T extends BaseRow>({
                     {columns.map((col, i) => (
                       <td
                         key={String(col.key)}
-                        className={`px-4 py-2 text-sm ${isColumnHidden(i) ? "hidden" : ""
+                        className={`px-4 py-2 text-sm text-main-700 ${isColumnHidden(i) ? "hidden" : ""
                           }`}
                       >
                         {col.render
@@ -278,7 +301,7 @@ export default function CollapsibleTable<T extends BaseRow>({
                       >
                         {columns.map((col, i) =>
                           isColumnHidden(i) ? (
-                            <div key={String(col.key)} className="text-sm">
+                            <div key={String(col.key)} className="text-sm text-main-700">
                               <strong>{col.header}:</strong>{" "}
                               {col.render
                                 ? col.render(row)
@@ -299,7 +322,7 @@ export default function CollapsibleTable<T extends BaseRow>({
       </div>
 
       {/* Pagination */}
-      <div className="p-4">
+      <div className="p-2 border-t border-main-300">
         <Pagination
           page={page}
           pageSize={rowsPerPageOption}

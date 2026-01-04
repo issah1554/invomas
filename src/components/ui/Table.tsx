@@ -58,7 +58,6 @@ const CollapsibleTable: React.FC<Props> = ({ data, rowsPerPage = 5 }) => {
   }, [sortedData, search]);
 
   // Pagination
-  const totalPages = Math.ceil(filteredData.length / rowsPerPageOption);
   const paginatedData = filteredData.slice((page - 1) * rowsPerPageOption, page * rowsPerPageOption);
 
   const requestSort = (key: string) => {

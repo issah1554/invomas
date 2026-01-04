@@ -24,26 +24,30 @@ const columns: Column<UserRow>[] = [
         key: "name",
         header: "Name",
         sortable: true,
+        priority: 10, // high priority - stays visible
     },
     {
         key: "email",
         header: "Email",
         sortable: true,
+        priority: 8,
     },
     {
         key: "role",
         header: "Role",
         sortable: true,
+        priority: 5,
     },
     {
         key: "status",
         header: "Status",
         sortable: true,
+        priority: 7,
         render: row => (
             <span
                 className={`px-2 py-0.5 rounded text-xs font-semibold ${row.status === "active"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
                     }`}
             >
                 {row.status}
@@ -53,12 +57,14 @@ const columns: Column<UserRow>[] = [
     {
         key: "actions", // virtual column
         header: "Actions",
+        sortable: false, // virtual columns shouldn't be sortable
+        priority: 9, // high priority - keep actions visible
         render: row => (
             <div className="flex gap-2">
                 <Button size="xs" onClick={() => console.log("Edit", row.id)} color={"primary"}>
                     Edit
                 </Button>
-                <Button size="xs"  color={"error"} onClick={() => console.log("Delete", row.id)}>
+                <Button size="xs" color={"error"} onClick={() => console.log("Delete", row.id)}>
                     Delete
                 </Button>
             </div>
@@ -99,6 +105,7 @@ export default function UsersPage() {
             data={users}
             columns={columns}
             rowsPerPage={5}
+
         />
     );
 }

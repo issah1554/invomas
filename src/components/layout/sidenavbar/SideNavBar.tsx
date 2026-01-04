@@ -22,14 +22,14 @@ function SidebarHeader() {
                     <span className="whitespace-nowrap overflow-hidden flex-1">Stationery</span>
                     <button
                         onClick={togglePin}
-                        className={`ml-auto rounded p-1 transition-colors cursor-pointer
+                        className={`ml-auto p-1 transition-colors cursor-pointer w-8 h-8 rounded-full flex items-center justify-center
                             ${isPinned
                                 ? 'text-primary hover:bg-primary/10'
                                 : 'text-main-500 hover:text-main-700 hover:bg-main-300'
                             }`}
                         title={isPinned ? "Unpin sidebar" : "Pin sidebar"}
                     >
-                        <i className={`bi ${isPinned ? 'bi-pin-fill animation-bounce-in' : 'bi-pin-angle animation-slide-left'} text-sm`} />
+                        <i className={`bi ${isPinned ? 'bi-pin-fill animation-zoom-in' : 'bi-pin-angle animation-zoom-in'} text-sm`} />
                     </button>
                 </>
             )}
@@ -76,7 +76,7 @@ export function Sidebar() {
                                 subItems: [
                                     { label: "Users", to: "/users", icon: <i className="bi bi-person" /> },
                                     { label: "Roles", to: "/roles", icon: <i className="bi bi-shield" /> },
-                                    { label: "Permissions", to: "/permissions", icon: <i className="bi bi-lock" /> },
+                                    { label: "Users2", to: "/users2", icon: <i className="bi bi-person" /> },
                                 ],
                             },
                             {

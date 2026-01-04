@@ -79,8 +79,11 @@ export function Settings() {
                                     <TextInput label="Email" labelBgColor="bg-main-100" color="primary" size="md" rounded="md" type="email" />
                                 </div>
                             </div>
-                            <Modal open={openPictureEditor} onClose={() => setOpenPictureEditor(false)} size="xl">
-                                <ProfilePictureEditor />
+                            <Modal open={openPictureEditor} onClose={() => setOpenPictureEditor(false)} size="xl" blur={false}>
+                                <div className="p-6 bg-main-100/70 rounded-lg ">
+                                    <ProfilePictureEditor />
+                                </div>
+
                             </Modal>
                         </>
                     )}

@@ -51,7 +51,7 @@ export function Dashboard() {
                     <p className="text-main-500 text-sm">Welcome back! Here's what's happening today.</p>
                 </div>
                 <div className="flex gap-2">
-                    <select className="px-3 py-2 bg-main-100 border border-main-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                    <select className="px-3 py-2 bg-main-200 border border-main-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary">
                         <option>Last 7 days</option>
                         <option>Last 30 days</option>
                         <option>This month</option>
@@ -63,7 +63,7 @@ export function Dashboard() {
             {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 {statsCards.map((stat, index) => (
-                    <div key={index} className="bg-main-100 rounded-lg shadow-sm border border-main-200 p-4 hover:shadow-md transition-shadow">
+                    <div key={index} className="bg-main-200 rounded-lg shadow-none border border-main-300 p-4 hover:shadow-md transition-shadow">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-main-500">{stat.label}</p>
@@ -84,7 +84,7 @@ export function Dashboard() {
             {/* Main Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                 {/* Weekly Sales Chart */}
-                <div className="lg:col-span-2 bg-main-100 rounded-lg shadow-sm border border-main-200 p-5">
+                <div className="lg:col-span-2 bg-main-200 rounded-lg shadow-none border border-main-300 p-5">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="font-semibold">Weekly Sales Overview</h3>
                         <span className="text-sm text-main-500">This Week</span>
@@ -105,16 +105,16 @@ export function Dashboard() {
                 </div>
 
                 {/* Quick Actions */}
-                <div className="bg-main-100 rounded-lg shadow-sm border border-main-200 p-5">
+                <div className="bg-main-200 rounded-lg shadow-none border border-main-300 p-5">
                     <h3 className="font-semibold mb-4">Quick Actions</h3>
                     <div className="grid grid-cols-2 gap-3">
                         {quickActions.map((action, index) => (
                             <Link
                                 key={index}
                                 to={action.to}
-                                className="flex flex-col items-center justify-center p-4 rounded-lg bg-main-50 hover:bg-main-200 transition-colors group"
+                                className="flex flex-col items-center justify-center p-4 rounded-lg bg-main-100 hover:bg-main-300 transition-colors group "
                             >
-                                <div className={`w-10 h-10 ${action.color} rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform`}>
+                                <div className={`w-10 h-10 ${action.color} rounded-lg flex items-center justify-center mb-2 group-hover:scale-110  transition-transform`}>
                                     <i className={`bi ${action.icon} text-white text-lg`} />
                                 </div>
                                 <span className="text-sm font-medium">{action.label}</span>
@@ -127,8 +127,8 @@ export function Dashboard() {
             {/* Bottom Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Recent Sales */}
-                <div className="bg-main-100 rounded-lg shadow-sm border border-main-200">
-                    <div className="flex items-center justify-between p-4 border-b border-main-200">
+                <div className="bg-main-200 rounded-lg shadow-none border border-main-300">
+                    <div className="flex items-center justify-between p-4 border-b border-main-300">
                         <h3 className="font-semibold">Recent Sales</h3>
                         <Link to="/sales" className="text-sm text-primary hover:underline">View All</Link>
                     </div>
@@ -154,8 +154,8 @@ export function Dashboard() {
                 </div>
 
                 {/* Top Products */}
-                <div className="bg-main-100 rounded-lg shadow-sm border border-main-200">
-                    <div className="flex items-center justify-between p-4 border-b border-main-200">
+                <div className="bg-main-200 rounded-lg shadow-none border border-main-300">
+                    <div className="flex items-center justify-between p-4 border-b border-main-300">
                         <h3 className="font-semibold">Top Products</h3>
                         <Link to="/products" className="text-sm text-primary hover:underline">View All</Link>
                     </div>

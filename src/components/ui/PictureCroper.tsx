@@ -9,7 +9,7 @@ interface ProfilePictureEditorProps {
 
 const ProfilePictureEditor: React.FC<ProfilePictureEditorProps> = ({
     aspectRatio = 1,
-    cropScale = 0.75,
+    cropScale = 1,
     onComplete,
 }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -180,7 +180,7 @@ const ProfilePictureEditor: React.FC<ProfilePictureEditorProps> = ({
         >
             {!image && (
                 <div
-                    className="cursor-pointer rounded-xl border-2 border-dashed border-blue-500 bg-gray-100 p-10 text-gray-600 transition hover:bg-gray-200"
+                    className="cursor-pointer rounded-xl border-2 border-dashed border-blue-500 bg-main-100 p-10 text-main-600 transition hover:bg-main-200"
                     onDragOver={(e) => e.preventDefault()}
                     onDrop={(e) => {
                         e.preventDefault();
@@ -213,7 +213,7 @@ const ProfilePictureEditor: React.FC<ProfilePictureEditorProps> = ({
                             ref={canvasRef}
                             width={canvasSize.width}
                             height={canvasSize.height}
-                            className="w-full rounded-lg border-2 border-gray-300 bg-gray-100 cursor-grab"
+                            className="w-full rounded-lg border-2 border-main-300 bg-main-100 cursor-grab"
                             onMouseDown={startDrag}
                             onTouchStart={startDrag}
                         />
