@@ -1,4 +1,4 @@
-import CollapsibleTable, { type Column } from "../../../components/ui/Table2";
+import CollapsibleTable, { type Column } from "../../../components/ui/Table";
 import { Button } from "../../../components/ui/Buttons";
 import Avatar from "../../../components/ui/Avatar";
 import { Toast } from "../../../components/ui/Toast";
@@ -110,14 +110,16 @@ const users: UserRow[] = [
         status: "active",
         avatar: <Avatar alt="Bob Brown" size={28} />,
     },
-    {        id: 5,
+    {
+        id: 5,
         name: "Charlie Davis",
         email: "charlie@example.com",
         role: "Viewer",
         status: "active",
         avatar: <Avatar alt="Charlie Davis" size={28} />,
     },
-    {        id: 6,
+    {
+        id: 6,
         name: "Diana Evans",
         email: "diana@example.com",
         role: "Admin",

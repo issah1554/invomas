@@ -1,4 +1,4 @@
-import CollapsibleTable, { type Column } from "../../../components/ui/Table2";
+import CollapsibleTable, { type Column } from "../../../components/ui/Table";
 import { Modal } from "../../../components/ui/Modal";
 import AvatarGroup from "../../../components/ui/AvatarGroup";
 import { Button } from "../../../components/ui/Buttons";
