@@ -27,7 +27,7 @@ export function Button({
     };
 
     const baseClasses =
-        "font-sans font-medium shadow inline-flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed";
+        "font-sans font-medium shadow inline-flex items-center justify-center gap-2 focus:outline-none  transition disabled:opacity-50 disabled:cursor-not-allowed";
 
     const sizes = {
         xs: "text-xs px-2 py-1",

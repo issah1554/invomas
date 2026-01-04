@@ -23,7 +23,9 @@ export type Column<T extends BaseRow> = {
   header: string;
   sortable?: boolean;
   render?: (row: T) => ReactNode;
-  priority?: number; // lower priority columns hide first on smaller screens (default: index order)
+  priority?: number;
+  width?: string | number;
+  align?: "left" | "center" | "right";  
 };
 
 type Props<T extends BaseRow> = {
@@ -204,7 +206,7 @@ export default function CollapsibleTable<T extends BaseRow>({
           placeholder="Search..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="rounded-sm px-3 py-1 text-sm text-main-800 ring ring-main-300 focus:ring-main-400 outline-none"
+          className="rounded-sm min-w-0 max-w-60 px-3 py-1 text-sm text-main-800 ring ring-main-300 focus:ring-main-400 outline-none"
         />
 
         <select
@@ -225,7 +227,7 @@ export default function CollapsibleTable<T extends BaseRow>({
         <table ref={tableRef} className="min-w-full divide-y divide-main-200">
           <thead className="bg-primary-200 border-y border-primary-300 text-primary">
             <tr>
-              <th className="px-4 py-2 w-14">
+              <th className="px-4 py-2 w-12 ">
                 {hasHiddenColumns && (
                   <button
                     onClick={toggleAllRows}

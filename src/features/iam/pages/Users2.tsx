@@ -1,6 +1,7 @@
 import CollapsibleTable, { type Column } from "../../../components/ui/Table2";
 import { Button } from "../../../components/ui/Buttons";
 import Avatar from "../../../components/ui/Avatar";
+import { Toast } from "../../../components/ui/Toast";
 
 /* =======================
    Row type
@@ -59,12 +60,12 @@ const columns: Column<UserRow>[] = [
         header: "Actions",
         sortable: false, // virtual columns shouldn't be sortable
         priority: 9, // high priority - keep actions visible
-        render: row => (
+        render: () => (
             <div className="flex gap-2">
-                <Button size="xs" onClick={() => console.log("Edit", row.id)} color={"primary"}>
+                <Button size="xs" onClick={() => Toast.fire({ icon: "success", title: "User updated successfully!" })} color={"primary"}>
                     Edit
                 </Button>
-                <Button size="xs" color={"error"} onClick={() => console.log("Delete", row.id)}>
+                <Button size="xs" color={"error"} onClick={() => Toast.fire({ icon: "success", title: "User deleted successfully!" })}>
                     Delete
                 </Button>
             </div>
@@ -105,7 +106,6 @@ export default function UsersPage() {
             data={users}
             columns={columns}
             rowsPerPage={5}
-
         />
     );
 }
