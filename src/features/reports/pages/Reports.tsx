@@ -29,8 +29,8 @@ export function Reports() {
             {/* Report Types Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                 {reportTypes.map(report => (
-                    <div key={report.id} 
-                        className="bg-main-100 rounded-lg shadow-sm border border-main-200 p-5 hover:shadow-md transition-all cursor-pointer hover:border-primary/30">
+                    <div key={report.id}
+                        className="bg-main-200 rounded-lg  border border-main-300 p-5 hover:scale-101 transition-all cursor-pointer hover:border-primary/60">
                         <div className="flex items-start gap-4">
                             <div className={`w-12 h-12 bg-main-200 rounded-lg flex items-center justify-center ${report.color}`}>
                                 <i className={`bi ${report.icon} text-2xl`} />
@@ -50,13 +50,13 @@ export function Reports() {
             </div>
 
             {/* Recent Reports */}
-            <div className="bg-main-100 rounded-lg shadow-sm border border-main-200">
-                <div className="p-4 border-b border-main-200">
+            <div className="bg-main-200 rounded-lg  border border-main-300">
+                <div className="p-4 border-b border-main-300">
                     <h4 className="font-semibold">Recent Reports</h4>
                 </div>
-                <div className="divide-y divide-main-200">
+                <div className="divide-y divide-main-300">
                     {recentReports.map((report, index) => (
-                        <div key={index} className="flex items-center justify-between p-4 hover:bg-main-50">
+                        <div key={index} className="flex items-center justify-between p-4 hover:bg-main-300/50">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 bg-main-200 rounded-lg flex items-center justify-center">
                                     <i className="bi bi-file-earmark-text text-main-600" />
